@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
+            $table->string('start');
+            $table->string('end');
+            $table->string('startTime');
+            $table->string('endTime');
             $table->string('image');
-            $table->date('date');
-            $table->time('hour');
             $table->text('description');
             $table->ENUM('state', ['activo', 'inactivo']);
             $table->ENUM('label', ['Evento', 'Tarea', 'Comunicacion']);
