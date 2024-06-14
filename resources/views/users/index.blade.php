@@ -7,9 +7,10 @@
         <p class="text-gray-600 mb-6">A list of all the users in your account including their name, title, email and
             role.
         </p>
-        <button class="mb-4 bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add user</button>
+       <a href="{{route('users.create')}}">
+           <button class="mb-4 bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add user</button>
+        </a>
     </div>
-
 
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white">
@@ -18,7 +19,7 @@
                     <th class="py-2 px-4 text-left text-gray-600 font-medium">Name</th>
                     <th class="py-2 px-4 text-left text-gray-600 font-medium">Profile</th>
                     <th class="py-2 px-4 text-left text-gray-600 font-medium">Email</th>
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium">Role</th>
+                    <th class="py-2 px-4 text-left text-gray-600 font-medium">Password</th>
                     <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
                     <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
 

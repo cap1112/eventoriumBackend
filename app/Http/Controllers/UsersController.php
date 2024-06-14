@@ -24,6 +24,7 @@ class UsersController extends Controller
     public function create()
     {
         //
+        return view('users.create');
     }
 
     /**
@@ -32,6 +33,16 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
+        User::create([
+            'name'=> $request->name,
+            'email'=> $request->email,
+            'lastname'=> $request->lastname,
+            'password'=> $request->password,
+            'profile'=> $request->profile,
+            'sleep_hours'=> $request->sleep_hours,
+            'diseases'=> $request->diseases,
+            'physical_activity'=> $request->physical_activity,
+        ]);
     }
 
     /**

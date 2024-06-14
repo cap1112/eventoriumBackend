@@ -1,10 +1,10 @@
 <?php
 $links = array(
-    array("name" => "Users", "url" => "/users/show", "icon" => "icons/users_icon.svg"),
+    array("name" => "Users", "url" => "/users/show", "icon" => "icons/users_icon.svg", "route" => "users.index"),
     // /users/show
-    array("name" => "Events", "url" => "/events/show", "icon" => "icons/events_icon.svg"),
+    array("name" => "Events", "url" => "/events/show", "icon" => "icons/events_icon.svg", "route" => "users.index"),
     // /events/show
-    array("name" => "Courses", "url" => "/courses/show", "icon" => "icons/courses_icon.svg")
+    array("name" => "Courses", "url" => "/courses/show", "icon" => "icons/courses_icon.svg", "route" => "users.index")
     // /courses/show
 );
 ?>
@@ -30,7 +30,7 @@ $links = array(
 
             @foreach($links as $item)
             
-                <a href="">
+                <a href="{{route( $item['route'] )}}">
                     <div role="button" tabindex="0" 
                         class="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
                         <div class="grid place-items-center mr-4">

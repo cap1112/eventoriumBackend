@@ -22,11 +22,7 @@ Route::get('/layout', function () {
     return view('layout');
 });
 
-Route::get('/users/index', function () {
-    return view('users.index');
-});
-Route::get('/users/create', function () {
-    return view('users.create');
-});
+Route::resource('users', UsersController::class);
+Route::resource('users', UsersController::class);
 
-Route::get('/users/all', [UsersController::class, 'index']);
+// Route::get('/users/all', [UsersController::class, 'index']);
