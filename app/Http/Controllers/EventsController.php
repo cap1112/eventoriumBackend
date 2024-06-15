@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
 
 class EventsController extends Controller
 {
@@ -10,9 +11,9 @@ class EventsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-        
+    {      
+        $registeredEvents = Event::all();
+        return view('events.index', compact('registeredEvents'));
     }
 
     /**

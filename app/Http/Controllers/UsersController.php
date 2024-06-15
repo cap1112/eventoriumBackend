@@ -14,9 +14,39 @@ class UsersController extends Controller
     {
         //
         $registeredUsers = User::all();
-        // return $registeredUsers;
         return view('users.index', compact('registeredUsers'));
+
     }
+
+    // public function search(Request $request)
+    // {
+    //     $query = $request->input('search');
+    //     $users = User::where('name', 'like', "%{$query}%")->get();
+    //     return view('users.partials.userTable', compact('users'));
+
+    // }
+
+
+
+    public function search(Request $request)
+    {
+        // $query = $request->input('search');
+        // $registeredUsers = User::where('name', 'like', "%{$query}%")->get();
+        // return view('users.partials.userTable ', compact('registeredUsers'));
+
+
+
+        $registeredUsers = [
+            ['name' => 'John Doe'],
+            ['name' => 'Jane Doe'],
+            ['name' => 'Test User'],
+        ];
+    
+        return view('users.partials.userTable', compact('registeredUsers'));
+
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,14 +64,14 @@ class UsersController extends Controller
     {
         //
         User::create([
-            'name'=> $request->name,
-            'email'=> $request->email,
-            'lastname'=> $request->lastname,
-            'password'=> $request->password,
-            'profile'=> $request->profile,
-            'sleep_hours'=> $request->sleep_hours,
-            'diseases'=> $request->diseases,
-            'physical_activity'=> $request->physical_activity,
+            'name' => $request->name,
+            'email' => $request->email,
+            'lastname' => $request->lastname,
+            'password' => $request->password,
+            'profile' => $request->profile,
+            'sleep_hours' => $request->sleep_hours,
+            'diseases' => $request->diseases,
+            'physical_activity' => $request->physical_activity,
         ]);
     }
 

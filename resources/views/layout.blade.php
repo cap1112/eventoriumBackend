@@ -1,10 +1,10 @@
 <?php
 $links = array(
-    array("name" => "Users", "url" => "/users/show", "icon" => "icons/users_icon.svg", "route" => "users.index"),
+    array("name" => "Users", "url" => "/users", "icon" => "icons/users_icon.svg", "route" => "users.index"),
     // /users/show
-    array("name" => "Events", "url" => "/events/show", "icon" => "icons/events_icon.svg", "route" => "users.index"),
+    array("name" => "Events", "url" => "/events", "icon" => "icons/events_icon.svg", "route" => "events.index"),
     // /events/show
-    array("name" => "Courses", "url" => "/courses/show", "icon" => "icons/courses_icon.svg", "route" => "users.index")
+    array("name" => "Courses", "url" => "/courses", "icon" => "icons/courses_icon.svg", "route" => "courses.index")
     // /courses/show
 );
 ?>
@@ -29,7 +29,6 @@ $links = array(
         <nav class="flex flex-col gap-1 min-w-[240px] p-2 font-sans text-base font-normal text-gray-700">
 
             @foreach($links as $item)
-            
                 <a href="{{route( $item['route'] )}}">
                     <div role="button" tabindex="0" 
                         class="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">

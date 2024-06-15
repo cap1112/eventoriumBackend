@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\CoursesController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,15 +18,19 @@ use App\Http\Controllers\UsersController;
 */
 
 
-Route::get('/', function () {
-    return view('layout');
-});
+// Route::get('/', function () {
+//     return view('layout');
+// });
 
-Route::get('/layout', function () {
-    return view('layout');
-});
+// Route::get('/layout', function () {
+//     return view('layout');
+// });
 
-Route::resource('users', UsersController::class);
-Route::resource('users', UsersController::class);
+Route::resource('/users', UsersController::class);
 
-// Route::get('/users/all', [UsersController::class, 'index']);
+
+
+Route::resource('/events', EventsController::class);
+Route::resource('/courses', CoursesController::class);
+
+// Route::resource('events/index', EventsController::class, ['only' => ['index']]);
