@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Course;
+use App\Models\UsersCourse;
 use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
@@ -54,7 +56,8 @@ class UsersController extends Controller
     public function create()
     {
         //
-        return view('users.create');
+        $courses = Course::all();
+        return view('users.create', compact('courses'));
     }
 
     /**
@@ -63,16 +66,27 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'lastname' => $request->lastname,
-            'password' => bcrypt($request->password),
-            'profile' => $request->profile,
-            'sleep_hours' => $request->sleep_hours,
-            'diseases' => $request->diseases,
-            'physical_activity' => $request->physical_activity,
-        ]);        
+        $selectedCourses = $request->input('selectedCourses');
+
+        $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'lastname' => $request->lastname,
+                'password' => bcrypt($request->password),
+                'profile' => $request->profile,
+                'sleep_hours' => $request->sleep_hours,
+                'diseases' => $request->diseases,
+                'physical_activity' => $request->physical_activity,
+            ]);
+
+        foreach ($selectedCourses as $courseId) {
+                UsersCourse::create([
+                'users_id' => $user->id,
+                'courses_id' => $courseId,
+            ]);
+        }
+
+        return redirect ()->route('users.index');
     }
 
     /**
