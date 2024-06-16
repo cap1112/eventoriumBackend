@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
@@ -23,7 +24,6 @@ class UsersController extends Controller
     //     $query = $request->input('search');
     //     $users = User::where('name', 'like', "%{$query}%")->get();
     //     return view('users.partials.userTable', compact('users'));
-
     // }
 
 
@@ -41,9 +41,9 @@ class UsersController extends Controller
             ['name' => 'Jane Doe'],
             ['name' => 'Test User'],
         ];
-    
-        return view('users.partials.userTable', compact('registeredUsers'));
 
+        // return view('users.partials.userTable', compact('registeredUsers'));
+        return view('users.index', compact('registeredUsers'));
     }
 
 
@@ -67,12 +67,12 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'lastname' => $request->lastname,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
             'profile' => $request->profile,
             'sleep_hours' => $request->sleep_hours,
             'diseases' => $request->diseases,
             'physical_activity' => $request->physical_activity,
-        ]);
+        ]);        
     }
 
     /**
@@ -104,6 +104,8 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // ...
+        Session::flash('success', 'Evento eliminado con éxito.');
+        return redirect()->route('events.index');
     }
 }

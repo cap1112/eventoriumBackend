@@ -15,60 +15,58 @@ class Users_coursesSeeder extends Seeder
     {
         //
         UsersCourse::create([
-            'users_id'=>2,
-            'courses_id'=>5
+            'user_id'=>2,
+            'course_id'=>5
         ]);
 
         UsersCourse::create([
-            'users_id' => 1,
-            'courses_id' => 1
+            'user_id' => 1,
+            'course_id' => 1
         ]);
 
         UsersCourse::create([
-            'users_id' => 2,
-            'courses_id' => 9
+            'user_id' => 2,
+            'course_id' => 9
         ]);
 
         UsersCourse::create([
-            'users_id' => 3,
-            'courses_id' => 10
+            'user_id' => 3,
+            'course_id' => 10
         ]);
 
         UsersCourse::create([
-            'users_id' => 4,
-            'courses_id' => 4
+            'user_id' => 4,
+            'course_id' => 4
         ]);
 
         UsersCourse::create([
-            'users_id' => 5,
-            'courses_id' => 5
+            'user_id' => 5,
+            'course_id' => 5
         ]);
 
         UsersCourse::create([
-            'users_id' => 6,
-            'courses_id' => 1
+            'user_id' => 6,
+            'course_id' => 1
         ]);
 
         UsersCourse::create([
-            'users_id' => 7,
-            'courses_id' => 2
+            'user_id' => 7,
+            'course_id' => 2
         ]);
 
         UsersCourse::create([
-            'users_id' => 8,
-            'courses_id' => 3
+            'user_id' => 8,
+            'course_id' => 3
         ]);
 
         UsersCourse::create([
-            'users_id' => 9,
-            'courses_id' => 4
+            'user_id' => 9,
+            'course_id' => 4
         ]);
 
         UsersCourse::create([
-            'users_id' => 10,
-            'courses_id' => 5
+            'user_id' => 10,
+            'course_id' => 5
         ]);
-
-
     }
 }

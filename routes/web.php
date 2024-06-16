@@ -18,9 +18,9 @@ use App\Http\Controllers\CoursesController;
 */
 
 
-// Route::get('/', function () {
-//     return view('layout');
-// });
+Route::get('/', function () {
+     return view('layout');
+});
 
 // Route::get('/layout', function () {
 //     return view('layout');

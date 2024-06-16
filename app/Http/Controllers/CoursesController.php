@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use Illuminate\Support\Facades\Session;
 
 class CoursesController extends Controller
 {
@@ -12,8 +13,8 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $registeredCourse = Course::all();
-        return view('course.index', compact('registeredCourse'));
+        $registeredCourses = Course::all();
+        return view('courses.index', compact('registeredCourses'));
     }
 
     /**

@@ -24,7 +24,7 @@
                     <th class="py-2 px-4 text-left text-gray-600 font-medium">Email</th>
                     <!-- <th class="py-2 px-4 text-left text-gray-600 font-medium">Password</th> -->
                     <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
+                    <th class="py-2 px-4 text-md text-left text-gray-600 font-medium"></th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +49,7 @@
 </div>
 @endsection
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#search').on('keyup', function () {
@@ -64,7 +64,8 @@
                     console.log("The data is: "+data);
                     $('#userTableContainer').html(data);
                 }
+
             })
         });
     });
-</script> -->
+</script>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('profile', ['admin', 'profesor', 'estudiante'])->default('estudiante');
+            $table->enum('profile', ['Admin', 'Profesor', 'Estudiante'])->default('estudiante');
             $table->integer('sleep_hours');
             $table->string('diseases');
             $table->string('physical_activity');

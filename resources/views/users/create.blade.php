@@ -56,9 +56,9 @@
                     <label for="" class="text-black mb-4">Profile:</label>
                     <select name="profile" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
                         <option class="text-gray-400" value="admin" selected hidden>Select a profile type</option>
-                        <option class="text-black" value="admin">Admin</option>
-                        <option class="text-black" value="professor">Professor</option>
-                        <option class="text-black" value="estudiante">Student</option>
+                        <option class="text-black" value="Admin">Admin</option>
+                        <option class="text-black" value="Profesor">Professor</option>
+                        <option class="text-black" value="Estudiante">Student</option>
                     </select>
                 </div>
                 <div class="flex justify-end mr-4 col-span-2">

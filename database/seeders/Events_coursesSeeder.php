@@ -15,53 +15,53 @@ class Events_coursesSeeder extends Seeder
     {
         //
         EventsCourse::create([
-            'events_id'=>1,
-            'courses_id'=>9
+            'event_id'=>1,
+            'course_id'=>9
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 8
+            'event_id' => 1,
+            'course_id' => 8
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 5
+            'event_id' => 1,
+            'course_id' => 5
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 7
+            'event_id' => 1,
+            'course_id' => 7
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 4
+            'event_id' => 1,
+            'course_id' => 4
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 1
+            'event_id' => 1,
+            'course_id' => 1
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 2
+            'event_id' => 1,
+            'course_id' => 2
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 3
+            'event_id' => 1,
+            'course_id' => 3
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 6
+            'event_id' => 1,
+            'course_id' => 6
         ]);
 
         EventsCourse::create([
-            'events_id' => 1,
-            'courses_id' => 5
+            'event_id' => 1,
+            'course_id' => 5
         ]);
     }
 }

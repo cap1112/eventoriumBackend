@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+
     use HasFactory;
 
     protected $fillable = [
@@ -18,4 +19,8 @@ class Event extends Model
         'state',
         'label',
     ];
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'users_events');
+    // }
 }

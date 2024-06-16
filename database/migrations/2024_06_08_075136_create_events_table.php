@@ -20,8 +20,7 @@ return new class extends Migration
             $table->string('endTime');
             $table->string('image');
             $table->text('description');
-            $table->ENUM('state', ['activo', 'inactivo']);
-            $table->ENUM('label', ['Evento', 'Tarea', 'Comunicacion']);
+            $table->ENUM('state', ['Activo', 'Inactivo']);
             $table->timestamps();
         });
     }
