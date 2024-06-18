@@ -16,17 +16,33 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $registeredEvents = Event::all();
+        $registeredEvents = Event::select(
+            "events.id",
+            "events.start",
+            "events.startTime",
+            "events.end",
+            "events.endTime",
+            "events.image",
+            "events.description",
+            "events.title",
+            "events.state",
+            "categories.name as category"
+        )
+
+            ->join('events_categories', 'events.id', '=', 'events_categories.event_id')
+            ->join('categories', 'events_categories.category_id', '=', 'categories.id')
+            ->get();
 
 
-        // $registeredEvents = Event::with('users')->get();
+        return view('events.index', compact('registeredEvents'));
+
+        // $registeredEvents = Event::with('Events')->get();
         // ->where('status_events_id', 1)
         //obtiene la cantidad de usuarios registrados en cada evento y los almacena en un array segun el id del evento
-        // $userCountByEvent = Event::withCount('users')->get()->pluck('users_count', 'id')->toArray();
+        // $userCountByEvent = Event::withCount('Events')->get()->pluck('Events_count', 'id')->toArray();
 
         // return view('events.index', compact('registeredEvents') , compact('userCountByEvent'));
-        return view('events.index', compact('registeredEvents') );
-        
+
 
     }
 
@@ -36,6 +52,8 @@ class EventsController extends Controller
     public function create()
     {
         //
+        $events = Event::all();
+        return view('events.create', compact('events'));
     }
 
     /**
@@ -44,6 +62,23 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //
+        $file = $request->file('image');
+        $file_name = 'event_' . time() . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('public/images', $file_name);
+        
+        $events = Event::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'start' => $request->start,
+            'end' => $request->end,
+            'startTime' => $request->startTime,
+            'endTime' => $request->endTime,
+            'category' => $request->category,
+            'image' => $request->image,
+            'state' => $request->state,
+        ]);
+
+        return redirect()->route('events.index');
     }
 
     /**
@@ -60,6 +95,8 @@ class EventsController extends Controller
     public function edit(string $id)
     {
         //
+        $registeredEvents = Event::find($id);
+        return view('events.edit', compact('registeredEvents'));
     }
 
     /**
@@ -68,21 +105,32 @@ class EventsController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $registeredEvents = Event::find($id);
+        $registeredEvents->title = $request->title;
+        $registeredEvents->start = $request->start;
+        $registeredEvents->end = $request->end;
+        $registeredEvents->startTime = $request->startTime;
+        $registeredEvents->endTime = $request->endTime;
+        $registeredEvents->image = $request->image;
+        $registeredEvents->description = $request->description;
+        $registeredEvents->state = $request->state;
+        $registeredEvents->save();
+        return redirect()->route('Events.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    
+
     public function destroy(string $id)
     {
         //
         $event = Event::find($id);
-        
+
         if ($event) {
 
             // $event->courses()->detach();
-            // $event->users()->detach();
+            // $event->Events()->detach();
 
             $event->delete();
             // Comment::where('posts_id', $id)->delete(); Esto se tiene que usar para eliminar la relación de la tabla intermedia

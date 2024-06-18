@@ -103,6 +103,9 @@ class UsersController extends Controller
     public function edit(string $id)
     {
         //
+        $registeredUsers = User::find($id);
+        return view('users.edit', compact('registeredUsers'));
+
     }
 
     /**
@@ -111,6 +114,17 @@ class UsersController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $registeredUsers = User::find($id);
+        $registeredUsers->name = $request->name;
+        $registeredUsers->lastname = $request->lastname;
+        $registeredUsers->email = $request->email;
+        $registeredUsers->password = $request->password;
+        $registeredUsers->profile = $request->profile;
+        $registeredUsers->sleep_hours = $request->sleep_hours;
+        $registeredUsers->diseases = $request->diseases;
+        $registeredUsers->physical_activity = $request->physical_activity;
+        $registeredUsers->save();
+        return redirect()->route('users.index');
     }
 
     /**
@@ -119,7 +133,18 @@ class UsersController extends Controller
     public function destroy(string $id)
     {
         // ...
-        Session::flash('success', 'Evento eliminado con éxito.');
-        return redirect()->route('events.index');
+
+        $user = User::find($id);
+        
+        if ($user) {
+            $user->delete();
+            Session::flash('success', 'Successfully deleted user.');
+            return redirect()->route('users.index');
+        } else {
+            Session::flash('error', 'Error deleting user.');
+            return redirect()->route('users.index');
+        }
+
+
     }
 }

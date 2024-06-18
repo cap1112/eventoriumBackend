@@ -2,47 +2,74 @@
 @section('content')
 
 <div class="bg-white shadow-lg rounded-lg p-6 h-[100%]">
-    <h2 class="text-2xl font-semibold mb-4">Events</h2>
-    <div class="flex justify-between items-center">
-        <p class="text-gray-600 mb-6">A list of all the events in your account including their name, title, email and
-            role.
-        </p>
-        <a href="{{route('events.create')}}">
-            <button class="mb-4 bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add event</button>
-        </a>
+    <div class="flex justify-between mr-4">
+        <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
+        <a href="{{ route('users.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back" class="size-10"></a>
     </div>
-    <input type="text" id="search" placeholder="Search events">
+
+    <div class="flex justify-between items-center">
+        <p class="text-gray-600 mb-6">A page where you can edit users' information by changing their first name, last name, email and additional features.
+        </p>
+    </div>
     <div class="overflow-x-auto">
-        <table class="min-w-full bg-white" id="eventTableContainer">
-            <thead class="bg-gray-100 text-center">
-                <tr>
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium">ID</th>
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium">Name</th>
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium">Last Name</th>
+        <form method="POST" action="{{ route('users.update', $registeredUsers->id) }}">
+            @method('PUT')
+            @csrf
+            <div
+                class="bg-white px-6 py-3 shadow-lg rounded-lg grid grid-cols-2 justify-center items-center gap-8 w-full">
 
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium">Profile</th>
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium">Email</th>
-                    <!-- <th class="py-2 px-4 text-left text-gray-600 font-medium">Password</th> -->
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
-                    <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($registeredEvents as $event)
-                    <tr>
-                        <td class="py-2 px-4 border-t">{{ $event->id }}</td>
-                        <td class="py-2 px-4 border-t">{{ $event->title }}</td>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Username:</label>
+                    <input name="name" value={{$registeredUsers->name}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Enter the Username">
+                </div>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Last name:</label>
+                    <input name="lastname" value={{$registeredUsers->lastname}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Enter the Last name">
+                </div>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Email:</label>
+                    <input name="email" value={{$registeredUsers->email}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Enter the Email">
+                </div>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Password:</label>
+                    <input name="password" value={{$registeredUsers->password}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Choose the Password">
+                </div>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Diseases:</label>
+                    <input name="diseases" value={{$registeredUsers->diseases}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Enter the disease">
+                </div>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Sleep hours:</label>
+                    <input name="sleep_hours" value={{$registeredUsers->sleep_hours}} type="number" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Enter the number of sleep hours ">
+                </div>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Physical Activities:</label>
+                    <input name="physical_activity" value={{$registeredUsers->physical_activity}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Enter the Physical activity of your choice ">
+                </div>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Profile:</label>
+                    <select name="profile" value={{$registeredUsers->profile}} class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        <option class="text-gray-400" value="admin" selected hidden>{{$registeredUsers->profile}}</option>
+                        <option class="text-black" value="Admin">Admin</option>
+                        <option class="text-black" value="Profesor">Professor</option>
+                        <option class="text-black" value="Estudiante">Student</option>
+                    </select>
+                </div>
+                <div class="flex justify-end mr-4 col-span-2">
+                    <button type="submit"
+                        class="my-2 w-[10rem] bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Update
+                        user</button>
+                </div>
+            </div>
 
-                        
-                        <!-- <td class="py-2 px-4 border-t">{{ $event->password }}</td> -->
-                        <td class="py-2 px-4 border-t"><a href=""><img src="{{ asset("icons/events_edit_icon.svg") }}"
-                                    alt="Edit item" class="size-8"></a></td>
-                        <td class="py-2 px-4 border-t text-gray-500"><a href=""><img
-                                    src="{{ asset("icons/delete_icon.svg") }}" alt="Remove item" class="size-8"></a></td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        </form>
 
     </div>
 </div>
