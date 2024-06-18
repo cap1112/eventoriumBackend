@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('end');
             $table->string('startTime');
             $table->string('endTime');
-            $table->foreignId('category_id');
+            $table->foreignId('categories_id')->constrained();
             $table->string('image');
             $table->text('description');
             $table->ENUM('state', ['Activo', 'Inactivo']);
