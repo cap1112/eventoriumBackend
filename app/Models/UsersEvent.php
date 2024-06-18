@@ -10,7 +10,7 @@ class UsersEvent extends Model
     use HasFactory;
 
     protected $fillable = [
-        'users_id',
-        'events_id',
+        'user_id',
+        'event_id',
     ];
 }

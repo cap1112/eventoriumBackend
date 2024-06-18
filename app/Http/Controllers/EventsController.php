@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
-use App\Models\User;
-
+use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 
 class EventsController extends Controller
@@ -16,34 +15,9 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $registeredEvents = Event::select(
-            "events.id",
-            "events.start",
-            "events.startTime",
-            "events.end",
-            "events.endTime",
-            "events.image",
-            "events.description",
-            "events.title",
-            "events.state",
-            "categories.name as category"
-        )
-
-            ->join('events_categories', 'events.id', '=', 'events_categories.event_id')
-            ->join('categories', 'events_categories.category_id', '=', 'categories.id')
-            ->get();
-
-
-        return view('events.index', compact('registeredEvents'));
-
-        // $registeredEvents = Event::with('Events')->get();
-        // ->where('status_events_id', 1)
-        //obtiene la cantidad de usuarios registrados en cada evento y los almacena en un array segun el id del evento
-        // $userCountByEvent = Event::withCount('Events')->get()->pluck('Events_count', 'id')->toArray();
-
-        // return view('events.index', compact('registeredEvents') , compact('userCountByEvent'));
-
-
+        $registeredEvents = Event::all();
+        $registeredCategories = Category::all();
+        return view('events.index', compact('registeredEvents', 'registeredCategories'));
     }
 
     /**
@@ -128,12 +102,7 @@ class EventsController extends Controller
         $event = Event::find($id);
 
         if ($event) {
-
-            // $event->courses()->detach();
-            // $event->Events()->detach();
-
             $event->delete();
-            // Comment::where('posts_id', $id)->delete(); Esto se tiene que usar para eliminar la relación de la tabla intermedia
             Session::flash('success', 'Successfully deleted event.');
             return redirect()->route('events.index');
         } else {

@@ -28,6 +28,8 @@
                         <th class="py-2 px-4 text-left text-gray-600 font-medium">Email</th>
                         <!-- <th class="py-2 px-4 text-left text-gray-600 font-medium">Password</th> -->
                         <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
+
+                        <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
                         <th class="py-2 px-4 text-md text-left text-gray-600 font-medium"></th>
                     </tr>
                 </thead>
@@ -40,6 +42,9 @@
                             <td class="py-2 px-4 border-t">{{ $user->profile }}</td>
                             <td class="py-2 px-4 border-t">{{ $user->email }}</td>
                             <!-- <td class="py-2 px-4 border-t">{{ $user->password }}</td> -->
+                            <td class="py-2 px-4 border-t"><a href="{{ route('users.show',  $user->id) }}"><img src="{{ asset("icons/details_icon.svg") }}"
+                            alt="Show item" class="size-8"></a></td>
+
                             <td class="py-2 px-4 border-t"><a href="{{ route('users.edit',  $user->id) }}"><img
                                         src="{{ asset('icons/users_edit_icon.svg') }}" alt="Edit item" class="size-8"></a>
                             </td>
@@ -61,7 +66,7 @@
     </div>
 @endsection
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#search').on('keyup', function() {
@@ -82,4 +87,4 @@
             })
         });
     });
-</script>
+</script> -->

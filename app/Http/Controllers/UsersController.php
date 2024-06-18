@@ -18,6 +18,7 @@ class UsersController extends Controller
         //
         $registeredUsers = User::all();
         return view('users.index', compact('registeredUsers'));
+        
 
     }
 
@@ -81,8 +82,8 @@ class UsersController extends Controller
 
         foreach ($selectedCourses as $courseId) {
                 UsersCourse::create([
-                'users_id' => $user->id,
-                'courses_id' => $courseId,
+                'user_id' => $user->id,
+                'course_id' => $courseId,
             ]);
         }
 
@@ -94,7 +95,10 @@ class UsersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //retorna la informacion de un usuario
+        $user = User::find($id);
+        return view('users.show', compact('user'));
+        
     }
 
     /**
@@ -133,18 +137,17 @@ class UsersController extends Controller
     public function destroy(string $id)
     {
         // ...
-
         $user = User::find($id);
-        
-        if ($user) {
+        if ($user->profile == 'Admin') {
+            Session::flash('success', 'You cannot delete an administrator user.');
+            return redirect()->route('users.index');
+        }else if ($user->profile == 'Estudiante' || $user->profile == 'Profesor') {
             $user->delete();
             Session::flash('success', 'Successfully deleted user.');
             return redirect()->route('users.index');
-        } else {
-            Session::flash('error', 'Error deleting user.');
+        }else {
+            Session::flash('success', 'You cant delete this user. Please try again.');
             return redirect()->route('users.index');
         }
-
-
     }
 }

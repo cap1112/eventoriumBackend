@@ -10,7 +10,7 @@ class EventsCourse extends Model
     use HasFactory;
 
     protected $fillable = [
-        'events_id',
-        'courses_id',
+        'event_id',
+        'course_id',
     ];
 }
