@@ -21,7 +21,8 @@ class UsersSeeder extends Seeder
             'profile' => 'admin',
             'sleep_hours' => 7,
             'diseases' => 'asthma',
-            'physical_activity' => 'Running'
+            'physical_activity' => 'Running',
+            'image' => 'https://picsum.photos/seed/gustavo.acosta@example.com/200/200'
         ]);
 
         User::create([
@@ -32,7 +33,8 @@ class UsersSeeder extends Seeder
             'profile' => 'profesor',
             'sleep_hours' => 6,
             'diseases' => 'none',
-            'physical_activity' => 'Yoga'
+            'physical_activity' => 'Yoga',
+            'image' => 'https://picsum.photos/seed/maria.gonzalez@example.com/200/200'
         ]);
 
         User::create([
@@ -43,7 +45,8 @@ class UsersSeeder extends Seeder
             'profile' => 'estudiante',
             'sleep_hours' => 8,
             'diseases' => 'diabetes',
-            'physical_activity' => 'Swimming'
+            'physical_activity' => 'Swimming',
+            'image' => 'https://picsum.photos/seed/carlos.ramirez@example.com/200/200'
         ]);
 
         User::create([
@@ -54,7 +57,8 @@ class UsersSeeder extends Seeder
             'profile' => 'admin',
             'sleep_hours' => 5,
             'diseases' => 'hypertension',
-            'physical_activity' => 'Cycling'
+            'physical_activity' => 'Cycling',
+            'image' => 'https://picsum.photos/seed/lucia.martinez@example.com/200/200'
         ]);
 
         User::create([
@@ -65,7 +69,8 @@ class UsersSeeder extends Seeder
             'profile' => 'profesor',
             'sleep_hours' => 7,
             'diseases' => 'none',
-            'physical_activity' => 'Running'
+            'physical_activity' => 'Running',
+            'image' => 'https://picsum.photos/seed/diego.hernandez@example.com/200/200'
         ]);
 
         User::create([
@@ -76,7 +81,8 @@ class UsersSeeder extends Seeder
             'profile' => 'estudiante',
             'sleep_hours' => 9,
             'diseases' => 'allergies',
-            'physical_activity' => 'Hiking'
+            'physical_activity' => 'Hiking',
+            'image' => 'https://picsum.photos/seed/ana.lopez@example.com/200/200'
         ]);
 
         User::create([
@@ -87,7 +93,8 @@ class UsersSeeder extends Seeder
             'profile' => 'admin',
             'sleep_hours' => 6,
             'diseases' => 'none',
-            'physical_activity' => 'Dancing'
+            'physical_activity' => 'Dancing',
+            'image' => 'https://picsum.photos/seed/jorge.diaz@example.com/200/200'
         ]);
 
         User::create([
@@ -98,7 +105,8 @@ class UsersSeeder extends Seeder
             'profile' => 'profesor',
             'sleep_hours' => 7,
             'diseases' => 'asthma',
-            'physical_activity' => 'Yoga'
+            'physical_activity' => 'Yoga',
+            'image' => 'https://picsum.photos/seed/isabel.morales@example.com/200/200'
         ]);
 
         User::create([
@@ -109,7 +117,8 @@ class UsersSeeder extends Seeder
             'profile' => 'estudiante',
             'sleep_hours' => 8,
             'diseases' => 'none',
-            'physical_activity' => 'Swimming'
+            'physical_activity' => 'Swimming',
+            'image' => 'https://picsum.photos/seed/luis.fernandez@example.com/200/200'
         ]);
 
         User::create([
@@ -120,7 +129,8 @@ class UsersSeeder extends Seeder
             'profile' => 'admin',
             'sleep_hours' => 5,
             'diseases' => 'diabetes',
-            'physical_activity' => 'Cycling'
+            'physical_activity' => 'Cycling',
+            'image' => 'https://picsum.photos/seed/elena.suarez@example.com/200/200'
         ]);
 
         User::create([
@@ -131,7 +141,8 @@ class UsersSeeder extends Seeder
             'profile' => 'profesor',
             'sleep_hours' => 7,
             'diseases' => 'hypertension',
-            'physical_activity' => 'Running'
+            'physical_activity' => 'Running',
+            'image' => 'https://picsum.photos/seed/pedro.gomez@example.com/200/200'
         ]);
 
         User::create([
@@ -142,7 +153,8 @@ class UsersSeeder extends Seeder
             'profile' => 'estudiante',
             'sleep_hours' => 6,
             'diseases' => 'none',
-            'physical_activity' => 'Yoga'
+            'physical_activity' => 'Yoga',
+            'image' => 'https://picsum.photos/seed/sara.torres@example.com/200/200'
         ]);
 
         User::create([
@@ -153,7 +165,8 @@ class UsersSeeder extends Seeder
             'profile' => 'admin',
             'sleep_hours' => 7,
             'diseases' => 'allergies',
-            'physical_activity' => 'Swimming'
+            'physical_activity' => 'Swimming',
+            'image' => 'https://picsum.photos/seed/antonio.mendez@example.com/200/200'
         ]);
 
         User::create([
@@ -164,7 +177,8 @@ class UsersSeeder extends Seeder
             'profile' => 'profesor',
             'sleep_hours' => 8,
             'diseases' => 'none',
-            'physical_activity' => 'Cycling'
+            'physical_activity' => 'Cycling',
+            'image' => 'https://picsum.photos/seed/patricia.cruz@example.com/200/200'
         ]);
 
         User::create([
@@ -175,7 +189,8 @@ class UsersSeeder extends Seeder
             'profile' => 'estudiante',
             'sleep_hours' => 9,
             'diseases' => 'asthma',
-            'physical_activity' => 'Running'
+            'physical_activity' => 'Running',
+            'image' => 'https://picsum.photos/seed/andres.vega@example.com/200/200'
         ]);
 
         User::create([
@@ -186,7 +201,8 @@ class UsersSeeder extends Seeder
             'profile' => 'admin',
             'sleep_hours' => 6,
             'diseases' => 'none',
-            'physical_activity' => 'Hiking'
+            'physical_activity' => 'Hiking',
+            'image' => 'https://picsum.photos/seed/laura.navarro@example.com/200/200'
         ]);
 
         User::create([
@@ -197,7 +213,8 @@ class UsersSeeder extends Seeder
             'profile' => 'profesor',
             'sleep_hours' => 7,
             'diseases' => 'diabetes',
-            'physical_activity' => 'Dancing'
+            'physical_activity' => 'Dancing',
+            'image' => 'https://picsum.photos/seed/francisco.rojas@example.com/200/200'
         ]);
 
         User::create([
@@ -208,7 +225,8 @@ class UsersSeeder extends Seeder
             'profile' => 'estudiante',
             'sleep_hours' => 8,
             'diseases' => 'hypertension',
-            'physical_activity' => 'Running'
+            'physical_activity' => 'Running',
+            'image' => 'https://picsum.photos/seed/clara.iglesias@example.com/200/200'
         ]);
 
         User::create([
@@ -219,7 +237,8 @@ class UsersSeeder extends Seeder
             'profile' => 'admin',
             'sleep_hours' => 5,
             'diseases' => 'allergies',
-            'physical_activity' => 'Yoga'
+            'physical_activity' => 'Yoga',
+            'image' => 'https://picsum.photos/seed/miguel.ortega@example.com/200/200'
         ]);
 
         User::create([
@@ -230,7 +249,8 @@ class UsersSeeder extends Seeder
             'profile' => 'profesor',
             'sleep_hours' => 7,
             'diseases' => 'none',
-            'physical_activity' => 'Cycling'
+            'physical_activity' => 'Cycling',
+            'image' => 'https://picsum.photos/seed/daniela.reyes@example.com/200/200'
         ]);
     }
 }

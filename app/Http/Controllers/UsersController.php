@@ -76,6 +76,7 @@ class UsersController extends Controller
                 'password' => bcrypt($request->password),
                 'profile' => $request->profile,
                 'sleep_hours' => $request->sleep_hours,
+                'image' => $request->image,
                 'diseases' => $request->diseases,
                 'physical_activity' => $request->physical_activity,
             ]);
@@ -96,6 +97,7 @@ class UsersController extends Controller
     public function show(string $id)
     {
         //retorna la informacion de un usuario
+        
         $user = User::find($id);
         return view('users.show', compact('user'));
         
@@ -108,6 +110,14 @@ class UsersController extends Controller
     {
         //
         $registeredUsers = User::find($id);
+        // $selectedCourses = Course::find($id);
+
+    //     foreach ($selectedCourses as $courseId) {
+    //         UsersCourse::create([
+    //         'user_id' => $registeredUsers->id,
+    //         'course_id' => $courseId,
+    //     ]);
+    // }
         return view('users.edit', compact('registeredUsers'));
 
     }
@@ -124,6 +134,7 @@ class UsersController extends Controller
         $registeredUsers->email = $request->email;
         $registeredUsers->password = $request->password;
         $registeredUsers->profile = $request->profile;
+        $registeredUsers->image = $request->image;
         $registeredUsers->sleep_hours = $request->sleep_hours;
         $registeredUsers->diseases = $request->diseases;
         $registeredUsers->physical_activity = $request->physical_activity;

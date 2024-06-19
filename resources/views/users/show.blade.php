@@ -1,8 +1,10 @@
 @extends('.layout')
 @section('content')
 <div class="p-6" >
-    <div class="px-4 sm:px-0">
-        <h3 class="text-2xl font-semibold mb-4"">User Information</h3>
+    <div class="px-4 sm:px-0 flex justify-between mr-4">
+        <h3 class="text-2xl font-semibold mb-4">User Information</h3>
+        <a href="{{ route('users.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back" class="size-10"></a>
+
         <!-- <p class="text-gray-600 text-md mb-6">Personal details</p> -->
     </div>
     <div class="mt-6 border-t border-gray-100">

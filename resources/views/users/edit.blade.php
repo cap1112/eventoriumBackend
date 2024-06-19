@@ -17,16 +17,22 @@
             @csrf
             <div
                 class="bg-white px-6 py-3 shadow-lg rounded-lg grid grid-cols-2 justify-center items-center gap-8 w-full">
+                <div class="flex col-span-2 items-center">
+                    <div class=" flex flex-col">
+                        <input id="fileInput" name="image" type="file" class="hidden" accept="image/*">
+                        <img id="fileInputTrigger" src={{$registeredUsers->image}} alt=""
+                            class="cursor-pointer w-[10rem] h-[10rem] mr-[11rem] object-cover rounded-full border-4 border-gray-300">
+                        <label for="" class="ml-10 mt-4">User Image</label>
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="" class="text-black mb-4">Username:</label>
+                        <input name="name" value={{$registeredUsers->name}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
+                            placeholder="Enter the Username">
 
-                <div class="flex flex-col">
-                    <label for="" class="text-black mb-4">Username:</label>
-                    <input name="name" value={{$registeredUsers->name}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Enter the Username">
-                </div>
-                <div class="flex flex-col">
-                    <label for="" class="text-black mb-4">Last name:</label>
-                    <input name="lastname" value={{$registeredUsers->lastname}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Enter the Last name">
+                        <label for="" class="text-black my-4">Last name:</label>
+                        <input name="lastname" value={{$registeredUsers->lastname}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
+                            placeholder="Enter the Last name">
+                    </div>
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Email:</label>
@@ -72,5 +78,22 @@
         </form>
 
     </div>
+    <script>
+        // Script del manejo del input de tipo file y la vista previa de la imagen
+        document.getElementById('fileInputTrigger').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('fileInputTrigger').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script> 
 </div>
 @endsection

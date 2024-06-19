@@ -15,6 +15,7 @@ class User extends Model
         'email',
         'password',
         'profile',
+        'image',
         'sleep_hours',
         'diseases',
         'physical_activity',
