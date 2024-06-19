@@ -22,7 +22,9 @@ class CoursesController extends Controller
      */
     public function create()
     {
-        //
+        //  
+        $courses = Course::all();
+        return view('courses.create', compact('courses'));
     }
 
     /**
@@ -31,6 +33,12 @@ class CoursesController extends Controller
     public function store(Request $request)
     {
         //
+        $course = Course::create([
+                  'name' => $request->name,
+                  'description' => $request->description,
+        ]);
+
+        return redirect()->route('courses.index');
     }
 
     /**
