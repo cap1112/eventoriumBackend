@@ -118,7 +118,8 @@ class UsersController extends Controller
     //         'course_id' => $courseId,
     //     ]);
     // }
-        return view('users.edit', compact('registeredUsers'));
+        $courses = Course::all();
+        return view('users.edit', compact('registeredUsers', 'courses'));
 
     }
 
@@ -129,16 +130,28 @@ class UsersController extends Controller
     {
         //
         $registeredUsers = User::find($id);
-        $registeredUsers->name = $request->name;
-        $registeredUsers->lastname = $request->lastname;
-        $registeredUsers->email = $request->email;
-        $registeredUsers->password = $request->password;
-        $registeredUsers->profile = $request->profile;
-        $registeredUsers->image = $request->image;
-        $registeredUsers->sleep_hours = $request->sleep_hours;
-        $registeredUsers->diseases = $request->diseases;
-        $registeredUsers->physical_activity = $request->physical_activity;
-        $registeredUsers->save();
+        $registeredUsers->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'lastname' => $request->lastname,
+            'password' => bcrypt($request->password),
+            'profile' => $request->profile,
+            'sleep_hours' => $request->sleep_hours,
+            'image' => $request->image,
+            'diseases' => $request->diseases,
+            'physical_activity' => $request->physical_activity,
+        ]);
+
+        UsersCourse::where('user_id', $id)->delete();
+        $selectedCourses = $request->input('selectedCourses');
+
+        foreach ($selectedCourses as $courseId) {
+            UsersCourse::create([
+            'user_id' => $registeredUsers->id,
+            'course_id' => $courseId,
+        ]);
+    }
+
         return redirect()->route('users.index');
     }
 

@@ -80,7 +80,7 @@
                             Add course
                         </button>
                     </div>
-                    <select name="selectedCoursesTest" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]"
+                    <select name="selectedCourses" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]"
                         id="coursesSelect">
                         @foreach ($courses as $course)
                             <option class="text-gray-400" selected hidden value="{{ $course->id }}">Select a course
@@ -181,8 +181,8 @@
         }
 
         document.getElementById('addCourseBtn').addEventListener('click', addSelectedCourse);
-    </script>
-        </div>
-
+        </script>
     </div>
+
+</div>
 @endsection

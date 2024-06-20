@@ -12,7 +12,7 @@
         </p>
     </div>
     <div class="overflow-x-auto">
-        <form method="POST" action="{{ route('users.update', $registeredUsers->id) }}">
+        <form id="userForm" method="POST" action="{{ route('users.update', $registeredUsers->id) }}">
             @method('PUT')
             @csrf
             <div
@@ -68,16 +68,37 @@
                         <option class="text-black" value="Estudiante">Student</option>
                     </select>
                 </div>
+
+                <div class="">
+                    <div class="flex items-center text-center w-full justify-between">
+                        <label for="" class="text-black">Matriculated Courses:</label>
+                        <button type="button" id="addCourseBtn"
+                            class="my-2  bg-indigo-600 text-white px-3 mr-2 py-2 rounded-xl shadow hover:bg-indigo-600">
+                            {{-- <img class="size-7" src="{{ asset('icons/plus_icon.svg') }}" alt="Plus Icon"> --}}
+                            Add course
+                        </button>
+                    </div>
+                    <select name="selectedCourses" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]"
+                        id="coursesSelect">
+                        @foreach ($courses as $course)
+                            <option class="text-gray-400" selected hidden value="{{ $course->id }}">Select a course
+                            </option>
+                            <option class="text-gray-400" value="{{ $course->id }}">{{ $course->name }}</option>
+                        @endforeach
+                    </select>
+                    <div id="selectedCoursesContainer" class="mt-4"></div>
+                </div>
+
                 <div class="flex justify-end mr-4 col-span-2">
                     <button type="submit"
                         class="my-2 w-[10rem] bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Update
                         user</button>
                 </div>
             </div>
-
         </form>
-
     </div>
+
+
     <script>
         // Script del manejo del input de tipo file y la vista previa de la imagen
         document.getElementById('fileInputTrigger').addEventListener('click', function() {
@@ -94,6 +115,66 @@
                 reader.readAsDataURL(file);
             }
         });
-    </script> 
+        
+        /*Todo el script que hace que la lista de cursos funcione correctamente, se encarga de añadir
+                    los cursos seleccionados al div, ademas de hacer funcionar sus respectivos botones de eliminar y 
+                    devolverlos a la lista de cursos.*/
+        function addSelectedCourse() {
+            var selectedCourse = document.getElementById('coursesSelect');
+            var selectedCourseId = selectedCourse.value;
+            var selectedCourseText = selectedCourse.options[selectedCourse.selectedIndex].text;
+
+            var courseElement = document.createElement('div');
+            courseElement.className =
+                "flex items-center justify-between mt-2 border rounded-xl w-[38rem] h-[4rem] p-4 bg-gray-100";
+            var courseText = document.createElement('span');
+            courseText.textContent = selectedCourseText;
+            courseElement.appendChild(courseText);
+
+            // Botón para eliminar el curso seleccionado
+            var deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.className = "my-2 w-[10rem] bg-red-600 text-white px-4 py-2 rounded-xl shadow hover:bg-red-700";
+
+            deleteButton.onclick = function() {
+                // Re-añade la opción eliminada a la lista del select
+                var option = document.createElement('option');
+                option.value = selectedCourseId;
+                option.text = selectedCourseText;
+                option.className = "text-gray-400";
+                selectedCourse.appendChild(option);
+
+                // Remueve el div del curso seleccionado
+                courseElement.remove();
+                // Elimina el input oculto del forum
+                var hiddenInputs = document.querySelectorAll('input[name="selectedCourses[]"]');
+                for (var i = 0; i < hiddenInputs.length; i++) {
+                    if (hiddenInputs[i].value == selectedCourseId) {
+                        hiddenInputs[i].remove();
+                        break;
+                    }
+                }
+            };
+
+            courseElement.appendChild(deleteButton);
+
+            //Crea un input oculto para el curso seleccionado
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'selectedCourses[]';
+            hiddenInput.value = selectedCourseId;
+
+            // Añade el input oculto al formulario
+            document.getElementById('userForm').appendChild(hiddenInput);
+
+            // Añade el elemento al contenedor de cursos seleccionados
+            document.getElementById('selectedCoursesContainer').appendChild(courseElement);
+            selectedCourse.remove(selectedCourse.selectedIndex);
+        }
+
+        document.getElementById('addCourseBtn').addEventListener('click', addSelectedCourse);
+        </script>
+    </div>
+
 </div>
 @endsection
