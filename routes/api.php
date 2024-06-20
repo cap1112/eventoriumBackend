@@ -26,8 +26,9 @@ Route::get('/category/{id}', [ApiController::class, 'categoryDetail']);
 Route::get('/course/all', [ApiController::class, 'courseList']);
 Route::get('/course/{id}', [ApiController::class, 'courseDetail']);
 
-Route::get('/event/all', [ApiController::class, 'eventList']);
+Route::get('/event/all', [ApiController::class, 'eventCalendar']);
 Route::get('/event/{id}', [ApiController::class, 'eventDetail']);
+Route::get('/calendar', [ApiController::class, 'eventCalendar']);
 
 Route::get('/user/all', [ApiController::class, 'userList']);
 Route::get('/user/{id}', [ApiController::class, 'userDetail']);

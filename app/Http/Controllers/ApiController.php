@@ -94,6 +94,27 @@ class ApiController extends Controller
         return $event;
     }
 
+    //Lista de Eventos para Calendario
+    public function eventCalendar()
+    {
+        //
+        $event = Event::select(
+            'events.id as id',
+            'events.title as title',
+            DB::raw("CONCAT(events.start, 'T', events.startTime) as start"),
+            DB::raw("CONCAT(events.end, 'T', events.endTime) as end"),
+            'events.description as description',
+            'events.state as state',
+            'events.categories_id as category_id',
+            'categories.name as category_name',
+            DB::raw("CONCAT('Homepage/EventDetail/', events.id) as url")
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->get();
+
+        return $event;
+    }
+
     //Evento en especifico
     public function eventDetail($id)
     {
