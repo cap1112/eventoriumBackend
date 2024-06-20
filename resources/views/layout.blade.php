@@ -1,11 +1,8 @@
 <?php
 $links = array(
     array("name" => "Users", "url" => "/users", "icon" => "icons/users_icon.svg", "route" => "users.index"),
-    // /users/show
     array("name" => "Events", "url" => "/events", "icon" => "icons/events_icon.svg", "route" => "events.index"),
-    // /events/show
     array("name" => "Courses", "url" => "/courses", "icon" => "icons/courses_icon.svg", "route" => "courses.index")
-    // /courses/show
 );
 ?>
 
@@ -21,7 +18,7 @@ $links = array(
 
 <body class="flex flex-row font-main">
     <div
-        class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 h-[100vh] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+        class="fixed flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 h-[100vh] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
         <div class="mb-2 p-4">
             <h5 class="block antialiased tracking-normal text-xl font-semibold leading-snug text-gray-900">
                 CRUD | Eventorium</h5>
@@ -41,7 +38,7 @@ $links = array(
             @endforeach
         </nav>
     </div>
-    <div class="w-full">
+    <div class="w-full ml-[20rem]">
         @yield('content')
     </div>
 

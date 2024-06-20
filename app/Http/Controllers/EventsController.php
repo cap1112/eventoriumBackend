@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Category;
 use Illuminate\Support\Facades\Session;
+use App\Models\User;
+
+
 
 class EventsController extends Controller
 {
@@ -17,6 +20,14 @@ class EventsController extends Controller
     {
         $registeredEvents = Event::all();
         $registeredCategories = Category::all();
+
+        //donde la llave foranea categories_id sea igual a la llave primaria id de categories lo agregamos a la variable $registeredEvents
+        $registeredEvents = Event::join('categories', 'categories.id', '=', 'events.categories_id')
+            ->select('events.*', 'categories.name as category_name')
+            ->get();
+        //imprime el contenido de registeredEvents
+
+
         return view('events.index', compact('registeredEvents', 'registeredCategories'));
     }
 
@@ -61,6 +72,20 @@ class EventsController extends Controller
     public function show(string $id)
     {
         //
+        $event = Event::find($id);
+        //donde la llave foranea categories_id sea igual a la llave primaria id de categories le agregamos el nombre a $registeredEvents
+        $event = Event::join('categories', 'categories.id', '=', 'events.categories_id')
+            ->select('events.*', 'categories.name as category_name')
+            ->where('events.id', $id)
+            ->first();
+        
+        $registeredUsers = User::join('users_events', 'users.id', '=', 'users_events.user_id')
+            ->select('users.*')
+            ->where('users_events.event_id', $id)
+            ->get();
+
+
+        return view('events.show', compact('event', 'registeredUsers'));
     }
 
     /**

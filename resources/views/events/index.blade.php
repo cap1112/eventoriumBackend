@@ -40,8 +40,8 @@
                             <td class="py-2 px-4 border-t">{{ $event->id }}</td>
                             <td class="py-2 px-4 border-t">{{ $event->title }}</td>
                             <td class="py-2 px-4 border-t">{{ $event->state }}</td>
-                            <!-- <td class="py-2 px-4 border-t">{{ $event->password }}</td> -->
-                            <td class="py-2 px-4 border-t"><a href="#"><img src="{{ asset("icons/details_icon.svg") }}"
+                            
+                            <td class="py-2 px-4 border-t"><a href="{{ route('events.show',  $event->id) }}"><img src="{{ asset("icons/details_icon.svg") }}"
                             alt="Show item" class="size-8"></a></td>
 
                             <td class="py-2 px-4 border-t"><a href="{{ route('events.edit',  $event->id) }}"><img

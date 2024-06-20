@@ -19,7 +19,7 @@
         <div class="overflow-x-auto overflow-y-auto h-[80vh]">
             <table class="min-w-full bg-white" id="userTableContainer">
                 <thead class="bg-gray-100 text-center">
-                    <tr class="">
+                    <tr>
                         <th class="py-2 px-4 text-left text-gray-600 font-medium">ID</th>
                         <th class="py-2 px-4 text-left text-gray-600 font-medium">Name</th>
                         <th class="py-2 px-4 text-left text-gray-600 font-medium">Last Name</th>
@@ -33,7 +33,7 @@
                         <th class="py-2 px-4 text-md text-left text-gray-600 font-medium"></th>
                     </tr>
                 </thead>
-                <tbody class="">
+                <tbody>
                     @foreach ($registeredUsers as $user)
                         <tr>
                             <td class="py-2 px-4 border-t">{{ $user->id }}</td>
