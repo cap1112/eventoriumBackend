@@ -67,6 +67,7 @@
                         <option class="text-black" value="Comunicado">communicate</option>
                     </select>
                 </div>
+                
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">State:</label>
                     <select name="state" value={{$registeredEvents->state}} class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">

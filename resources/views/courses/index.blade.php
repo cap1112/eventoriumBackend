@@ -36,10 +36,9 @@
                         <td class="py-2 px-4 border-t">{{ $course->id }}</td>
                         <td class="py-2 px-4 border-t">{{ $course->name }}</td>
 
-                        <!-- <td class="py-2 px-4 border-t">{{ $course->password }}</td> -->
                         <td class="py-2 px-4 border-t"><a href="#"><img src="{{ asset("icons/details_icon.svg") }}"
                         alt="Show item" class="size-8"></a></td>
-                        <td class="py-2 px-4 border-t"><a href=""><img src="{{ asset("icons/events_edit_icon.svg") }}"
+                        <td class="py-2 px-4 border-t"><a href="{{ route('courses.edit',  $course->id) }}"><img src="{{ asset("icons/events_edit_icon.svg") }}"
                                     alt="Edit item" class="size-8"></a></td>
 
                         <td class="py-2 px-4 border-t text-gray-500">
