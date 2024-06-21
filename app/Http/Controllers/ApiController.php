@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Translation\Translator;
+use Illuminate\Translation\ArrayLoader;
+
+use Carbon\Carbon;
 
 use App\Models\Category;
 use App\Models\Course;
@@ -94,32 +98,10 @@ class ApiController extends Controller
         return $event;
     }
 
-    //Lista de Eventos para Calendario
-    public function eventCalendar()
-    {
-        //
-        $event = Event::select(
-            'events.id as id',
-            'events.title as title',
-            DB::raw("CONCAT(events.start, 'T', events.startTime) as start"),
-            DB::raw("CONCAT(events.end, 'T', events.endTime) as end"),
-            'events.description as description',
-            'events.state as state',
-            'events.categories_id as category_id',
-            'categories.name as category_name',
-            DB::raw("CONCAT('Homepage/EventDetail/', events.id) as url")
-        )
-        ->join('categories', 'events.categories_id', '=', 'categories.id')
-        ->get();
-
-        return $event;
-    }
-
     //Evento en especifico
     public function eventDetail($id)
     {
         //
-
         $event = Event::select(
             'events.id as id',
             'events.title as title',
@@ -139,6 +121,26 @@ class ApiController extends Controller
 
         return $event;
     }
+
+        //Lista de todos los Eventos para Calendario
+        public function eventCalendar()
+        {
+            //
+            $event = Event::select(
+                'events.id as id',
+                'events.title as title',
+                DB::raw("CONCAT(events.start, 'T', events.startTime) as start"),
+                DB::raw("CONCAT(events.end, 'T', events.endTime) as end"),
+                'events.description as description',
+                'events.state as state',
+                'events.categories_id as category_id',
+                'categories.name as category_name',
+                DB::raw("CONCAT('Homepage/EventDetail/', events.id) as url")
+            )
+            ->join('categories', 'events.categories_id', '=', 'categories.id')
+            ->get();                
+            return $event;
+        }
 
     //Lista de Usuarios
     public function userList()
@@ -188,7 +190,7 @@ class ApiController extends Controller
             'events_courses.id as id',
             'events_courses.event_id as event_id',
             'events_courses.course_id as course_id',
-            'events.title as event_type',
+            'events.title as event_name',
             'courses.name as course_name',
         )
         ->join('events', 'events_courses.event_id', '=', 'events.id')
@@ -206,7 +208,7 @@ class ApiController extends Controller
             'events_courses.course_id as course_id',
             'courses.name as course_name',
             'events_courses.event_id as event_id',
-            'events.title as event_type',
+            'events.title as event_name',
         )
         ->join('events', 'events_courses.event_id', '=', 'events.id')
         ->join('courses', 'events_courses.course_id', '=', 'courses.id')
@@ -222,7 +224,7 @@ class ApiController extends Controller
         $eventCourses = EventsCourse::select(
             'events_courses.id as id',
             'events_courses.event_id as event_id',
-            'events.title as event_type',
+            'events.title as event_name',
             'events_courses.course_id as course_id',
             'courses.name as course_name',
         )
@@ -344,5 +346,134 @@ class ApiController extends Controller
             ->get();
             
             return $usersEvents;    
+        }
+
+        //Lista de Eventos de Usuario por Cursos, de un Usuario 
+        public function userEvents($id)
+        {
+           $usersCourses = UsersCourse::select(
+                'users_courses.id as id',
+                'users_courses.user_id as user_id',
+                'users.name as user_name',
+                'users.lastname as user_lastname',
+                'users_courses.course_id as course_id',
+                'courses.name as course_name',
+                'events_courses.event_id as event_id',
+                'events.title as event_name',
+            )
+            ->join('users', 'users_courses.user_id', '=', 'users.id')
+            ->join('courses', 'users_courses.course_id', '=', 'courses.id')
+            ->join('events_courses', 'users_courses.course_id', '=', 'events_courses.course_id')
+            ->join('events', 'events_courses.event_id', '=', 'events.id')
+            ->where('users_courses.user_id', $id)
+            ->get();
+            
+            return $usersCourses;    
+        }
+
+    //De aqui en adelante, son los apis que se estan dando un uso
+    
+    //Lista de Eventos para el calendario por Cursos de un Usuario
+    public function userCourseEvents($id){
+
+        $userCourseEvents = EventsCourse::select(
+            'events_courses.event_id as id',
+            'events.title as title',
+            DB::raw("CONCAT(events.start, 'T', events.startTime) as start"),
+            DB::raw("CONCAT(events.end, 'T', events.endTime) as end"),
+            'events.description as description',
+            'events.state as state',
+            'events.categories_id as category_id',
+            'categories.name as category_name',
+            DB::raw("CONCAT('EventDetails/', events.id, '/', users_courses.user_id) as url")
+        )
+        ->join('events', 'events_courses.event_id', '=', 'events.id')
+        ->join('users_courses', 'events_courses.course_id', '=', 'users_courses.course_id')
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->where('users_courses.user_id', $id)
+        ->get();
+            
+        return $userCourseEvents;    
+    }
+
+    //Detalles de Evento por Cursos de un Usuario    
+    public function userCourseEventsDetail($id){      
+        
+        $userCourseEventsDetail = EventsCourse::select(
+            'events_courses.event_id as id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',            
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'users_courses.user_id as user_id',
+        )
+        ->join('events', 'events_courses.event_id', '=', 'events.id')
+        ->join('users_courses', 'events_courses.course_id', '=', 'users_courses.course_id')
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events_courses.course_id', '=', 'courses.id')
+        ->where('users_courses.user_id', $id)        
+        ->get();
+
+        foreach ($userCourseEventsDetail as $EventDetail) {   
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+            
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $userCourseEventsDetail;
+    }
+
+        //Detalles de Evento de un Evento en especifico
+        public function userCourseEventsDetail_Event($id){
+
+            $userCourseEventsDetail_Event = EventsCourse::select(
+                'events_courses.event_id as id',
+                'events.title as event_name',
+                'events.description as event_description',
+                'events.start as event_date_start',
+                'events.end as event_date_end',
+                'events.start as event_date_start_short',
+                'events.end as event_date_end_short',
+                'events.startTime as event_time_start',
+                'events.endTime as event_time_end',
+                'events.image as event_image',            
+                'events.state as event_state',
+                'categories.name as category_name',
+                'courses.name as course_name',
+            )
+            ->join('events', 'events_courses.event_id', '=', 'events.id')
+            ->join('categories', 'events.categories_id', '=', 'categories.id')
+            ->join('courses', 'events_courses.course_id', '=', 'courses.id')
+            ->where('events.id', $id)
+            ->get();
+
+            foreach ($userCourseEventsDetail_Event as $EventDetail) {   
+                Carbon::setLocale('es');
+
+                $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+                $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+                
+                $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+                $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+                $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+                $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+            }
+
+            return $userCourseEventsDetail_Event;
         }
 }
