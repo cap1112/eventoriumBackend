@@ -67,6 +67,10 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
+        $file = $request->file('image');
+        $file_name = 'event_' . time() . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('public/users_img', $file_name);
+        
         $selectedCourses = $request->input('selectedCourses');
 
         $user = User::create([
