@@ -1,7 +1,7 @@
 @extends('.layout')
 @section('content')
 <div class="bg-white shadow-lg rounded-lg p-6 h-[100%]">
-    <h2 class="text-2xl font-semibold mb-4">courses</h2>
+    <h2 class="text-2xl font-semibold mb-4">Courses</h2>
     <div class="flex justify-between items-center">
         <p class="text-gray-600 mb-6">A list of all the courses in your account including their name and description.
 
@@ -36,7 +36,7 @@
                         <td class="py-2 px-4 border-t">{{ $course->id }}</td>
                         <td class="py-2 px-4 border-t">{{ $course->name }}</td>
 
-                        <td class="py-2 px-4 border-t"><a href="#"><img src="{{ asset("icons/details_icon.svg") }}"
+                        <td class="py-2 px-4 border-t"><a href="{{ route('courses.show',  $course->id) }}"><img src="{{ asset("icons/details_icon.svg") }}"
                         alt="Show item" class="size-8"></a></td>
                         <td class="py-2 px-4 border-t"><a href="{{ route('courses.edit',  $course->id) }}"><img src="{{ asset("icons/events_edit_icon.svg") }}"
                                     alt="Edit item" class="size-8"></a></td>

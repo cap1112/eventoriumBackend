@@ -3,8 +3,7 @@
     <div class="bg-white shadow-lg rounded-lg p-6 h-[100%]">
         <h2 class="text-2xl font-semibold mb-4">Events</h2>
         <div class="flex justify-between items-center">
-            <p class="text-gray-600 mb-6">A list of all the events in your account including their name, title, email and
-                role.
+            <p class="text-gray-600 mb-6">A list of all the events in your account including their name and state.
             </p>
 
             <a href="{{ route('events.create') }}">
