@@ -51,6 +51,7 @@ class EventsController extends Controller
         $file_name = 'event_' . time() . '.' . $file->getClientOriginalExtension();
         $path = $file->storeAs('public/images', $file_name);
         
+
         $events = Event::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -58,7 +59,7 @@ class EventsController extends Controller
             'end' => $request->end,
             'startTime' => $request->startTime,
             'endTime' => $request->endTime,
-            'category' => $request->category,
+            'categories_id' => $request->category,
             'image' => $request->image,
             'state' => $request->state,
         ]);

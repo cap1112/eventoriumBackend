@@ -18,7 +18,7 @@
         </div>
         <div class="overflow-x-auto">
             
-        <form id="eventForm" method="POST" action="{{ route('events.store') }}">
+        <form id="eventForm" method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
             @csrf
             <div
                 class="bg-white px-6 py-3 shadow-lg rounded-lg grid grid-cols-2 justify-center items-center gap-8 w-full overflow-y-auto h-[100%]">
@@ -66,9 +66,9 @@
                     <label for="" class="text-black mb-4">Category:</label>
                     <select name="category" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
                         <option class="text-gray-400" value="Inactivo" selected hidden>Select a category</option>
-                        <option class="text-black" value="Evento">Event</option>
-                        <option class="text-black" value="Tarea">Homework</option>
-                        <option class="text-black" value="Comunicado">communicate</option>
+                        <option class="text-black" value="1">Event</option>
+                        <option class="text-black" value="2">Homework</option>
+                        <option class="text-black" value="3">communicate</option>
                     </select>
                 </div>
                 <div class="flex flex-col">

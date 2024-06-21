@@ -18,7 +18,7 @@ class Event extends Model
         'endTime',
         'description',
         'state',
-        'category_id',
+        'categories_id',
     ];
 
 }

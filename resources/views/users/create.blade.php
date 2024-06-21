@@ -15,7 +15,7 @@
         </div>
         <div class="overflow-x-auto">
             
-        <form id="userForm" method="POST" action="{{ route('users.store') }}">
+        <form id="userForm" method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
             @csrf
             <div
                 class="bg-white px-6 py-3 shadow-lg rounded-lg grid grid-cols-2 justify-center items-center gap-8 w-full overflow-y-auto h-[100%]">
