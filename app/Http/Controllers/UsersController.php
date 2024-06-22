@@ -83,11 +83,11 @@ class UsersController extends Controller
             ]);
 
         $file = $request->file('image');
-        $file_name = 'usuario_' . $user->id . time() . '.' . $file->getClientOriginalExtension();
+        $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
         $path = $file->storeAs('public/users_img', $file_name);    
         
         $user->update([
-            'image' => $path,
+            'image' => $file_name,
         ]);
 
         foreach ($selectedCourses as $courseId) {
