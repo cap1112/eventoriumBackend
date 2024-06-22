@@ -22,6 +22,7 @@
             </div>
         </dl>
     </div>
+    
 </div>
 
 @endsection

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('startTime');
             $table->string('endTime');
             $table->foreignId('categories_id')->constrained();
+            $table->foreignId('courses_id')->constrained();
             $table->string('image');
             $table->text('description');
             $table->ENUM('state', ['Activo', 'Inactivo']);

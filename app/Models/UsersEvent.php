@@ -12,5 +12,6 @@ class UsersEvent extends Model
     protected $fillable = [
         'user_id',
         'event_id',
+        'state',
     ];
 }

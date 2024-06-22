@@ -1,8 +1,10 @@
 <?php
 $links = array(
+    array("name" => "Courses", "url" => "/courses", "icon" => "icons/courses_icon.svg", "route" => "courses.index"),
     array("name" => "Users", "url" => "/users", "icon" => "icons/users_icon.svg", "route" => "users.index"),
     array("name" => "Events", "url" => "/events", "icon" => "icons/events_icon.svg", "route" => "events.index"),
-    array("name" => "Courses", "url" => "/courses", "icon" => "icons/courses_icon.svg", "route" => "courses.index")
+    
+
 );
 ?>
 

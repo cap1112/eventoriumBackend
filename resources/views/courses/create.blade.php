@@ -30,6 +30,74 @@
                         <input name="description" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
                             placeholder="Enter the description of the course">
                     </div>
+                    <!-- Este div contiene los componentes que despliegan una lista de estudiantes y la agregan a los cursos-->
+                    <div>
+                        <label class="text-black mb-4">Students:</label>
+                        <div class="bg-gray-100 p-4 rounded-2xl w-[38rem]">
+                            <div>
+                                <input type="checkbox" name="students[]" id="student1" value="1">
+                                <label for="student1">Usuario Ejemplo 1</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student2" value="2">
+                                <label for="student2">Usuario Ejemplo 2</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student3" value="3">
+                                <label for="student3">Usuario Ejemplo 3</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student1" value="1">
+                                <label for="student1">Usuario Ejemplo 1</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student2" value="2">
+                                <label for="student2">Usuario Ejemplo 2</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student3" value="3">
+                                <label for="student3">Usuario Ejemplo 3</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student1" value="1">
+                                <label for="student1">Usuario Ejemplo 1</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student2" value="2">
+                                <label for="student2">Usuario Ejemplo 2</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student3" value="3">
+                                <label for="student3">Usuario Ejemplo 3</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student1" value="1">
+                                <label for="student1">Usuario Ejemplo 1</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student2" value="2">
+                                <label for="student2">Usuario Ejemplo 2</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student3" value="3">
+                                <label for="student3">Usuario Ejemplo 3</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student1" value="1">
+                                <label for="student1">Usuario Ejemplo 1</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student2" value="2">
+                                <label for="student2">Usuario Ejemplo 2</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="students[]" id="student3" value="3">
+                                <label for="student3">Usuario Ejemplo 3</label>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <div class="flex justify-end mr-4 col-span-2">
                         <button type="submit"
@@ -38,7 +106,12 @@
                     </div>
                 </div>
             </form>
+            <div>
+                
+            </div>
         </div>
+        
+
 
 
         <script>

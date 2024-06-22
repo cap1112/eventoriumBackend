@@ -67,10 +67,6 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
-        $file = $request->file('image');
-        $file_name = 'event_' . time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/users_img', $file_name);
-        
         $selectedCourses = $request->input('selectedCourses');
 
         $user = User::create([
@@ -85,6 +81,14 @@ class UsersController extends Controller
                 'diseases' => $request->diseases,
                 'physical_activity' => $request->physical_activity,
             ]);
+
+        $file = $request->file('image');
+        $file_name = 'usuario_' . $user->id . time() . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('public/users_img', $file_name);    
+        
+        $user->update([
+            'image' => $path,
+        ]);
 
         foreach ($selectedCourses as $courseId) {
                 UsersCourse::create([
@@ -138,7 +142,6 @@ class UsersController extends Controller
         $registeredUsers->update([
             'name' => $request->name,
             'email' => $request->email,
-            'username' => $request->username,
             'lastname' => $request->lastname,
             'password' => bcrypt($request->password),
             'profile' => $request->profile,

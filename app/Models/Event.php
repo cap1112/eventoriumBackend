@@ -19,6 +19,7 @@ class Event extends Model
         'description',
         'state',
         'categories_id',
+        'courses_id',
     ];
 
 }
