@@ -43,10 +43,6 @@ Route::get('/userCourse/all', [ApiController::class, 'usersCourses']);
 Route::get('/userCourse/course/{id}', [ApiController::class, 'usersCourses_Course']);
 Route::get('/userCourse/user/{id}', [ApiController::class, 'usersCourses_User']);
 
-//Route::get('/usersEvent/all', [ApiController::class, 'usersEvents']);
-//Route::get('/usersEvent/event/{id}', [ApiController::class, 'usersEvents_Event']);
-//Route::get('/usersEvent/user/{id}', [ApiController::class, 'usersEvents_User']);
-
 Route::get('/userEvents/user/{id}', [ApiController::class, 'userEvents']);
 
 //De aqui en adelante, los links de los apis que se usan en el frontend

@@ -19,6 +19,10 @@ use App\Models\UsersEvent;
 
 class ApiController extends Controller
 {
+
+    //APs de base, los hice como guia para cuando quiero sacar ya un api en especifico,    
+    //se eliminaran una vez estemos seguros tenemos todos los que ocupemos
+    
     //Lista de Categorias
     public function categoryList()
     {
@@ -309,62 +313,6 @@ class ApiController extends Controller
             return $usersCourses;    
         }
 
-        //Lista de Usuarios por Evento
-        public function usersEvents()
-        {
-            $userEvents = UsersEvent::select(
-                'users_events.id as id',
-                'users_events.user_id as user_id',
-                'users.name as user_name',
-                'users.lastname as user_lastname',
-                'users_events.event_id as event_id',
-                'events.title as event_type',
-            )
-            ->join('users', 'users_events.user_id', '=', 'users.id')
-            ->join('events', 'users_events.event_id', '=', 'events.id')
-            ->get();
-
-            return $userEvents;
-        }
-
-        //Lista de Usuarios por Evento, en especifico de un Evento
-        public function usersEvents_Event($id)
-        {
-            $usersEvents = UsersEvent::select(
-                'users_events.id as id',
-                'users_events.event_id as event_id',
-                'events.title as event_type',
-                'users_events.user_id as user_id',
-                'users.name as user_name',
-                'users.lastname as user_lastname',
-            )
-            ->join('users', 'users_events.user_id', '=', 'users.id')
-            ->join('events', 'users_events.event_id', '=', 'events.id')
-            ->where('users_events.event_id', $id)
-            ->get();
-            
-            return $usersEvents;    
-        }
-
-        //Lista de Usuarios por Evento, en especifico de un Usuario
-        public function usersEvents_User($id)
-        {
-            $usersEvents = UsersEvent::select(
-                'users_events.id as id',
-                'users_events.user_id as user_id',
-                'users.name as user_name',
-                'users.lastname as user_lastname',
-                'users_events.event_id as event_id',
-                'events.title as event_type',
-            )
-            ->join('users', 'users_events.user_id', '=', 'users.id')
-            ->join('events', 'users_events.event_id', '=', 'events.id')
-            ->where('users_events.user_id', $id)
-            ->get();
-            
-            return $usersEvents;    
-        }
-
         //Lista de Eventos de Usuario por Cursos, de un Usuario 
         public function userEvents($id)
         {
@@ -387,6 +335,7 @@ class ApiController extends Controller
             
             return $usersCourses;    
         }
+
 
     //De aqui en adelante, son los apis que se estan dando un uso
     
@@ -431,11 +380,13 @@ class ApiController extends Controller
             'categories.name as category_name',
             'courses.name as course_name',
             'users_courses.user_id as user_id',
+            'users.name as user_name',
         )
         ->join('events', 'events_courses.event_id', '=', 'events.id')
         ->join('users_courses', 'events_courses.course_id', '=', 'users_courses.course_id')
         ->join('categories', 'events.categories_id', '=', 'categories.id')
         ->join('courses', 'events_courses.course_id', '=', 'courses.id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
         ->where('users_courses.user_id', $id)        
         ->get();
 
