@@ -28,12 +28,22 @@
                     </div>
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Username:</label>
-                        <input name="name" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
-                            placeholder="Enter the Username">
+                        <input name="username" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
+                        placeholder="Enter the Username">
+                        
+                        <div class="flex mt-4">
+                            <div class="mr-6">
+                                <label for="" class="text-black">Name:</label>
+                                <input name="name" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]"
+                                placeholder="Enter the name">
+                            </div>
+                            <div>
 
-                        <label for="" class="text-black my-4">Last name:</label>
-                        <input name="lastname" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
-                            placeholder="Enter the Last name">
+                                <label for="" class="text-black ">Last name:</label>
+                                <input name="lastname" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]"
+                                placeholder="Enter the Last name">
+                            </div>
+                        </div>
                     </div>
                 </div>
 

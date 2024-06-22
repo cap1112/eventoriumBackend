@@ -31,6 +31,7 @@ Route::get('/event/{id}', [ApiController::class, 'eventDetail']);
 Route::get('/calendar', [ApiController::class, 'eventCalendar']);
 
 Route::get('/user/all', [ApiController::class, 'userList']);
+Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::get('/user/{id}', [ApiController::class, 'userDetail']);
 
 Route::get('/eventCourse/all', [ApiController::class, 'eventCourses']);

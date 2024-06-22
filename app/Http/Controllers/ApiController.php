@@ -149,6 +149,7 @@ class ApiController extends Controller
             'name',
             'lastname',
             'email',
+            'image',
             'password',
             'profile',
             'sleep_hours',
@@ -160,6 +161,21 @@ class ApiController extends Controller
         return $user;
     }
 
+    //Api para crear usuarios
+    public function userStore(Request $request)
+    {
+        //
+
+        $user = User::create([
+                'username' => $request->username,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+
+        return redirect ('http://localhost:5173/SignIn');
+    }
+
     //Usuario en especifico
     public function userDetail($id)
     {
@@ -169,6 +185,7 @@ class ApiController extends Controller
             'name',
             'lastname',
             'email',
+            'image',
             'password',
             'profile',
             'sleep_hours',
