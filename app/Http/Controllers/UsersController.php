@@ -151,6 +151,14 @@ class UsersController extends Controller
             'physical_activity' => $request->physical_activity,
         ]);
 
+        $file = $request->file('image');
+        $file_name = 'usuario_' . $registeredUsers->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('public/users_img', $file_name);    
+        
+        $registeredUsers->update([
+            'image' => $file_name,
+        ]);
+
         UsersCourse::where('user_id', $id)->delete();
         $selectedCourses = $request->input('selectedCourses');
 

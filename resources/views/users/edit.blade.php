@@ -12,7 +12,7 @@
         </p>
     </div>
     <div class="overflow-x-auto">
-        <form id="userForm" method="POST" action="{{ route('users.update', $registeredUsers->id) }}">
+        <form id="userForm" method="POST" action="{{ route('users.update', $registeredUsers->id) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div
