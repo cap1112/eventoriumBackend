@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('image');
-            $table->enum('profile', ['Admin', 'Profesor', 'Estudiante'])->default('estudiante');
+            $table->enum('profile', ['Admin', 'Profesor', 'Estudiante'])->default('Estudiante');
             $table->integer('sleep_hours');
             $table->enum('diseases', ['Diabetes', 'Hipertension', 'Obesidad', 'Asma', 'Artritis', 'Ninguna'])->default('Ninguna');
             $table->enum('physical_activity', ['Sedentario', 'Moderado', 'Activo'])->default('Moderado');
