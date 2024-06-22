@@ -26,8 +26,9 @@ Route::get('/category/{id}', [ApiController::class, 'categoryDetail']);
 Route::get('/course/all', [ApiController::class, 'courseList']);
 Route::get('/course/{id}', [ApiController::class, 'courseDetail']);
 
-Route::get('/event/all', [ApiController::class, 'eventCalendar']);
+Route::get('/event/all', [ApiController::class, 'eventList']);
 Route::get('/event/{id}', [ApiController::class, 'eventDetail']);
+
 Route::get('/calendar', [ApiController::class, 'eventCalendar']);
 
 Route::get('/user/all', [ApiController::class, 'userList']);
@@ -42,6 +43,16 @@ Route::get('/userCourse/all', [ApiController::class, 'usersCourses']);
 Route::get('/userCourse/course/{id}', [ApiController::class, 'usersCourses_Course']);
 Route::get('/userCourse/user/{id}', [ApiController::class, 'usersCourses_User']);
 
-Route::get('/usersEvent/all', [ApiController::class, 'usersEvents']);
-Route::get('/usersEvent/event/{id}', [ApiController::class, 'usersEvents_Event']);
-Route::get('/usersEvent/user/{id}', [ApiController::class, 'usersEvents_User']);
+//Route::get('/usersEvent/all', [ApiController::class, 'usersEvents']);
+//Route::get('/usersEvent/event/{id}', [ApiController::class, 'usersEvents_Event']);
+//Route::get('/usersEvent/user/{id}', [ApiController::class, 'usersEvents_User']);
+
+Route::get('/userEvents/user/{id}', [ApiController::class, 'userEvents']);
+
+//De aqui en adelante, los links de los apis que se usan en el frontend
+
+Route::get('/calendar/{id}', [ApiController::class, 'userCourseEvents']);
+
+Route::get('/events/{id}', [ApiController::class, 'userCourseEventsDetail']);
+
+Route::get('/eventDetail/{id}', [ApiController::class, 'userCourseEventsDetail_Event']);
