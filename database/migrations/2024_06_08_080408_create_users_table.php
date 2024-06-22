@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('image');
             $table->enum('profile', ['Admin', 'Profesor', 'Estudiante'])->default('estudiante');
             $table->integer('sleep_hours');
-            $table->string('diseases');
-            $table->string('physical_activity');
+            $table->enum('diseases', ['Diabetes', 'Hipertension', 'Obesidad', 'Asma', 'Artritis', 'Ninguna'])->default('Ninguna');
+            $table->enum('physical_activity', ['Sedentario', 'Moderado', 'Activo'])->default('Moderado');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -18,7 +18,7 @@
             <form id="courseForm" method="POST" action="{{ route('courses.store') }}">
                 @csrf
                 <div
-                    class="bg-white px-6 py-3 shadow-lg rounded-lg grid grid-cols-2 justify-center items-center gap-8 w-full overflow-y-auto h-[100%]">
+                    class="flex flex-col bg-white px-6 py-3 shadow-lg rounded-lg grid-cols-2 justify-center items-center gap-8 w-full overflow-y-auto h-[100%]">
 
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">name:</label>
@@ -27,9 +27,10 @@
                     </div>
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Description:</label>
-                        <input name="description" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                            placeholder="Enter the description of the course">
+                        <textarea name="description" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" placeholder="Choose the description"></textarea>
                     </div>
+
+
                     <!-- Este div contiene los componentes que despliegan una lista de estudiantes y la agregan a los cursos-->
                     <div>
                         <label class="text-black mb-4">Students:</label>

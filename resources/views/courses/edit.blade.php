@@ -17,7 +17,7 @@
                 @method('PUT')
                 @csrf
                 <div
-                    class="bg-white px-6 py-3 shadow-lg rounded-lg grid grid-cols-2 justify-center items-center gap-8 w-full">
+                    class="flex flex-col bg-white px-6 py-3 shadow-lg rounded-lg grid-cols-2 justify-center items-center gap-8 w-full">
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Name:</label>
                         <input name="name" value={{ $registeredCourses->name }} type="text"
@@ -25,8 +25,7 @@
                     </div>
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Description:</label>
-                        <input name="description" value={{ $registeredCourses->description }} type="text"
-                            class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" placeholder="Choose the description">
+                        <textarea name="description" class="bg-gray-100 h-[6rem] p-4 rounded-2xl w-[38rem]" placeholder="Choose the description">{{ $registeredCourses->description }}</textarea>
                     </div>
                     <div class="flex justify-end mr-4 col-span-2">
                         <button type="submit"

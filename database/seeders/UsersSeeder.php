@@ -22,8 +22,8 @@ class UsersSeeder extends Seeder
             'profile' => 'estudiante',
             'sleep_hours' => 7,
             'diseases' => 'Asma',
-            'physical_activity' => 'Atletismo',
-            'image' => 'https://picsum.photos/seed/gustavo.acosta@example.com/200/200'
+            'physical_activity' => 'Moderado',
+            'image' => 'usuario_1.jpg'
         ]);
 
         User::create([
@@ -34,9 +34,9 @@ class UsersSeeder extends Seeder
             'password' => bcrypt('contraseña_ejemplo'),
             'profile' => 'estudiante',
             'sleep_hours' => 6,
-            'diseases' => 'Ninguno',
-            'physical_activity' => 'Yoga',
-            'image' => 'https://picsum.photos/seed/maria.gonzalez@example.com/200/200'
+            'diseases' => 'Hipertension',
+            'physical_activity' => 'Sedentario',
+            'image' => 'usuario_2.jpg'
         ]);
 
         User::create([
@@ -48,8 +48,8 @@ class UsersSeeder extends Seeder
             'profile' => 'estudiante',
             'sleep_hours' => 8,
             'diseases' => 'Diabetes',
-            'physical_activity' => 'Natación',
-            'image' => 'https://picsum.photos/seed/carlos.ramirez@example.com/200/200'
+            'physical_activity' => 'Activo',
+            'image' => 'usuario_3.jpg'
         ]);
 
         User::create([
@@ -60,9 +60,9 @@ class UsersSeeder extends Seeder
             'password' => bcrypt('contraseña_ejemplo'),
             'profile' => 'estudiante',
             'sleep_hours' => 5,
-            'diseases' => 'Hipertensión',
-            'physical_activity' => 'Ciclismo',
-            'image' => 'https://picsum.photos/seed/lucia.martinez@example.com/200/200'
+            'diseases' => 'Hipertension',
+            'physical_activity' => 'Activo',
+            'image' => 'usuario_4.jpg'
         ]);
 
         User::create([
@@ -73,9 +73,9 @@ class UsersSeeder extends Seeder
             'password' => bcrypt('contraseña_ejemplo'),
             'profile' => 'profesor',
             'sleep_hours' => 7,
-            'diseases' => 'Ninguno',
-            'physical_activity' => 'Correr',
-            'image' => 'https://picsum.photos/seed/diego.hernandez@example.com/200/200'
+            'diseases' => 'Ninguna',
+            'physical_activity' => 'Activo',
+            'image' => 'usuario_5.jpg'
         ]);
 
         User::create([
@@ -86,9 +86,9 @@ class UsersSeeder extends Seeder
             'password' => bcrypt('admin'),
             'profile' => 'admin',
             'sleep_hours' => 0,
-            'diseases' => 'Ninguno',
-            'physical_activity' => 'ninguno',
-            'image' => 'https://picsum.photos/seed/diego.hernandez@example.com/200/200'
+            'diseases' => 'Obesidad',
+            'physical_activity' => 'Sedentario',
+            'image' => 'usuario_6.jpg'
         ]);
     }
 }
