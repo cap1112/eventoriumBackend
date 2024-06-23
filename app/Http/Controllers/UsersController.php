@@ -92,11 +92,64 @@ class UsersController extends Controller
             'image' => $file_name,
         ]);
 
-        foreach ($selectedCourses as $courseId) {
+        //Logica detras de si se seleccionaron courses o no, o si se incluyo un 0 como course
+        if (is_string($selectedCourses)) {
+            //No ocurre nada
+        } else {
+            if (in_array(0, $selectedCourses)) {              
+                if (count($selectedCourses) > 1) {
+                    $selectedCourses = array_diff($selectedCourses, array("0"));
+
+                    foreach ($selectedCourses as $courseId) {
+                        UsersCourse::create([
+                        'user_id' => $user->id,
+                        'course_id' => $courseId,
+                    ]);
+        
+                    $events = Event::where('courses_id', $courseId)->get();
+                    foreach ($events as $event) {
+            
+                        if ($event->categories_id == 3) {
+                            $estado = 'No_Aplica';
+                        } else {
+                            $estado = 'No_Completado';
+                        }
+            
+                        UsersEvent::create([
+                        'user_id' => $user->id,
+                        'event_id' => $event->id,
+                        'state' => $estado
+                        ]);
+                    }
+                }
+
+                } else {
+                    //No ocurre nada
+                }
+            } else {
+                foreach ($selectedCourses as $courseId) {
                 UsersCourse::create([
                 'user_id' => $user->id,
                 'course_id' => $courseId,
             ]);
+
+            $events = Event::where('courses_id', $courseId)->get();
+            foreach ($events as $event) {
+    
+                if ($event->categories_id == 3) {
+                    $estado = 'No_Aplica';
+                } else {
+                    $estado = 'No_Completado';
+                }
+    
+                UsersEvent::create([
+                'user_id' => $user->id,
+                'event_id' => $event->id,
+                'state' => $estado
+                ]);
+            }
+        }
+            }
         }
 
         return redirect ()->route('users.index');
@@ -140,6 +193,8 @@ class UsersController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $selectedCourses = $request->input('selectedCourses');
+
         $registeredUsers = User::find($id);
 
         if($request->image) {
@@ -179,32 +234,65 @@ class UsersController extends Controller
         UsersCourse::where('user_id', $id)->delete();
         UsersEvent::where('user_id', $id)->delete();
 
-        $selectedCourses = $request->input('selectedCourses');
+        //Logica detras de si se seleccionaron courses o no, o si se incluyo un 0 como course
+        if (is_string($selectedCourses)) {
+            //No ocurre nada
+        } else {
+            if (in_array(0, $selectedCourses)) {              
+                if (count($selectedCourses) > 1) {
+                    $selectedCourses = array_diff($selectedCourses, array("0"));
 
-        foreach ($selectedCourses as $courseId) {
-            UsersCourse::create([
-            'user_id' => $registeredUsers->id,
-            'course_id' => $courseId,
-        ]);
+                    foreach ($selectedCourses as $courseId) {
+                        UsersCourse::create([
+                        'user_id' => $registeredUsers->id,
+                        'course_id' => $courseId,
+                    ]);
+            
+                    $events = Event::where('courses_id', $courseId)->get();
+                    foreach ($events as $event) {
+            
+                        if ($event->categories_id == 3) {
+                            $estado = 'No_Aplica';
+                        } else {
+                            $estado = 'No_Completado';
+                        }
+            
+                        UsersEvent::create([
+                        'user_id' => $registeredUsers->id,
+                        'event_id' => $event->id,
+                        'state' => $estado
+                        ]);
+                    }
+                }
 
-        $events = Event::where('courses_id', $courseId)->get();
-
-        foreach ($events as $event) {
-
-            if ($event->categories_id == 3) {
-                $estado = 'No_Aplica';
+                } else {
+                    //No ocurre nada
+                }
             } else {
-                $estado = 'No_Completado';
+                foreach ($selectedCourses as $courseId) {
+                    UsersCourse::create([
+                    'user_id' => $registeredUsers->id,
+                    'course_id' => $courseId,
+                ]);
+        
+                $events = Event::where('courses_id', $courseId)->get();
+                foreach ($events as $event) {
+        
+                    if ($event->categories_id == 3) {
+                        $estado = 'No_Aplica';
+                    } else {
+                        $estado = 'No_Completado';
+                    }
+        
+                    UsersEvent::create([
+                    'user_id' => $registeredUsers->id,
+                    'event_id' => $event->id,
+                    'state' => $estado
+                    ]);
+                }
             }
-
-            UsersEvent::create([
-            'user_id' => $registeredUsers->id,
-            'event_id' => $event->id,
-            'state' => $estado
-            ]);
+            }
         }
-    }
-
         return redirect()->route('users.index');
     }
 

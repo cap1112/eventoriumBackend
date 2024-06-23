@@ -56,8 +56,15 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Diseases:</label>
-                    <input name="diseases" value={{$registeredUsers->diseases}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Enter the disease">
+                    <select name="diseases" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        <option class="text-gray-400" value="Ninguna" selected hidden>{{$registeredUsers->diseases}}</option>
+                        <option class="text-black" value="Ninguna">Ninguna</option>
+                        <option class="text-black" value="Diabetes">Diabetes</option>
+                        <option class="text-black" value="Hipertension">Hipertension</option>
+                        <option class="text-black" value="Obesidad">Obesidad</option>
+                        <option class="text-black" value="Asma">Asma</option>
+                        <option class="text-black" value="Artritis">Artritis</option>
+                    </select>
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Sleep hours:</label>
@@ -66,8 +73,12 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Physical Activities:</label>
-                    <input name="physical_activity" value={{$registeredUsers->physical_activity}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Enter the Physical activity of your choice ">
+                    <select name="physical_activity" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        <option class="text-gray-400" value="Moderado" selected hidden>{{$registeredUsers->physical_activity}}</option>
+                        <option class="text-black" value="Sedentario">Sedentario</option>
+                        <option class="text-black" value="Moderado">Moderado</option>
+                        <option class="text-black" value="Activo">Activo</option>
+                    </select>
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Profile:</label>
@@ -91,7 +102,7 @@
                     <select name="selectedCourses" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]"
                         id="coursesSelect">
                         @foreach ($courses as $course)
-                            <option class="text-gray-400" selected hidden value="{{ $course->id }}">Select a course
+                            <option class="text-gray-400" selected hidden value="0">Select a course
                             </option>
                             <option class="text-gray-400" value="{{ $course->id }}">{{ $course->name }}</option>
                         @endforeach
