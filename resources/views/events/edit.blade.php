@@ -31,10 +31,9 @@
                         <label for="" class="text-black mb-4">Title:</label>
                         <input name="title" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
                             placeholder="Enter the tilte of the event" value={{$registeredEvents->title}}>
-
+                            
                         <label for="" class="text-black my-4">Description:</label>
-                        <input name="description" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
-                            placeholder="Enter the description of the event" value={{$registeredEvents->description}}>
+                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[65.6rem]" placeholder="Enter the description of the event">{{$registeredEvents->description}}</textarea>
                     </div>
                 </div>
                 <div class="flex flex-col">
@@ -58,32 +57,71 @@
                         class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
                         placeholder="Enter the number of sleep hours ">
                 </div>
-                <div class="flex flex-col">
+
+                @if ($registeredEvents->categories_id == 1)
+                    <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Category:</label>
-                    <select name="category" value={{$registeredEvents->category}}
-                        class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="Inactivo" selected hidden>{{$registeredEvents->category}}
+                    <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        <option class="text-gray-400" value="1" selected hidden>Event
                         </option>
-                        <option class="text-black" value="Evento">Event</option>
-                        <option class="text-black" value="Tarea">Homework</option>
-                        <option class="text-black" value="Comunicado">communicate</option>
+                        <option class="text-black" value="1">Event</option>
+                        <option class="text-black" value="2">Homework</option>
+                        <option class="text-black" value="3">Communicate</option>
                     </select>
-                </div>
+                    </div>
+                @endif
+
+                @if ($registeredEvents->categories_id == 2)
+                    <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Category:</label>
+                    <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        <option class="text-gray-400" value="2" selected hidden>Homework
+                        </option>
+                        <option class="text-black" value="1">Event</option>
+                        <option class="text-black" value="2">Homework</option>
+                        <option class="text-black" value="3">Communicate</option>
+                    </select>
+                    </div>
+                @endif
+
+                @if ($registeredEvents->categories_id == 3)
+                    <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Category:</label>
+                    <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        <option class="text-gray-400" value="3" selected hidden>Communicate
+                        </option>
+                        <option class="text-black" value="1">Event</option>
+                        <option class="text-black" value="2">Homework</option>
+                        <option class="text-black" value="3">Communicate</option>
+                    </select>
+                    </div>
+                @endif
 
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">State:</label>
                     <select name="state" value={{$registeredEvents->state}}
                         class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="Inactivo" selected hidden>{{$registeredEvents->state}}
+                        <option class="text-gray-400" value={{$registeredEvents->state}} selected hidden>{{$registeredEvents->state}}
                         </option>
                         <option class="text-black" value="Inactivo">Inactive</option>
                         <option class="text-black" value="Activo">Active</option>
                     </select>
                 </div>
+
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Course:</label>
+                    <select name="courses" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        <option class="text-gray-400" value={{$registeredEvents->courses_id}} selected hidden>{{$courseName->name}}</option>
+                        @foreach ($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="flex justify-end mr-4 col-span-2">
                     <button type="submit"
                         class="my-2 w-[10rem] bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Update
-                        user</button>
+                        event</button>
                 </div>
             </div>
         </form>

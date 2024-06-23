@@ -118,8 +118,10 @@ class EventsController extends Controller
     public function edit(string $id)
     {
         //
+        $courses = Course::all();
         $registeredEvents = Event::find($id);
-        return view('events.edit', compact('registeredEvents'));
+        $courseName = Course::find($registeredEvents->courses_id);
+        return view('events.edit', compact('registeredEvents', 'courses', 'courseName'));
     }
 
     /**
@@ -129,24 +131,59 @@ class EventsController extends Controller
     {
         //
         $registeredEvents = Event::find($id);
-        $registeredEvents->update([
-            'title' => $request->title,
-            'start' => $request->start,
-            'end' => $request->end,
-            'startTime' => $request->startTime,
-            'endTime' => $request->endTime,
-            'image' => $request->image,
-            'description' => $request->description,
-            'state' => $request->state,
-        ]);
 
-        $file = $request->file('image');
-        $file_name = 'event_' . $registeredEvents->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/events_img', $file_name);
+        if($request->image) {
+            $registeredEvents->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'start' => $request->start,
+                'end' => $request->end,
+                'startTime' => $request->startTime,
+                'endTime' => $request->endTime,
+                'categories_id' => $request->category,
+                'image' => $request->image,
+                'state' => $request->state,
+                'courses_id' => $request->courses,
+            ]);
 
-        $registeredEvents->update([
-            'image' => $file_name,
-        ]);
+            $file = $request->file('image');
+            $file_name = 'event_' . $registeredEvents->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/events_img', $file_name);
+    
+            $registeredEvents->update([
+                'image' => $file_name,
+            ]);
+
+        } else {
+            $registeredEvents->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'start' => $request->start,
+                'end' => $request->end,
+                'startTime' => $request->startTime,
+                'endTime' => $request->endTime,
+                'categories_id' => $request->category,
+                'state' => $request->state,
+                'courses_id' => $request->courses,
+            ]);
+        }
+
+        usersEvent::where('event_id', $id)->delete();
+
+        if ($request->category == 3) {
+            $estado = 'No_Aplica';
+        } else {
+            $estado = 'No_Completado';
+        }
+
+        $users = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
+        foreach ($users as $user) {
+            UsersEvent::create([
+                'user_id' => $user,
+                'event_id' => $registeredEvents->id,
+                'state' => $estado
+            ]);
+        }
 
         return redirect()->route('events.index');
     }

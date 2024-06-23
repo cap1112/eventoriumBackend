@@ -25,7 +25,7 @@
                     </div>
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Description:</label>
-                        <textarea name="description" class="bg-gray-100 h-[6rem] p-4 rounded-2xl w-[38rem]" placeholder="Choose the description">{{ $registeredCourses->description }}</textarea>
+                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[38rem]" placeholder="Choose the description">{{ $registeredCourses->description }}</textarea>
                     </div>
                     <div class="flex justify-end mr-4 col-span-2">
                         <button type="submit"
