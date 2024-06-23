@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Course;
+use App\Models\Event;
 use App\Models\UsersCourse;
+use App\Models\UsersEvent;
 use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
@@ -139,6 +141,8 @@ class UsersController extends Controller
     {
         //
         $registeredUsers = User::find($id);
+
+        if($request->image) {
         $registeredUsers->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -159,7 +163,22 @@ class UsersController extends Controller
             'image' => $file_name,
         ]);
 
+        } else {
+            $registeredUsers->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'lastname' => $request->lastname,
+                'password' => bcrypt($request->password),
+                'profile' => $request->profile,
+                'sleep_hours' => $request->sleep_hours,
+                'diseases' => $request->diseases,
+                'physical_activity' => $request->physical_activity,
+            ]);
+        }
+
         UsersCourse::where('user_id', $id)->delete();
+        UsersEvent::where('user_id', $id)->delete();
+
         $selectedCourses = $request->input('selectedCourses');
 
         foreach ($selectedCourses as $courseId) {
@@ -167,6 +186,23 @@ class UsersController extends Controller
             'user_id' => $registeredUsers->id,
             'course_id' => $courseId,
         ]);
+
+        $events = Event::where('courses_id', $courseId)->get();
+
+        foreach ($events as $event) {
+
+            if ($event->categories_id == 3) {
+                $estado = 'No_Aplica';
+            } else {
+                $estado = 'No_Completado';
+            }
+
+            UsersEvent::create([
+            'user_id' => $registeredUsers->id,
+            'event_id' => $event->id,
+            'state' => $estado
+            ]);
+        }
     }
 
         return redirect()->route('users.index');
