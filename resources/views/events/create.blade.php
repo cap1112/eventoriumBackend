@@ -65,10 +65,10 @@
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Category:</label>
                     <select name="category" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="Inactivo" selected hidden>Select a category</option>
+                        <option class="text-gray-400" value="3" selected hidden>Select a category</option>
                         <option class="text-black" value="1">Event</option>
                         <option class="text-black" value="2">Homework</option>
-                        <option class="text-black" value="3">communicate</option>
+                        <option class="text-black" value="3">Communicate</option>
                     </select>
                 </div>
                 <div class="flex flex-col">
@@ -77,6 +77,14 @@
                         <option class="text-gray-400" value="Inactivo" selected hidden>Select a state</option>
                         <option class="text-black" value="Inactivo">Inactive</option>
                         <option class="text-black" value="Activo">Active</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="" class="text-black mb-4">Course:</label>
+                    <select name="courses" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        @foreach ($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 

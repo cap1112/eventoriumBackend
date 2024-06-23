@@ -35,7 +35,7 @@
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-md font-medium leading-6 text-gray-900">Image</dt>
-                <img id="fileInputTrigger" src="{{ asset('storage/events_img/'. $registeredEvents->image) }}" alt=""
+                <img id="fileInputTrigger" src="{{ asset('storage/events_img/' . $event->image) }}" alt=""
                 class="cursor-pointer w-[10rem] h-[10rem] mr-[11rem] object-cover rounded-full border-4 border-gray-300">
                 <dd class="mt-1 text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0"></dd>
             </div>

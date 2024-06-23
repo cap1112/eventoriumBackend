@@ -7,6 +7,9 @@ use App\Models\Event;
 use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Course;
+use App\Models\UsersCourse;
+use App\Models\UsersEvent;
 
 
 
@@ -39,7 +42,8 @@ class EventsController extends Controller
     {
         //
         $events = Event::all();
-        return view('events.create', compact('events'));
+        $courses = Course::all();
+        return view('events.create', compact ('events', 'courses'));
     }
 
     /**
@@ -47,7 +51,7 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        //               
+        //              
         $events = Event::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -58,7 +62,7 @@ class EventsController extends Controller
             'categories_id' => $request->category,
             'image' => $request->image,
             'state' => $request->state,
-            'courses_id' => '1',
+            'courses_id' => $request->courses
         ]);
 
         $file = $request->file('image');
@@ -68,6 +72,21 @@ class EventsController extends Controller
         $events->update([
             'image' => $file_name
         ]);
+
+        if ($request->category == 3) {
+            $estado = 'No_Aplica';
+        } else {
+            $estado = 'No_Completado';
+        }
+
+        $users = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
+        foreach ($users as $user) {
+            UsersEvent::create([
+                'user_id' => $user,
+                'event_id' => $events->id,
+                'state' => $estado
+            ]);
+        }
 
         return redirect()->route('events.index');
     }
@@ -89,7 +108,6 @@ class EventsController extends Controller
             ->select('users.*')
             ->where('users_events.event_id', $id)
             ->get();
-
 
         return view('events.show', compact('event', 'registeredUsers'));
     }
