@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Translation\Translator;
@@ -16,6 +17,8 @@ use App\Models\EventsCourse;
 use App\Models\User;
 use App\Models\UsersCourse;
 use App\Models\UsersEvent;
+
+use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
@@ -176,17 +179,17 @@ class ApiController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'lastname' => $request->lastname,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'sleep_hours' => $request->sleep_hours,
             'image' => $request->image,
             'diseases' => $request->diseases,
             'physical_activity' => $request->physical_activity,
         ]);
-        
+
         $file = $request->file('image');
         $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
         $path = $file->storeAs('public/users_img', $file_name);
-        
+
         $user->update([
             'image' => $file_name,
         ]);
@@ -194,6 +197,36 @@ class ApiController extends Controller
 
         return redirect('http://localhost:5173/SignIn');
     }
+
+
+    public function userlogIn(Request $request)
+    {
+       
+        $user = User::select('username', 'password')->where('username', $request->user)->first();
+        if (!Hash::check($request->password, $user->password)) {
+            return response(['message' => 'Invalid credentials']);
+        }
+        $user = User::select('id')->where('username', $request->user)->first();
+        $token = $user->createToken('Token')->plainTextToken;
+
+        return response()->json([   
+            'success' => true,
+            'token' => $token,
+            'user' => $user
+        ]);
+    }
+
+    public function token(Request $request)
+    {
+        $user = $request-> User();
+        $user -> image_url = url('public/users_img'. $user->image);
+
+        return response()->json(
+            $request
+        );
+    }
+
+   
 
     //Usuario en especifico
     public function userDetail($id)

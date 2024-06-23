@@ -10,6 +10,8 @@ use App\Models\UsersCourse;
 use App\Models\UsersEvent;
 use Illuminate\Support\Facades\Session;
 
+use Illuminate\Support\Facades\Hash;
+
 class UsersController extends Controller
 {
     /**
@@ -20,7 +22,7 @@ class UsersController extends Controller
         //
         $registeredUsers = User::all();
         return view('users.index', compact('registeredUsers'));
-        
+
 
     }
 
@@ -72,22 +74,22 @@ class UsersController extends Controller
         $selectedCourses = $request->input('selectedCourses');
 
         $user = User::create([
-                'name' => $request->name,
-                'username' => $request->username,
-                'email' => $request->email,
-                'lastname' => $request->lastname,
-                'password' => bcrypt($request->password),
-                'profile' => $request->profile,
-                'sleep_hours' => $request->sleep_hours,
-                'image' => $request->image,
-                'diseases' => $request->diseases,
-                'physical_activity' => $request->physical_activity,
-            ]);
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'lastname' => $request->lastname,
+            'password' => Hash::make($request->password),
+            'profile' => $request->profile,
+            'sleep_hours' => $request->sleep_hours,
+            'image' => $request->image,
+            'diseases' => $request->diseases,
+            'physical_activity' => $request->physical_activity,
+        ]);
 
         $file = $request->file('image');
         $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/users_img', $file_name);    
-        
+        $path = $file->storeAs('public/users_img', $file_name);
+
         $user->update([
             'image' => $file_name,
         ]);
@@ -128,7 +130,7 @@ class UsersController extends Controller
                 }
             } else {
                 foreach ($selectedCourses as $courseId) {
-                UsersCourse::create([
+            UsersCourse::create([
                 'user_id' => $user->id,
                 'course_id' => $courseId,
             ]);
@@ -161,10 +163,10 @@ class UsersController extends Controller
     public function show(string $id)
     {
         //retorna la informacion de un usuario
-        
+
         $user = User::find($id);
         return view('users.show', compact('user'));
-        
+
     }
 
     /**
@@ -176,16 +178,17 @@ class UsersController extends Controller
         $registeredUsers = User::find($id);
         // $selectedCourses = Course::find($id);
 
-    //     foreach ($selectedCourses as $courseId) {
-    //         UsersCourse::create([
-    //         'user_id' => $registeredUsers->id,
-    //         'course_id' => $courseId,
-    //     ]);
-    // }
+        //     foreach ($selectedCourses as $courseId) {
+        //         UsersCourse::create([
+        //         'user_id' => $registeredUsers->id,
+        //         'course_id' => $courseId,
+        //     ]);
+        // }
         $courses = Course::all();
         return view('users.edit', compact('registeredUsers', 'courses'));
 
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -212,8 +215,8 @@ class UsersController extends Controller
 
         $file = $request->file('image');
         $file_name = 'usuario_' . $registeredUsers->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/users_img', $file_name);    
-        
+        $path = $file->storeAs('public/users_img', $file_name);
+
         $registeredUsers->update([
             'image' => $file_name,
         ]);
@@ -244,10 +247,10 @@ class UsersController extends Controller
 
                     foreach ($selectedCourses as $courseId) {
                         UsersCourse::create([
-                        'user_id' => $registeredUsers->id,
-                        'course_id' => $courseId,
-                    ]);
-            
+                            'user_id' => $registeredUsers->id,
+                            'course_id' => $courseId,
+                        ]);
+                
                     $events = Event::where('courses_id', $courseId)->get();
                     foreach ($events as $event) {
             
@@ -306,11 +309,11 @@ class UsersController extends Controller
         if ($user->profile == 'Admin') {
             Session::flash('success', 'You cannot delete an administrator user.');
             return redirect()->route('users.index');
-        }else if ($user->profile == 'Estudiante' || $user->profile == 'Profesor') {
+        } else if ($user->profile == 'Estudiante' || $user->profile == 'Profesor') {
             $user->delete();
             Session::flash('success', 'Successfully deleted user.');
             return redirect()->route('users.index');
-        }else {
+        } else {
             Session::flash('success', 'You cant delete this user. Please try again.');
             return redirect()->route('users.index');
         }

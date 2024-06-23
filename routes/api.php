@@ -32,7 +32,6 @@ Route::get('/event/{id}', [ApiController::class, 'eventDetail']);
 Route::get('/calendar', [ApiController::class, 'eventCalendar']);
 
 Route::get('/user/all', [ApiController::class, 'userList']);
-Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::get('/user/{id}', [ApiController::class, 'userDetail']);
 
 Route::get('/eventCourse/all', [ApiController::class, 'eventCourses']);
@@ -52,3 +51,15 @@ Route::get('/calendar/{id}', [ApiController::class, 'userCourseEvents']);
 Route::get('/events/{id}', [ApiController::class, 'userCourseEventsDetail']);
 
 Route::get('/eventDetail/{id}', [ApiController::class, 'userCourseEventsDetail_Event']);
+
+Route::post('/user/create', [ApiController::class, 'userStore']);
+Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
+// Route::get('/user/token', [ApiController::class, 'token']);
+
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::get('/user/token', [ApiController::class, 'token']);
+});
+
+// Route::middleware('auth:api')->get('/user/token', [ApiController::class, 'token']);
+
+// Route::middleware('auth:sanctum')->get('/user/logout', [ApiController::class, 'userlogOut']);
