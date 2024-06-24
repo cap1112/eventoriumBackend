@@ -46,11 +46,13 @@ Route::get('/userEvents/user/{id}', [ApiController::class, 'userEvents']);
 
 //De aqui en adelante, los links de los apis que se usan en el frontend
 
-Route::get('/calendar/{id}', [ApiController::class, 'userCourseEvents']);
+Route::get('/calendar/{id}', [ApiController::class, 'userEventCalendar']);
 
-Route::get('/events/{id}', [ApiController::class, 'userCourseEventsDetail']);
+Route::get('/userEvents/{id}', [ApiController::class, 'userCourseEvents']);
 
-Route::get('/eventDetail/{id}', [ApiController::class, 'userCourseEventsDetail_Event']);
+Route::get('/eventDetail/{id}', [ApiController::class, 'userCourseEventDetail']);
+
+Route::get('/userEventDetail/{idEvent}/{idUser}', [ApiController::class, 'userEvent']);
 
 Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
