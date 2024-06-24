@@ -54,12 +54,11 @@ Route::get('/eventDetail/{id}', [ApiController::class, 'userCourseEventsDetail_E
 
 Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
-// Route::get('/user/token', [ApiController::class, 'token']);
+Route::get('/enrollCourse/{id}', [ApiController::class, 'userEnrollCourses']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
-    Route::get('/user/token', [ApiController::class, 'token']);
+    Route::get('/token', [ApiController::class, 'token']);
 });
 
-// Route::middleware('auth:api')->get('/user/token', [ApiController::class, 'token']);
 
 // Route::middleware('auth:sanctum')->get('/user/logout', [ApiController::class, 'userlogOut']);

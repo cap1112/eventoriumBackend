@@ -174,6 +174,7 @@ class ApiController extends Controller
     public function userStore(Request $request)
     {
         //
+
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
@@ -201,7 +202,7 @@ class ApiController extends Controller
 
     public function userlogIn(Request $request)
     {
-       
+
         $user = User::select('username', 'password')->where('username', $request->user)->first();
         if (!Hash::check($request->password, $user->password)) {
             return response(['message' => 'Invalid credentials']);
@@ -209,7 +210,7 @@ class ApiController extends Controller
         $user = User::select('id')->where('username', $request->user)->first();
         $token = $user->createToken('Token')->plainTextToken;
 
-        return response()->json([   
+        return response()->json([
             'success' => true,
             'token' => $token,
             'user' => $user
@@ -218,15 +219,31 @@ class ApiController extends Controller
 
     public function token(Request $request)
     {
-        $user = $request-> User();
-        $user -> image_url = url('public/users_img'. $user->image);
+        $user = $request->user();
+        $user->image_url = url('storage/users_img/' . $user->image);
 
         return response()->json(
-            $request
+            $user
         );
     }
 
-   
+    public function userEnrollCourses($id)
+    {
+        $registeredCourses = UsersCourse::select(
+            'users_courses.id as id',
+            'users_courses.user_id as user_id',
+            'users_courses.course_id as course_id',
+            'courses.initial as initial'
+        )
+            ->join('courses', 'courses.id', '=', 'users_courses.course_id')
+            ->where('users_course.user_id', $id)
+            ->get();
+        
+        return response()->json(
+            $registeredCourses
+        );
+    }
+
 
     //Usuario en especifico
     public function userDetail($id)
