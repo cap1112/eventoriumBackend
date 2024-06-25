@@ -24,4 +24,8 @@ class User extends Authenticatable
         'diseases',
         'physical_activity',
     ];
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'users_courses', 'user_id', 'course_id');
+    }
 }

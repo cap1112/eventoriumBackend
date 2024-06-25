@@ -33,7 +33,7 @@
                         <label for="" class="text-black mb-4">Title:</label>
                         <input name="title" type="text"
                             class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
-                            placeholder="Enter the tilte of the event">
+                            placeholder="Enter the title of the event">
 
                         <label for="" class="text-black my-4">Description:</label>
                         <input name="description" type="text"
