@@ -56,7 +56,9 @@ Route::get('/userEventDetail/{idEvent}/{idUser}', [ApiController::class, 'userEv
 
 Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
+Route::post('/updateProfile', [ApiController::class, 'updateProfile']);
 Route::get('/enrollCourse/{id}', [ApiController::class, 'userEnrollCourses']);
+
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/token', [ApiController::class, 'token']);

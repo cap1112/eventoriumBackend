@@ -203,11 +203,11 @@ class ApiController extends Controller
     public function userlogIn(Request $request)
     {
 
-        $user = User::select('username', 'password')->where('username', $request->user)->first();
+        $user = User::select('email', 'password')->where('email', $request->user)->first();
         if (!Hash::check($request->password, $user->password)) {
             return response(['message' => 'Invalid credentials']);
         }
-        $user = User::select('id')->where('username', $request->user)->first();
+        $user = User::select('id')->where('email', $request->user)->first();
         $token = $user->createToken('Token')->plainTextToken;
 
         return response()->json([
@@ -221,6 +221,17 @@ class ApiController extends Controller
     {
         $user = $request->user();
         $user->image_url = url('storage/users_img/' . $user->image);
+
+        return response()->json(
+            $user
+        );
+    }
+
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+        $user->save($request->all());
 
         return response()->json(
             $user
