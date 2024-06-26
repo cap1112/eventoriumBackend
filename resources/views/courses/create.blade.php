@@ -48,13 +48,11 @@
                         @endforeach
                     </div>
                 </div>
-
-
-
                 <div class="flex justify-end mr-4 col-span-2">
                     <button type="submit"
                         class="my-2 w-[10rem] bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add
-                        course</button>
+                        course
+                    </button>
                 </div>
             </div>
         </form>

@@ -156,6 +156,386 @@ class ApiController extends Controller
         return $userEvent;
     }
 
+    public function userCourses($id) {
+        $userCourses = UsersCourse::select(
+            'users_courses.user_id as user_id',
+            'users_courses.course_id as course_id',
+            'courses.initial as initial',
+        )
+        ->join('courses', 'courses.id', '=', 'users_courses.course_id')        
+        ->where('users_courses.user_id', $id)
+        ->orderBy('users_courses.course_id', 'asc')
+        ->get();
+
+        return $userCourses;
+    }
+
+    public function categories() {
+
+        $categories = Category::select(
+            'categories.id as id',
+            'categories.name as name',
+        )
+        ->get();
+
+        return $categories;
+    }
+
+    public function searchUserEvents($id) {
+        $searchUserEvents = Event::select(
+            'events.id as id',
+            'events.id as event_id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'courses.initial as course_initial',
+            'users_courses.user_id as user_id',
+            'users.name as user_name',
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events.courses_id', '=', 'courses.id')
+        ->join('users_courses', 'events.courses_id', '=', 'users_courses.course_id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
+        ->where('users_courses.user_id', $id)
+        ->get();
+
+        foreach ($searchUserEvents as $EventDetail) {
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $searchUserEvents;
+    }
+
+    public function searchUserEvents_Event($userId, $categoryName) {
+
+        $searchUserEvents = Event::select(
+            'events.id as id',
+            'events.id as event_id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'courses.initial as course_initial',
+            'users_courses.user_id as user_id',
+            'users.name as user_name',
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events.courses_id', '=', 'courses.id')
+        ->join('users_courses', 'events.courses_id', '=', 'users_courses.course_id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
+        ->where('categories.name', $categoryName)
+        ->where('users_courses.user_id', $userId)
+        ->get();
+
+        foreach ($searchUserEvents as $EventDetail) {
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $searchUserEvents;
+    }
+
+    public function searchUserEvents_Course($userId, $courseInitial) {
+
+        $searchUserEvents = Event::select(
+            'events.id as id',
+            'events.id as event_id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'courses.initial as course_initial',
+            'users_courses.user_id as user_id',
+            'users.name as user_name',
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events.courses_id', '=', 'courses.id')
+        ->join('users_courses', 'events.courses_id', '=', 'users_courses.course_id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
+        ->where('courses.initial', $courseInitial)
+        ->where('users_courses.user_id', $userId)
+        ->get();
+
+        foreach ($searchUserEvents as $EventDetail) {
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $searchUserEvents;
+    }
+
+    public function searchUserEvents_Event_Course($userId, $categoryName, $courseInitial) {
+
+        $searchUserEvents = Event::select(
+            'events.id as id',
+            'events.id as event_id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'courses.initial as course_initial',
+            'users_courses.user_id as user_id',
+            'users.name as user_name',
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events.courses_id', '=', 'courses.id')
+        ->join('users_courses', 'events.courses_id', '=', 'users_courses.course_id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
+        ->where('categories.name', $categoryName)
+        ->where('courses.initial', $courseInitial)
+        ->where('users_courses.user_id', $userId)
+        ->get();
+
+        foreach ($searchUserEvents as $EventDetail) {
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $searchUserEvents;
+    }
+
+    public function searchUserEvents_Search($userId, $eventName) {
+
+        $searchUserEvents = Event::select(
+            'events.id as id',
+            'events.id as event_id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'courses.initial as course_initial',
+            'users_courses.user_id as user_id',
+            'users.name as user_name',
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events.courses_id', '=', 'courses.id')
+        ->join('users_courses', 'events.courses_id', '=', 'users_courses.course_id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
+        ->where('events.title', 'like', '%'.$eventName.'%')
+        ->where('users_courses.user_id', $userId)
+        ->get();
+
+        foreach ($searchUserEvents as $EventDetail) {
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $searchUserEvents;
+    }
+
+    public function searchUserEvents_Search_Event($userId, $eventName, $categoryName) {
+
+        $searchUserEvents = Event::select(
+            'events.id as id',
+            'events.id as event_id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'courses.initial as course_initial',
+            'users_courses.user_id as user_id',
+            'users.name as user_name',
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events.courses_id', '=', 'courses.id')
+        ->join('users_courses', 'events.courses_id', '=', 'users_courses.course_id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
+        ->where('events.title', 'like', '%'.$eventName.'%')
+        ->where('categories.name', $categoryName)
+        ->where('users_courses.user_id', $userId)
+        ->get();
+
+        foreach ($searchUserEvents as $EventDetail) {
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $searchUserEvents;
+    }
+
+    public function searchUserEvents_Search_Course($userId, $eventName, $courseInitial) {
+
+        $searchUserEvents = Event::select(
+            'events.id as id',
+            'events.id as event_id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'courses.initial as course_initial',
+            'users_courses.user_id as user_id',
+            'users.name as user_name',
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events.courses_id', '=', 'courses.id')
+        ->join('users_courses', 'events.courses_id', '=', 'users_courses.course_id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
+        ->where('events.title', 'like', '%'.$eventName.'%')
+        ->where('courses.initial', $courseInitial)
+        ->where('users_courses.user_id', $userId)
+        ->get();
+
+        foreach ($searchUserEvents as $EventDetail) {
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $searchUserEvents;
+    }
+
+    public function searchUserEvents_Search_Event_Course($userId, $eventName, $categoryName, $courseInitial) {
+
+        $searchUserEvents = Event::select(
+            'events.id as id',
+            'events.id as event_id',
+            'events.title as event_name',
+            'events.description as event_description',
+            'events.start as event_date_start',
+            'events.end as event_date_end',
+            'events.start as event_date_start_short',
+            'events.end as event_date_end_short',
+            'events.startTime as event_time_start',
+            'events.endTime as event_time_end',
+            'events.image as event_image',
+            'events.state as event_state',
+            'categories.name as category_name',
+            'courses.name as course_name',
+            'courses.initial as course_initial',
+            'users_courses.user_id as user_id',
+            'users.name as user_name',
+        )
+        ->join('categories', 'events.categories_id', '=', 'categories.id')
+        ->join('courses', 'events.courses_id', '=', 'courses.id')
+        ->join('users_courses', 'events.courses_id', '=', 'users_courses.course_id')
+        ->join('users', 'users_courses.user_id', '=', 'users.id')
+        ->where('events.title', 'like', '%'.$eventName.'%')
+        ->where('categories.name', $categoryName)
+        ->where('courses.initial', $courseInitial)
+        ->where('users_courses.user_id', $userId)
+        ->get();
+
+        foreach ($searchUserEvents as $EventDetail) {
+            Carbon::setLocale('es');
+
+            $EventDetail->event_date_start = Carbon::parse($EventDetail->event_date_start)->translatedFormat('l j \\d\\e F');
+            $EventDetail->event_date_end = Carbon::parse($EventDetail->event_date_end)->translatedFormat('l j \\d\\e F');
+
+            $EventDetail->event_date_start_short = Carbon::parse($EventDetail->event_date_start_short)->translatedFormat('j \\d\\e F');
+            $EventDetail->event_date_end_short = Carbon::parse($EventDetail->event_date_end_short)->translatedFormat('j \\d\\e F');
+
+            $EventDetail->event_time_start = Carbon::parse($EventDetail->event_time_start)->formatLocalized('%I:%M %p');
+            $EventDetail->event_time_end = Carbon::parse($EventDetail->event_time_end)->formatLocalized('%I:%M %p');
+        }
+        return $searchUserEvents;
+    }
+
     public function userEventsIncomplete($id){
 
         $userEventsIncomplete = UsersEvent::select(

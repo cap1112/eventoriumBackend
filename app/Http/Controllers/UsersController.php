@@ -185,6 +185,7 @@ class UsersController extends Controller
         //     ]);
         // }
         $courses = Course::all();
+        $userCourses = UsersCourse::where('user_id', $id)->get();
         return view('users.edit', compact('registeredUsers', 'courses'));
 
     }

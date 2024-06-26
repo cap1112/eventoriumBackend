@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\UsersEvent;
+use App\Models\UsersCourse;
 
 class CoursesController extends Controller
 {
@@ -38,8 +39,7 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        
+        //        
         $course = Course::create([
                   'initial' => $request->initial,
                   'name' => $request->name,
@@ -47,7 +47,13 @@ class CoursesController extends Controller
         ]);
         
         $studentIds = $request->students;
-        $course->users()->attach($studentIds);
+
+        foreach ($studentIds as $studentId) {
+            UsersCourse::create([
+                'user_id' => $studentId,
+                'course_id' => $course->id,
+            ]);
+        }
 
         return redirect()->route('courses.index');
     }
@@ -139,9 +145,6 @@ class CoursesController extends Controller
                 if (!in_array($userId, $studentIds)) {
                     // Opción 1: Eliminar el registro
                     UsersEvent::where('user_id', $userId)->where('event_id', $event->id)->delete();
-    
-                    // Opción 2: Actualizar el estado a 'desmatriculado' o similar
-                    // UserEvent::where('user_id', $userId)->where('event_id', $event->id)->update(['status' => 'desmatriculado']);
                 }
             }
         }

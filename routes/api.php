@@ -25,6 +25,20 @@ Route::get('/userEvents/{id}', [ApiController::class, 'userCourseEvents']);
 Route::get('/eventDetail/{id}', [ApiController::class, 'userCourseEventDetail']);
 Route::get('/userEventDetail/{idEvent}/{idUser}', [ApiController::class, 'userEvent']);
 
+Route::get('/userCourses/{id}', [ApiController::class, 'userCourses']);
+Route::get('/categories', [ApiController::class, 'categories']);
+
+Route::get('/searchUserEvents/{userId}', [ApiController::class, 'searchUserEvents']);
+Route::get('/searchUserEvents/{userId}/{categoryName}', [ApiController::class, 'searchUserEvents_Event']);
+Route::get('/searchUserEvents/{userId}//{courseInitial}', [ApiController::class, 'searchUserEvents_Course']);
+Route::get('/searchUserEvents/{userId}/{categoryName}/{courseInitial}', [ApiController::class, 'searchUserEvents_Event_Course']);
+
+Route::get('/searchUserEvents_Search/{userId}/{search}', [ApiController::class, 'searchUserEvents_Search']);
+Route::get('/searchUserEvents_Search/{userId}/{search}/{categoryName}', [ApiController::class, 'searchUserEvents_Search_Event']);
+Route::get('/searchUserEvents_Search/{userId}/{search}//{courseInitial}', [ApiController::class, 'searchUserEvents_Search_Course']);
+Route::get('/searchUserEvents_Search/{userId}/{search}/{categoryName}/{courseInitial}', [ApiController::class, 'searchUserEvents_Search_Event_Course']);
+
+
 Route::get('/userEventsIncomplete/{id}', [ApiController::class, 'userEventsIncomplete']);
 Route::get('/userEventsComplete/{id}', [ApiController::class, 'userEventsComplete']);
 
