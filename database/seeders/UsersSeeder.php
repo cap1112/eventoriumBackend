@@ -62,7 +62,7 @@ class UsersSeeder extends Seeder
             'sleep_hours' => 5,
             'diseases' => 'Hipertension',
             'physical_activity' => 'Activo',
-            'image' => 'usuario_4.jpg'
+            'image' => 'usuario_4.png'
         ]);
 
         User::create([

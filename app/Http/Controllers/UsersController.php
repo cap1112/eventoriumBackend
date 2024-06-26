@@ -234,10 +234,11 @@ class UsersController extends Controller
             ]);
         }
 
+
         UsersCourse::where('user_id', $id)->delete();
         UsersEvent::where('user_id', $id)->delete();
 
-        //Logica detras de si se seleccionaron courses o no, o si se incluyo un 0 como course
+        //Logica detras de si se seleccionaron courses o no, o si se incluyo "Select a Course" como curso
         if (is_string($selectedCourses)) {
             //No ocurre nada
         } else {

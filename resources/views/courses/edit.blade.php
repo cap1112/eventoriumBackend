@@ -25,8 +25,8 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Name:</label>
-                    <input name="name" value={{ $registeredCourses->name }} type="text"
-                        class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" placeholder="Enter the Name">
+                    <textarea name="name" class="bg-gray-100 h-[3.5rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Choose the description">{{ $registeredCourses->name }}</textarea>
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Description:</label>

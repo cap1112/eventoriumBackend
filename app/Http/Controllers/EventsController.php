@@ -10,8 +10,7 @@ use App\Models\User;
 use App\Models\Course;
 use App\Models\UsersCourse;
 use App\Models\UsersEvent;
-
-
+use Carbon\Carbon;
 
 class EventsController extends Controller
 {
@@ -23,6 +22,17 @@ class EventsController extends Controller
     {
         $registeredEvents = Event::all();
         $registeredCategories = Category::all();
+
+        //Comprueba si la fecha de un evento es pasada a hoy y le cambia su estado a inactivo.
+        foreach ($registeredEvents as $event) {
+            $date = Carbon::parse($event->end);
+            if ($date->isPast()) {
+                $event->update([
+                    'state' => 2,
+                ]);                
+            }
+        }
+
 
         //donde la llave foranea categories_id sea igual a la llave primaria id de categories lo agregamos a la variable $registeredEvents
         $registeredEvents = Event::join('categories', 'categories.id', '=', 'events.categories_id')
@@ -132,7 +142,32 @@ class EventsController extends Controller
         //
         $registeredEvents = Event::find($id);
 
+        if ($request->courses != $registeredEvents->courses_id) {            
+            //Comprueba si el curso ingresado en el request es diferente al anterior, para asi poder actualizar la tabla users_event de acuerdo al cambio   
+                     
+            //Elimina todos los usuarios del evento
+            usersEvent::where('event_id', $id)->delete();
+
+            //Asigna un valor de estado dependiendo del tipo de evento
+            if ($request->category == 3) {
+                $estado = 'No_Aplica';
+            } else {
+                $estado = 'No_Completado';
+            }
+    
+            //Vuelve a crear a los usuarios del evento con el nuevo curso dado.
+            $users = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
+            foreach ($users as $user) {
+                UsersEvent::create([
+                    'user_id' => $user,
+                    'event_id' => $registeredEvents->id,
+                    'state' => $estado
+                ]);
+            }
+        }
+
         if($request->image) {
+            //Comprobamos si hay imagen y la guardamos
             $registeredEvents->update([
                 'title' => $request->title,
                 'description' => $request->description,
@@ -155,6 +190,7 @@ class EventsController extends Controller
             ]);
 
         } else {
+            //Como no hay imagen, se deduce que es la misma que antes y se omite su actualizacion.
             $registeredEvents->update([
                 'title' => $request->title,
                 'description' => $request->description,
@@ -165,23 +201,6 @@ class EventsController extends Controller
                 'categories_id' => $request->category,
                 'state' => $request->state,
                 'courses_id' => $request->courses,
-            ]);
-        }
-
-        usersEvent::where('event_id', $id)->delete();
-
-        if ($request->category == 3) {
-            $estado = 'No_Aplica';
-        } else {
-            $estado = 'No_Completado';
-        }
-
-        $users = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
-        foreach ($users as $user) {
-            UsersEvent::create([
-                'user_id' => $user,
-                'event_id' => $registeredEvents->id,
-                'state' => $estado
             ]);
         }
 
