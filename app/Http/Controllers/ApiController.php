@@ -566,7 +566,7 @@ class ApiController extends Controller
         return $userEventsComplete;
     }
 
-    //Api para crear usuarios
+    //Api Registration/SignIn
     public function userStore(Request $request)
     {
         //

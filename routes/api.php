@@ -51,5 +51,3 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/token', [ApiController::class, 'token']);
 });
 
-
-// Route::middleware('auth:sanctum')->get('/user/logout', [ApiController::class, 'userlogOut']);
