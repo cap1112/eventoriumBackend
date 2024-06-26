@@ -20,45 +20,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/category/all', [ApiController::class, 'categoryList']);
-Route::get('/category/{id}', [ApiController::class, 'categoryDetail']);
-
-Route::get('/course/all', [ApiController::class, 'courseList']);
-Route::get('/course/{id}', [ApiController::class, 'courseDetail']);
-
-Route::get('/event/all', [ApiController::class, 'eventList']);
-Route::get('/event/{id}', [ApiController::class, 'eventDetail']);
-
-Route::get('/calendar', [ApiController::class, 'eventCalendar']);
-
-Route::get('/user/all', [ApiController::class, 'userList']);
-Route::get('/user/{id}', [ApiController::class, 'userDetail']);
-
-Route::get('/eventCourse/all', [ApiController::class, 'eventCourses']);
-Route::get('/eventCourse/course/{id}', [ApiController::class, 'eventCourses_Course']);
-Route::get('/eventCourse/event/{id}', [ApiController::class, 'eventCourses_Event']);
-
-Route::get('/userCourse/all', [ApiController::class, 'usersCourses']);
-Route::get('/userCourse/course/{id}', [ApiController::class, 'usersCourses_Course']);
-Route::get('/userCourse/user/{id}', [ApiController::class, 'usersCourses_User']);
-
-Route::get('/userEvents/user/{id}', [ApiController::class, 'userEvents']);
-
-//De aqui en adelante, los links de los apis que se usan en el frontend
-
 Route::get('/calendar/{id}', [ApiController::class, 'userEventCalendar']);
-
 Route::get('/userEvents/{id}', [ApiController::class, 'userCourseEvents']);
-
 Route::get('/eventDetail/{id}', [ApiController::class, 'userCourseEventDetail']);
-
 Route::get('/userEventDetail/{idEvent}/{idUser}', [ApiController::class, 'userEvent']);
+
+Route::get('/userEventsIncomplete/{id}', [ApiController::class, 'userEventsIncomplete']);
+Route::get('/userEventsComplete/{id}', [ApiController::class, 'userEventsComplete']);
 
 Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
 Route::post('/updateProfile', [ApiController::class, 'updateProfile']);
 Route::get('/enrollCourse/{id}', [ApiController::class, 'userEnrollCourses']);
-
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/token', [ApiController::class, 'token']);
