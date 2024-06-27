@@ -16,7 +16,6 @@
                 <p>{{ $message }}</p>
             </div>
     @endif
-    <input type="text" id="search" placeholder="Search courses">
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white" id="courseTableContainer">
             <thead class="bg-gray-100 text-center">

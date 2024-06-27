@@ -15,7 +15,6 @@
                 <p>{{ $message }}</p>
             </div>
         @endif
-        <input type="text" id="search" placeholder="Search users">
         <div class="overflow-x-auto overflow-y-auto h-[80vh]">
             <table class="min-w-full bg-white" id="userTableContainer">
                 <thead class="bg-gray-100 text-center">

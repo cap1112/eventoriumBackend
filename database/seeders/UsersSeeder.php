@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
 {
@@ -83,7 +84,7 @@ class UsersSeeder extends Seeder
             'lastname' => 'eventorium',
             'username' => 'admin_2024',
             'email' => 'admin@eventorium.com',
-            'password' => bcrypt('admin'),
+            'password' =>  Hash::make('admin'),
             'profile' => 'admin',
             'sleep_hours' => 0,
             'diseases' => 'Obesidad',
