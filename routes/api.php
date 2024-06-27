@@ -41,6 +41,8 @@ Route::get('/searchUserEvents_Search/{userId}/{search}/{categoryName}/{courseIni
 Route::get('/userEventsIncomplete/{id}', [ApiController::class, 'userEventsIncomplete']);
 Route::get('/userEventsComplete/{id}', [ApiController::class, 'userEventsComplete']);
 
+Route::post('/updateEvent', [ApiController::class, 'updateEvent']);
+
 Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
 // Route::post('/updateProfile', [ApiController::class, 'updateProfile']);

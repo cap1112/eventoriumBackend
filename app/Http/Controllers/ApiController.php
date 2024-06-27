@@ -579,6 +579,17 @@ class ApiController extends Controller
         return $userEventsComplete;
     }
 
+    public function updateEvent(Request $request){
+
+        $userEvents = UsersEvent::where('user_id', $request->user_id)->where('event_id', $request->event_id)
+            ->update([
+                'state' => $request->state,
+            ]);
+
+
+        return redirect($request->url);
+    }
+
     //Api Registration/SignIn
     public function userStore(Request $request)
     {
