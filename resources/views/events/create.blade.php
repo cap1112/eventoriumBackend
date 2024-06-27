@@ -25,7 +25,7 @@
                 <div class="flex col-span-2 items-center">
                     <div class=" flex flex-col">
                         <input id="fileInput" name="image" type="file" class="hidden" accept="image/*">
-                        <img id="fileInputTrigger" src="{{ asset('icons/camare_icon.svg') }}" alt=""
+                        <img id="fileInputTrigger" src="{{ asset('storage/events_img/default-event.png') }}" alt=""
                             class="cursor-pointer w-[10rem] h-[10rem] mr-[3rem] object-cover rounded-full border-4 border-gray-300">
                         <label for="" class="ml-10 mt-4">Event Image</label>
                     </div>

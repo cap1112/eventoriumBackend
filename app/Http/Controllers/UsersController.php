@@ -71,28 +71,43 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
-        $selectedCourses = $request->input('selectedCourses');       
-
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'lastname' => $request->lastname,
-            'password' => Hash::make($request->password),
-            'profile' => $request->profile,
-            'sleep_hours' => $request->sleep_hours,
-            'image' => $request->image,
-            'diseases' => $request->diseases,
-            'physical_activity' => $request->physical_activity,
-        ]);
-
-        $file = $request->file('image');
-        $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/users_img', $file_name);
-
-        $user->update([
-            'image' => $file_name,
-        ]);
+        $selectedCourses = $request->input('selectedCourses');
+        
+        if ($request->image) {
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'lastname' => $request->lastname,
+                'password' => Hash::make($request->password),
+                'profile' => $request->profile,
+                'sleep_hours' => $request->sleep_hours,
+                'image' => $request->image,
+                'diseases' => $request->diseases,
+                'physical_activity' => $request->physical_activity,
+            ]);
+    
+            $file = $request->file('image');
+            $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/users_img', $file_name);
+    
+            $user->update([
+                'image' => $file_name,
+            ]);
+        } else {
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'lastname' => $request->lastname,
+                'password' => Hash::make($request->password),
+                'profile' => $request->profile,
+                'sleep_hours' => $request->sleep_hours,
+                'image' => 'default.png',
+                'diseases' => $request->diseases,
+                'physical_activity' => $request->physical_activity,
+            ]);
+        }
 
 
          //Logica detras de si se seleccionaron cursos o no

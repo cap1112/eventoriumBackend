@@ -61,27 +61,43 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        //              
-        $events = Event::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'start' => $request->start,
-            'end' => $request->end,
-            'startTime' => $request->startTime,
-            'endTime' => $request->endTime,
-            'categories_id' => $request->category,
-            'image' => $request->image,
-            'state' => $request->state,
-            'courses_id' => $request->courses
-        ]);
-
-        $file = $request->file('image');
-        $file_name = 'event_' . $events->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/events_img', $file_name);
-
-        $events->update([
-            'image' => $file_name
-        ]);
+        //     
+        
+        if ($request->image) {
+            $events = Event::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'start' => $request->start,
+                'end' => $request->end,
+                'startTime' => $request->startTime,
+                'endTime' => $request->endTime,
+                'categories_id' => $request->category,
+                'image' => $request->image,
+                'state' => $request->state,
+                'courses_id' => $request->courses
+            ]);
+    
+            $file = $request->file('image');
+            $file_name = 'event_' . $events->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/events_img', $file_name);
+    
+            $events->update([
+                'image' => $file_name
+            ]);
+        } else{
+            $events = Event::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'start' => $request->start,
+                'end' => $request->end,
+                'startTime' => $request->startTime,
+                'endTime' => $request->endTime,
+                'categories_id' => $request->category,
+                'image' => "default-event.png",
+                'state' => $request->state,
+                'courses_id' => $request->courses
+            ]);
+        }
 
         if ($request->category == 3) {
             $estado = 'No_Aplica';
