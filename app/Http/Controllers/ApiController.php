@@ -682,4 +682,21 @@ class ApiController extends Controller
 
         return redirect($request->url);
     }
+
+    public function recoveryPassword(Request $request)
+    {
+        $user = User::select('email')->where('email', $request->email)->first();
+        if ($user) {
+            $user = User::select('id')->where('email', $request->email)->first();
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+
+            return redirect('http://localhost:5173/SignIn');
+
+        }
+    }
+
+
+
 }

@@ -45,6 +45,7 @@ Route::post('/updateEvent', [ApiController::class, 'updateEvent']);
 
 Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
+Route::post('/recoveryPassword', [ApiController::class, 'recoveryPassword']);
 // Route::post('/updateProfile', [ApiController::class, 'updateProfile']);
 Route::get('/enrollCourse/{id}', [ApiController::class, 'userEnrollCourses']);
 
