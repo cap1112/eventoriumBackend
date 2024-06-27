@@ -23,7 +23,7 @@
                     <div class=" flex flex-col">
                         <input id="fileInput" name="image" type="file" class="hidden" accept="image/*">
                         <img id="fileInputTrigger" src="{{ asset('storage/events_img/' . $registeredEvents->image) }}"
-                            alt=""
+                            alt="Event Image"
                             class="cursor-pointer w-[10rem] h-[10rem] mr-[11rem] object-cover rounded-full border-4 border-gray-300">
                         <label for="" class="ml-10 mt-4">Event Image</label>
                     </div>
