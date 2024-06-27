@@ -594,25 +594,39 @@ class ApiController extends Controller
     public function userStore(Request $request)
     {
         //
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'lastname' => $request->lastname,
-            'password' => Hash::make($request->password),
-            'sleep_hours' => $request->sleep_hours,
-            'image' => $request->image,
-            'diseases' => $request->diseases,
-            'physical_activity' => $request->physical_activity,
-        ]);
+        if ($request->image) {            
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'lastname' => $request->lastname,
+                'password' => Hash::make($request->password),
+                'sleep_hours' => $request->sleep_hours,
+                'image' => $request->image,
+                'diseases' => $request->diseases,
+                'physical_activity' => $request->physical_activity,
+            ]);
 
-        $file = $request->file('image');
-        $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('public/users_img', $file_name);
+            $file = $request->file('image');
+            $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/users_img', $file_name);
 
-        $user->update([
-            'image' => $file_name,
-        ]);
+            $user->update([
+                'image' => $file_name,
+            ]);
+        } else {
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'lastname' => $request->lastname,
+                'password' => Hash::make($request->password),
+                'sleep_hours' => $request->sleep_hours,
+                'image' => 'default-user.png',
+                'diseases' => $request->diseases,
+                'physical_activity' => $request->physical_activity,
+            ]);
+        }
 
         return redirect($request->url);
     }
@@ -646,39 +660,35 @@ class ApiController extends Controller
     }
     public function updateProfile(Request $request)
     {
-        // Validar los datos de entrada
-        $validatedData = $request->validate([
-            'username' => 'required|string|max:255',
-            'diseases' => 'nullable|string|max:255',
-            'physical_activity' => 'nullable|string|max:255',
-            'sleep_hours' => 'nullable|integer|min:0|max:24',
-            'email' => 'required|email|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validar la imagen
-        ]);
-
         $user = User::find($request->userId);
 
-        // Actualizar los campos del usuario
-        $user->username = $validatedData['username'];
-        $user->diseases = $validatedData['diseases'] ?? $user->diseases;
-        $user->physical_activity = $validatedData['physical_activity'] ?? $user->physical_activity;
-        $user->sleep_hours = $validatedData['sleep_hours'] ?? $user->sleep_hours;
-        $user->email = $validatedData['email'];
+        if ($request->image) {            
+            $user ->update([
+                'username' => $request->username,
+                'email' => $request->email,
+                'sleep_hours' => $request->sleep_hours,
+                'image' => $request->image,
+                'diseases' => $request->diseases,
+                'physical_activity' => $request->physical_activity,
+            ]);
 
-        // Verificar si hay una imagen y procesarla
-        if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $fileName = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('public/users_img', $fileName);
+            $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/users_img', $file_name);
 
-            // Si se guarda la imagen con éxito, actualizar el campo de la imagen del usuario
-            if ($path) {
-                $user->image = $fileName;
-            }
+            $user->update([
+                'image' => $file_name,
+            ]);
+        } else {
+            $user->update([
+                'username' => $request->username,
+                'email' => $request->email,
+                'sleep_hours' => $request->sleep_hours,
+                'diseases' => $request->diseases,
+                'physical_activity' => $request->physical_activity,
+            ]);
+
         }
-
-        // Guardar los cambios del usuario
-        $user->save();
 
         return redirect($request->url);
     }

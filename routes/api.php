@@ -45,13 +45,8 @@ Route::post('/updateEvent', [ApiController::class, 'updateEvent']);
 
 Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
-Route::post('/recoveryPassword', [ApiController::class, 'recoveryPassword']);
-// Route::post('/updateProfile', [ApiController::class, 'updateProfile']);
-Route::get('/enrollCourse/{id}', [ApiController::class, 'userEnrollCourses']);
-
-
 Route::post('/updateProfile', [ApiController::class, 'updateProfile']);
-// Route::middleware('auth:sanctum')->post('/updateProfile', [ApiController::class, 'updateProfile']);
+Route::post('/recoveryPassword', [ApiController::class, 'recoveryPassword']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/token', [ApiController::class, 'token']);
