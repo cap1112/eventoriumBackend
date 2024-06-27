@@ -115,14 +115,17 @@ class CoursesController extends Controller
         // Desmatricular estudiantes que no están en la nueva lista
         foreach ($currentlyEnrolledStudents as $enrolledStudentId) {
             if (!in_array($enrolledStudentId, $studentIds)) {
-                $registeredCourse->users()->detach($enrolledStudentId);
+                UsersCourse::where('user_id', $enrolledStudentId)->where('course_id', $id)->delete();     
             }
         }
     
         // Matricular nuevos estudiantes
         foreach ($studentIds as $studentId) {
             if (!in_array($studentId, $currentlyEnrolledStudents)) {
-                $registeredCourse->users()->attach($studentId);
+                UsersCourse::create([
+                    'user_id' => $studentId,
+                    'course_id' => $id,
+                ]);
             }
         }
     

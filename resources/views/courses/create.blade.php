@@ -35,8 +35,6 @@
                     <textarea name="description" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
                         placeholder="Choose the description"></textarea>
                 </div>
-
-
                 <div>
                     <label class="text-black mb-4">Students:</label>
                     <div class="flex-col bg-gray-100 p-4 rounded-2xl w-[38rem] space-y-2">

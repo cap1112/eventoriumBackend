@@ -143,26 +143,41 @@ class EventsController extends Controller
         $registeredEvents = Event::find($id);
 
         if ($request->courses != $registeredEvents->courses_id) {            
-            //Comprueba si el curso ingresado en el request es diferente al anterior, para asi poder actualizar la tabla users_event de acuerdo al cambio   
-                     
-            //Elimina todos los usuarios del evento
-            usersEvent::where('event_id', $id)->delete();
+            //Comprueba si el curso ingresado en el request es diferente al anterior, para asi poder actualizar la tabla users_event de acuerdo al cambio  
+            
+            //Obtiene todos los usuarios que pertenecen al curso anterior
+            $oldStudentsID = UsersCourse::where('course_id', $registeredEvents->courses_id)->pluck('user_id');
+            //Obtiene todos los usuarios que pertenecen al nuevo curso
+            $newStudentsID = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
+            //Obtiene la diferencia entre los dos arreglos
+            $diffStudents = $oldStudentsID->diff($newStudentsID);
+
+            //Elimina todos los usuarios que ya no estan presentes en el nuevo curso
+            foreach ($diffStudents as $student) {
+                UsersEvent::where('user_id', $student)->where('event_id', $id)->delete();
+            }
 
             //Asigna un valor de estado dependiendo del tipo de evento
             if ($request->category == 3) {
                 $estado = 'No_Aplica';
-            } else {
-                $estado = 'No_Completado';
-            }
-    
-            //Vuelve a crear a los usuarios del evento con el nuevo curso dado.
-            $users = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
-            foreach ($users as $user) {
-                UsersEvent::create([
-                    'user_id' => $user,
-                    'event_id' => $registeredEvents->id,
-                    'state' => $estado
-                ]);
+                //Vuelve a crear a los usuarios del evento con el nuevo curso dado.
+                $users = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
+                foreach ($users as $user) {
+                    UsersEvent::updateOrCreate([
+                        'user_id' => $user,
+                        'event_id' => $registeredEvents->id,
+                        'state' => $estado
+                    ]);
+                }
+            } else {                
+                //Vuelve a crear a los usuarios del evento con el nuevo curso dado.
+                $users = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
+                foreach ($users as $user) {
+                    UsersEvent::updateOrCreate([
+                        'user_id' => $user,
+                        'event_id' => $registeredEvents->id,
+                    ]);
+                }
             }
         }
 

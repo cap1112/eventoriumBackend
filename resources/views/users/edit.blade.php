@@ -51,13 +51,13 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Password:</label>
-                    <input name="password" value={{$registeredUsers->password}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Choose the Password">
+                    <input name="password" value="" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                        placeholder="Leave blank if you dont wanna change the Password">
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Diseases:</label>
                     <select name="diseases" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="Ninguna" selected hidden>{{$registeredUsers->diseases}}</option>
+                        <option class="text-gray-400" value={{$registeredUsers->diseases}} selected hidden>{{$registeredUsers->diseases}}</option>
                         <option class="text-black" value="Ninguna">Ninguna</option>
                         <option class="text-black" value="Diabetes">Diabetes</option>
                         <option class="text-black" value="Hipertension">Hipertension</option>
@@ -74,7 +74,7 @@
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Physical Activities:</label>
                     <select name="physical_activity" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="Moderado" selected hidden>{{$registeredUsers->physical_activity}}</option>
+                        <option class="text-gray-400" value={{$registeredUsers->physical_activity}} selected hidden>{{$registeredUsers->physical_activity}}</option>
                         <option class="text-black" value="Sedentario">Sedentario</option>
                         <option class="text-black" value="Moderado">Moderado</option>
                         <option class="text-black" value="Activo">Activo</option>
@@ -83,32 +83,30 @@
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Profile:</label>
                     <select name="profile" value={{$registeredUsers->profile}} class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="admin" selected hidden>{{$registeredUsers->profile}}</option>
+                        <option class="text-gray-400" value={{$registeredUsers->profile}} selected hidden>{{$registeredUsers->profile}}</option>
                         <option class="text-black" value="Admin">Admin</option>
                         <option class="text-black" value="Profesor">Professor</option>
                         <option class="text-black" value="Estudiante">Student</option>
                     </select>
                 </div>
 
-                <div class="">
-                    <div class="flex items-center text-center w-full justify-between">
-                        <label for="" class="text-black">Matriculated Courses:</label>
-                        <button type="button" id="addCourseBtn"
-                            class="my-2  bg-indigo-600 text-white px-3 mr-2 py-2 rounded-xl shadow hover:bg-indigo-600">
-                            {{-- <img class="size-7" src="{{ asset('icons/plus_icon.svg') }}" alt="Plus Icon"> --}}
-                            Add course
-                        </button>
-                    </div>
-                    <select name="selectedCourses" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]"
-                        id="coursesSelect">
-                        @foreach ($courses as $course)
-                            <option class="text-gray-400" selected hidden value="0">Select a course
-                            </option>
-                            <option class="text-gray-400" value="{{ $course->id }}">{{ $course->name }}</option>
+                <div>
+                    <label class="text-black mb-4">Matriculated Courses:</label>
+                    <div class="flex-col bg-gray-100 p-4 rounded-2xl w-[38rem] space-y-2">
+                        @foreach ($registeredCourses as $course)
+                            <div>
+                                <input type="checkbox" name="selectedCourses[]" id="course{{$course->id}}" value="{{$course->id}}" checked>
+                                <label for="course{{$course->id}}">{{$course->id}} | {{$course->name}} || {{$course->initial}}</label>
+                            </div>
                         @endforeach
-                    </select>
-                    <div id="selectedCoursesContainer" class="mt-4"></div>
-                </div>
+                        @foreach ($courses as $course)
+                            <div>
+                                <input type="checkbox" name="selectedCourses[]" id="course{{$course->id}}" value="{{$course->id}}">
+                                <label for="course{{$course->id}}">{{$course->id}} | {{$course->name}} || {{$course->initial}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>   
 
                 <div class="flex justify-end mr-4 col-span-2">
                     <button type="submit"
@@ -136,64 +134,6 @@
                 reader.readAsDataURL(file);
             }
         });
-        
-        /*Todo el script que hace que la lista de cursos funcione correctamente, se encarga de añadir
-                    los cursos seleccionados al div, ademas de hacer funcionar sus respectivos botones de eliminar y 
-                    devolverlos a la lista de cursos.*/
-        function addSelectedCourse() {
-            var selectedCourse = document.getElementById('coursesSelect');
-            var selectedCourseId = selectedCourse.value;
-            var selectedCourseText = selectedCourse.options[selectedCourse.selectedIndex].text;
-
-            var courseElement = document.createElement('div');
-            courseElement.className =
-                "flex items-center justify-between mt-2 border rounded-xl w-[38rem] h-[4rem] p-4 bg-gray-100";
-            var courseText = document.createElement('span');
-            courseText.textContent = selectedCourseText;
-            courseElement.appendChild(courseText);
-
-            // Botón para eliminar el curso seleccionado
-            var deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.className = "my-2 w-[10rem] bg-red-600 text-white px-4 py-2 rounded-xl shadow hover:bg-red-700";
-
-            deleteButton.onclick = function() {
-                // Re-añade la opción eliminada a la lista del select
-                var option = document.createElement('option');
-                option.value = selectedCourseId;
-                option.text = selectedCourseText;
-                option.className = "text-gray-400";
-                selectedCourse.appendChild(option);
-
-                // Remueve el div del curso seleccionado
-                courseElement.remove();
-                // Elimina el input oculto del forum
-                var hiddenInputs = document.querySelectorAll('input[name="selectedCourses[]"]');
-                for (var i = 0; i < hiddenInputs.length; i++) {
-                    if (hiddenInputs[i].value == selectedCourseId) {
-                        hiddenInputs[i].remove();
-                        break;
-                    }
-                }
-            };
-
-            courseElement.appendChild(deleteButton);
-
-            //Crea un input oculto para el curso seleccionado
-            var hiddenInput = document.createElement('input');
-            hiddenInput.type = 'hidden';
-            hiddenInput.name = 'selectedCourses[]';
-            hiddenInput.value = selectedCourseId;
-
-            // Añade el input oculto al formulario
-            document.getElementById('userForm').appendChild(hiddenInput);
-
-            // Añade el elemento al contenedor de cursos seleccionados
-            document.getElementById('selectedCoursesContainer').appendChild(courseElement);
-            selectedCourse.remove(selectedCourse.selectedIndex);
-        }
-
-        document.getElementById('addCourseBtn').addEventListener('click', addSelectedCourse);
         </script>
     </div>
 
