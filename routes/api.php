@@ -38,14 +38,17 @@ Route::get('/searchUserEvents_Search/{userId}/{search}/{categoryName}', [ApiCont
 Route::get('/searchUserEvents_Search/{userId}/{search}//{courseInitial}', [ApiController::class, 'searchUserEvents_Search_Course']);
 Route::get('/searchUserEvents_Search/{userId}/{search}/{categoryName}/{courseInitial}', [ApiController::class, 'searchUserEvents_Search_Event_Course']);
 
-
 Route::get('/userEventsIncomplete/{id}', [ApiController::class, 'userEventsIncomplete']);
 Route::get('/userEventsComplete/{id}', [ApiController::class, 'userEventsComplete']);
 
 Route::post('/user/create', [ApiController::class, 'userStore']);
 Route::post('/user/logIn', [ApiController::class, 'userlogIn']);
-Route::post('/updateProfile', [ApiController::class, 'updateProfile']);
+// Route::post('/updateProfile', [ApiController::class, 'updateProfile']);
 Route::get('/enrollCourse/{id}', [ApiController::class, 'userEnrollCourses']);
+
+
+Route::post('/updateProfile', [ApiController::class, 'updateProfile']);
+// Route::middleware('auth:sanctum')->post('/updateProfile', [ApiController::class, 'updateProfile']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/token', [ApiController::class, 'token']);
