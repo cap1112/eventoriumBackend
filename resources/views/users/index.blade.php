@@ -3,8 +3,8 @@
 <div class="bg-white shadow-lg rounded-lg p-6 h-[100%]">
     <h2 class="text-2xl font-semibold mb-4">Users</h2>
     <div class="flex justify-between items-center">
-        <p class="text-gray-600 mb-6">A list of all the users including their id, name, title, email and
-            role.
+        <p class="text-gray-600 mb-6">A list of all the users including their id, name, lastname, profile and
+            email.
         </p>
         <a href="{{ route('users.create') }}">
             <button class="mb-4 bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add user</button>

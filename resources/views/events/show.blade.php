@@ -47,6 +47,7 @@
                 <dd class="mt-1 text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$event->state}}</dd>
             </div>
             <div class="overflow-x-auto overflow-y-auto h-[40vh]">
+                <h2 class="text-2xl font-semibold my-4">Enrolled students</h2>
                 <table class="min-w-full bg-white" id="userTableContainer">
                     <thead class="bg-gray-100 text-center">
                         <tr>

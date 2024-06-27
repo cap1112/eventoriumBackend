@@ -171,12 +171,12 @@
                 emailError.textContent = '';
 
                 if (existingUsernames.includes(usernameInput.value) && usernameInput.value !== currentUserUsername) {
-                    usernameError.textContent = 'El username ya existe';
+                    usernameError.textContent = 'This username already exists';
                     hasError = true;
                 }
 
                 if (existingEmails.includes(emailInput.value) && emailInput.value !== currentUserEmail) {
-                    emailError.textContent = 'El email ya existe';
+                    emailError.textContent = 'This email already exists';
                     hasError = true;
                 }
 

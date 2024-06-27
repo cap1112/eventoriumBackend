@@ -196,6 +196,7 @@ class UsersController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'lastname' => $request->lastname,
+                    'username' => $request->username,
                     'password' => Hash::make($request->password),
                     'profile' => $request->profile,
                     'sleep_hours' => $request->sleep_hours,
@@ -217,6 +218,7 @@ class UsersController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'lastname' => $request->lastname,
+                    'username' => $request->username,
                     'password' => Hash::make($request->password),
                     'profile' => $request->profile,
                     'sleep_hours' => $request->sleep_hours,
@@ -231,6 +233,7 @@ class UsersController extends Controller
                 $registeredUsers->update([
                     'name' => $request->name,
                     'email' => $request->email,
+                    'username' => $request->username,
                     'lastname' => $request->lastname,
                     'profile' => $request->profile,
                     'sleep_hours' => $request->sleep_hours,
@@ -251,6 +254,7 @@ class UsersController extends Controller
                 $registeredUsers->update([
                     'name' => $request->name,
                     'email' => $request->email,
+                    'username' => $request->username,
                     'lastname' => $request->lastname,
                     'profile' => $request->profile,
                     'sleep_hours' => $request->sleep_hours,

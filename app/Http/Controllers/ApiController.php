@@ -709,7 +709,7 @@ class ApiController extends Controller
             $user->save();
 
 
-            return redirect('http://localhost:5173/SignIn');
+            return redirect($request->url);
 
         }
     }
