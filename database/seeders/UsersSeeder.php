@@ -24,7 +24,7 @@ class UsersSeeder extends Seeder
             'sleep_hours' => 7,
             'diseases' => 'Asma',
             'physical_activity' => 'Moderado',
-            'image' => 'usuario_1.jpg'
+            'image' => 'usuario_1.png'
         ]);
 
         User::create([
@@ -72,11 +72,24 @@ class UsersSeeder extends Seeder
             'username' => 'diego.hernandez',
             'email' => 'diego.hernandez@example.com',
             'password' => bcrypt('contraseña_ejemplo'),
-            'profile' => 'profesor',
+            'profile' => 'estudiante',
             'sleep_hours' => 7,
             'diseases' => 'Ninguna',
             'physical_activity' => 'Activo',
             'image' => 'usuario_5.jpg'
+        ]);
+
+        User::create([
+            'name' => 'Marco',
+            'lastname' => 'Polo',
+            'username' => 'marco.polo',
+            'email' => 'marco.polo@example.com',
+            'password' => bcrypt('contraseña_ejemplo'),
+            'profile' => 'profesor',
+            'sleep_hours' => 4,
+            'diseases' => 'Ninguna',
+            'physical_activity' => 'Moderado',
+            'image' => 'usuario_6.jpg'
         ]);
 
         User::create([
@@ -89,7 +102,7 @@ class UsersSeeder extends Seeder
             'sleep_hours' => 0,
             'diseases' => 'Obesidad',
             'physical_activity' => 'Sedentario',
-            'image' => 'usuario_6.jpg'
+            'image' => 'usuario_7.png'
         ]);
     }
 }
