@@ -5,8 +5,6 @@
         <h3 class="text-2xl font-semibold mb-4">Event Information</h3>
         <a href="{{ route('events.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back"
                 class="size-10"></a>
-
-        <!-- <p class="text-gray-600 text-md mb-6">Personal details</p> -->
     </div>
     <div class="mt-6 border-t border-gray-100">
         <dl class="divide-y divide-gray-100">
@@ -25,12 +23,14 @@
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-md font-medium leading-6 text-gray-900">Start Date</dt>
                 <dd class="mt-1 text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    {{$event->start . ' ' . $event->startTime}}</dd>
+                    {{$event->start . ' ' . $event->startTime}}
+                </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-md font-medium leading-6 text-gray-900">End Date</dt>
                 <dd class="mt-1 text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    {{$event->end . ' ' . $event->endTime}}</dd>
+                    {{$event->end . ' ' . $event->endTime}}
+                </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-md font-medium leading-6 text-gray-900">Category</dt>
@@ -53,12 +53,9 @@
                             <th class="py-2 px-4 text-left text-gray-600 font-medium">ID</th>
                             <th class="py-2 px-4 text-left text-gray-600 font-medium">Name</th>
                             <th class="py-2 px-4 text-left text-gray-600 font-medium">Last Name</th>
-
                             <th class="py-2 px-4 text-left text-gray-600 font-medium">Profile</th>
                             <th class="py-2 px-4 text-left text-gray-600 font-medium">Email</th>
-                            <!-- <th class="py-2 px-4 text-left text-gray-600 font-medium">Password</th> -->
                             <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
-
                             <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
                         </tr>
                     </thead>
@@ -70,7 +67,6 @@
                                 <td class="py-2 px-4 border-t">{{ $user->lastname }}</td>
                                 <td class="py-2 px-4 border-t">{{ $user->profile }}</td>
                                 <td class="py-2 px-4 border-t">{{ $user->email }}</td>
-                                <!-- <td class="py-2 px-4 border-t">{{ $user->password }}</td> -->
                                 <td class="py-2 px-4 border-t"><a href="{{ route('users.show', $user->id) }}"><img
                                             src="{{ asset("icons/details_icon.svg") }}" alt="Show item" class="size-8"></a>
                                 </td>

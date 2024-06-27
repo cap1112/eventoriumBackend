@@ -1,23 +1,21 @@
-
 @extends('.layout')
 @section('content')
-    <div>
-        <div class="p-6">
-            <div class="flex justify-between mr-4">
-                <h2 class="text-2xl font-semibold mb-4">Add Event</h2>
-                <a href="{{ route('events.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back"
-                        class="size-10"></a>
-            </div>
-            <div class="flex justify-between items-center">
-                <p class="text-gray-600 mb-2">A page where you can edit events' information by changing their first name,
-                    last
-                    name, email and additional features.
-                </p>
-            </div>
-            
+<div>
+    <div class="p-6">
+        <div class="flex justify-between mr-4">
+            <h2 class="text-2xl font-semibold mb-4">Add Event</h2>
+            <a href="{{ route('events.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back"
+                    class="size-10"></a>
         </div>
-        <div class="overflow-x-auto">
-            
+        <div class="flex justify-between items-center">
+            <p class="text-gray-600 mb-2">A page where you can create an event, enter its title, description, start or
+                end date, category, status and course..
+            </p>
+        </div>
+
+    </div>
+    <div class="overflow-x-auto">
+
         <form id="eventForm" method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
             @csrf
             <div
@@ -25,18 +23,19 @@
                 <div class="flex col-span-2 items-center">
                     <div class=" flex flex-col">
                         <input id="fileInput" name="image" type="file" class="hidden" accept="image/*">
-                        <img id="fileInputTrigger" src="{{ asset('storage/events_img/default-event.png') }}" alt=Event Image"
+                        <img id="fileInputTrigger" src="{{ asset('storage/events_img/default-event.png') }}" alt=Event
+                            Image"
                             class="cursor-pointer w-[10rem] h-[10rem] mr-[3rem] object-cover rounded-full border-4 border-gray-300">
                         <label for="" class="ml-10 mt-4">Event Image</label>
                     </div>
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Title:</label>
-                        <input name="title" type="text"
-                            class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
+                        <input name="title" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
                             placeholder="Enter the title of the event" required>
 
                         <label for="" class="text-black my-4">Description:</label>
-                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[65.6rem]" required placeholder="Enter the description of the event"></textarea>
+                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[65.6rem]" required
+                            placeholder="Enter the description of the event"></textarea>
                     </div>
                 </div>
 
@@ -91,29 +90,26 @@
                         class="my-2 w-[10rem] bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add
                         event</button>
                 </div>
-               
+
             </div>
         </form>
     </div>
-
-
     <script>
         // Script del manejo del input de tipo file y la vista previa de la imagen
-        document.getElementById('fileInputTrigger').addEventListener('click', function() {
+        document.getElementById('fileInputTrigger').addEventListener('click', function () {
             document.getElementById('fileInput').click();
         });
 
-        document.getElementById('fileInput').addEventListener('change', function(event) {
+        document.getElementById('fileInput').addEventListener('change', function (event) {
             var file = event.target.files[0];
             if (file) {
                 var reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     document.getElementById('fileInputTrigger').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
-
 
         /*Todo el script que hace que la lista de cursos funcione correctamente, se encarga de añadir
                     los cursos seleccionados al div, ademas de hacer funcionar sus respectivos botones de eliminar y 
@@ -135,7 +131,7 @@
             deleteButton.textContent = 'Delete';
             deleteButton.className = "my-2 w-[10rem] bg-red-600 text-white px-4 py-2 rounded-xl shadow hover:bg-red-700";
 
-            deleteButton.onclick = function() {
+            deleteButton.onclick = function () {
                 // Re-añade la opción eliminada a la lista del select
                 var option = document.createElement('option');
                 option.value = selectedCourseId;
@@ -173,7 +169,7 @@
 
         document.getElementById('addCourseBtn').addEventListener('click', addSelectedCourse);
     </script>
-        </div>
+</div>
 
-    </div>
+</div>
 @endsection

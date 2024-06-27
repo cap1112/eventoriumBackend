@@ -8,9 +8,8 @@
                     class="size-10"></a>
         </div>
         <div class="flex justify-between items-center">
-            <p class="text-gray-600 mb-2">A page where you can create courses by adding their first name, last name,
-                email
-                and extra features.
+            <p class="text-gray-600 mb-2">A page where you can create courses by adding your name, course initial,
+                course description and your enrolled students.
             </p>
         </div>
     </div>
@@ -40,8 +39,10 @@
                     <div class="flex-col bg-gray-100 p-4 rounded-2xl w-[38rem] space-y-2">
                         @foreach ($students as $student)
                             <div>
-                                <input type="checkbox" name="students[]" id="student{{$student->id}}" value="{{$student->id}}">
-                                <label for="student{{$student->id}}">{{$student->id}} | {{$student->name}} {{$student->lastname}}</label>
+                                <input type="checkbox" name="students[]" id="student{{$student->id}}"
+                                    value="{{$student->id}}">
+                                <label for="student{{$student->id}}">{{$student->id}} | {{$student->name}}
+                                    {{$student->lastname}}</label>
                             </div>
                         @endforeach
                     </div>

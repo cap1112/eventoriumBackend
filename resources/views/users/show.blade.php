@@ -1,21 +1,21 @@
 @extends('.layout')
 @section('content')
-<div class="p-6" >
+<div class="p-6">
     <div class="px-4 sm:px-0 flex justify-between mr-4">
         <h3 class="text-2xl font-semibold mb-4">User Information</h3>
-        <a href="{{ route('users.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back" class="size-10"></a>
-
-        <!-- <p class="text-gray-600 text-md mb-6">Personal details</p> -->
+        <a href="{{ route('users.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back"
+                class="size-10"></a>
     </div>
     <div class="mt-6 border-t border-gray-100">
         <dl class="divide-y divide-gray-100">
-        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-md font-medium leading-6 text-gray-900">ID</dt>
                 <dd class="mt-1 text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$user->id}}</dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-md font-medium leading-6 text-gray-900">Full name</dt>
-                <dd class="mt-1 text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{$user->name . ' ' . $user->lastname}}</dd>
+                <dd class="mt-1 text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {{$user->name . ' ' . $user->lastname}}</dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-md font-medium leading-6 text-gray-900">Email</dt>

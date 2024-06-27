@@ -9,8 +9,8 @@
     </div>
 
     <div class="flex justify-between items-center">
-        <p class="text-gray-600 mb-6">A page where you can edit events' information by changing their first name, last
-            name, email and additional features.
+        <p class="text-gray-600 mb-6">A page where you can edit event information by changing its title, description,
+            start or end date, category, status and course.
         </p>
     </div>
     <div class="overflow-x-auto">
@@ -31,9 +31,10 @@
                         <label for="" class="text-black mb-4">Title:</label>
                         <input name="title" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
                             placeholder="Enter the tilte of the event" required value={{$registeredEvents->title}}>
-                            
+
                         <label for="" class="text-black my-4">Description:</label>
-                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[65.6rem]" required placeholder="Enter the description of the event">{{$registeredEvents->description}}</textarea>
+                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[65.6rem]" required
+                            placeholder="Enter the description of the event">{{$registeredEvents->description}}</textarea>
                     </div>
                 </div>
                 <div class="flex flex-col">
@@ -59,40 +60,40 @@
                 </div>
                 @if ($registeredEvents->categories_id == 1)
                     <div class="flex flex-col">
-                    <label for="" class="text-black mb-4">Category:</label>
-                    <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="1" selected hidden>Event
-                        </option>
-                        <option class="text-black" value="1">Event</option>
-                        <option class="text-black" value="2">Homework</option>
-                        <option class="text-black" value="3">Communicate</option>
-                    </select>
+                        <label for="" class="text-black mb-4">Category:</label>
+                        <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                            <option class="text-gray-400" value="1" selected hidden>Event
+                            </option>
+                            <option class="text-black" value="1">Event</option>
+                            <option class="text-black" value="2">Homework</option>
+                            <option class="text-black" value="3">Communicate</option>
+                        </select>
                     </div>
                 @endif
 
                 @if ($registeredEvents->categories_id == 2)
                     <div class="flex flex-col">
-                    <label for="" class="text-black mb-4">Category:</label>
-                    <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="2" selected hidden>Homework
-                        </option>
-                        <option class="text-black" value="1">Event</option>
-                        <option class="text-black" value="2">Homework</option>
-                        <option class="text-black" value="3">Communicate</option>
-                    </select>
+                        <label for="" class="text-black mb-4">Category:</label>
+                        <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                            <option class="text-gray-400" value="2" selected hidden>Homework
+                            </option>
+                            <option class="text-black" value="1">Event</option>
+                            <option class="text-black" value="2">Homework</option>
+                            <option class="text-black" value="3">Communicate</option>
+                        </select>
                     </div>
                 @endif
 
                 @if ($registeredEvents->categories_id == 3)
                     <div class="flex flex-col">
-                    <label for="" class="text-black mb-4">Category:</label>
-                    <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value="3" selected hidden>Communicate
-                        </option>
-                        <option class="text-black" value="1">Event</option>
-                        <option class="text-black" value="2">Homework</option>
-                        <option class="text-black" value="3">Communicate</option>
-                    </select>
+                        <label for="" class="text-black mb-4">Category:</label>
+                        <select name="category" value=1 class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                            <option class="text-gray-400" value="3" selected hidden>Communicate
+                            </option>
+                            <option class="text-black" value="1">Event</option>
+                            <option class="text-black" value="2">Homework</option>
+                            <option class="text-black" value="3">Communicate</option>
+                        </select>
                     </div>
                 @endif
 
@@ -100,7 +101,8 @@
                     <label for="" class="text-black mb-4">State:</label>
                     <select name="state" value={{$registeredEvents->state}}
                         class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value={{$registeredEvents->state}} selected hidden>{{$registeredEvents->state}}
+                        <option class="text-gray-400" value={{$registeredEvents->state}} selected hidden>
+                            {{$registeredEvents->state}}
                         </option>
                         <option class="text-black" value="Inactivo">Inactive</option>
                         <option class="text-black" value="Activo">Active</option>
@@ -110,7 +112,9 @@
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Course:</label>
                     <select name="courses" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value={{$registeredEvents->courses_id}} selected hidden>{{$courseName->name}}</option>
+                        <option class="text-gray-400" value={{$registeredEvents->courses_id}} selected hidden>
+                            {{$courseName->name}}
+                        </option>
                         @foreach ($courses as $course)
                             <option value="{{ $course->id }}">{{ $course->name }}</option>
                         @endforeach

@@ -33,16 +33,21 @@ class UsersController extends Controller
     //     return view('users.partials.userTable', compact('users'));
     // }
 
-
+    /**
+     * Searches for users based on a query and displays the results.
+     * 
+     * This function is responsible for handling the search functionality within the application. It retrieves
+     * the search query from the request, searches for users whose names match the query, and returns a view
+     * with the search results. Currently, the search functionality is commented out, and the function returns
+     * a static list of users for demonstration purposes.
+     * 
+     */
 
     public function search(Request $request)
     {
         // $query = $request->input('search');
         // $registeredUsers = User::where('name', 'like', "%{$query}%")->get();
         // return view('users.partials.userTable ', compact('registeredUsers'));
-
-
-
         $registeredUsers = [
             ['name' => 'John Doe'],
             ['name' => 'Jane Doe'],
@@ -75,7 +80,7 @@ class UsersController extends Controller
     {
         //
         $selectedCourses = $request->input('selectedCourses');
-        
+
         if ($request->image) {
             $user = User::create([
                 'name' => $request->name,
@@ -89,11 +94,11 @@ class UsersController extends Controller
                 'diseases' => $request->diseases,
                 'physical_activity' => $request->physical_activity,
             ]);
-    
+
             $file = $request->file('image');
             $file_name = 'usuario_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('public/users_img', $file_name);
-    
+
             $user->update([
                 'image' => $file_name,
             ]);
@@ -113,34 +118,34 @@ class UsersController extends Controller
         }
 
 
-         //Logica detras de si se seleccionaron cursos o no
-        if($selectedCourses == null) {
-                        //No ocurre nada
-        } else {            
+        //Logica detras de si se seleccionaron cursos o no
+        if ($selectedCourses == null) {
+            //No ocurre nada
+        } else {
             foreach ($selectedCourses as $courseId) {
                 UsersCourse::create([
-                'user_id' => $user->id,
-                'course_id' => $courseId,
-            ]);
-            $events = Event::where('courses_id', $courseId)->get();
+                    'user_id' => $user->id,
+                    'course_id' => $courseId,
+                ]);
+                $events = Event::where('courses_id', $courseId)->get();
                 foreach ($events as $event) {
-        
+
                     if ($event->categories_id == 3) {
                         $estado = 'No_Aplica';
                     } else {
                         $estado = 'No_Completado';
                     }
-        
+
                     UsersEvent::create([
-                    'user_id' => $user->id,
-                    'event_id' => $event->id,
-                    'state' => $estado
+                        'user_id' => $user->id,
+                        'event_id' => $event->id,
+                        'state' => $estado
                     ]);
                 }
             }
         }
 
-        return redirect ()->route('users.index');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -184,9 +189,9 @@ class UsersController extends Controller
 
         $registeredUsers = User::find($id);
 
-        if($request->password){     
+        if ($request->password) {
             //Si hay contraseña se actualiza
-            if($request->image) {
+            if ($request->image) {
                 $registeredUsers->update([
                     'name' => $request->name,
                     'email' => $request->email,
@@ -198,31 +203,31 @@ class UsersController extends Controller
                     'diseases' => $request->diseases,
                     'physical_activity' => $request->physical_activity,
                 ]);
-        
+
                 $file = $request->file('image');
                 $file_name = 'usuario_' . $registeredUsers->id . '_' . time() . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('public/users_img', $file_name);
-        
+
                 $registeredUsers->update([
                     'image' => $file_name,
                 ]);
-        
-                } else {
-                    $registeredUsers->update([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'lastname' => $request->lastname,
-                        'password' => Hash::make($request->password),
-                        'profile' => $request->profile,
-                        'sleep_hours' => $request->sleep_hours,
-                        'diseases' => $request->diseases,
-                        'physical_activity' => $request->physical_activity,
-                    ]);
-                }
+
+            } else {
+                $registeredUsers->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'lastname' => $request->lastname,
+                    'password' => Hash::make($request->password),
+                    'profile' => $request->profile,
+                    'sleep_hours' => $request->sleep_hours,
+                    'diseases' => $request->diseases,
+                    'physical_activity' => $request->physical_activity,
+                ]);
+            }
 
         } else {
             //Como no hay contraseña no se actualiza la contra
-            if($request->image) {
+            if ($request->image) {
                 $registeredUsers->update([
                     'name' => $request->name,
                     'email' => $request->email,
@@ -233,60 +238,60 @@ class UsersController extends Controller
                     'diseases' => $request->diseases,
                     'physical_activity' => $request->physical_activity,
                 ]);
-        
+
                 $file = $request->file('image');
                 $file_name = 'usuario_' . $registeredUsers->id . '_' . time() . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('public/users_img', $file_name);
-        
+
                 $registeredUsers->update([
                     'image' => $file_name,
                 ]);
-        
-                } else {
-                    $registeredUsers->update([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'lastname' => $request->lastname,
-                        'profile' => $request->profile,
-                        'sleep_hours' => $request->sleep_hours,
-                        'diseases' => $request->diseases,
-                        'physical_activity' => $request->physical_activity,
-                    ]);
-                }
+
+            } else {
+                $registeredUsers->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'lastname' => $request->lastname,
+                    'profile' => $request->profile,
+                    'sleep_hours' => $request->sleep_hours,
+                    'diseases' => $request->diseases,
+                    'physical_activity' => $request->physical_activity,
+                ]);
+            }
         }
 
         //Actualiza los cursos y eventos del usuario
-        if($selectedCourses == null) {
+        if ($selectedCourses == null) {
             //No ocurre nada
         } else {
             foreach ($selectedCourses as $courseId) {
-            UsersCourse::updateOrCreate([
-                'user_id' => $registeredUsers->id,
-                'course_id' => $courseId,
-            ]);                    
+                UsersCourse::updateOrCreate([
+                    'user_id' => $registeredUsers->id,
+                    'course_id' => $courseId,
+                ]);
                 $events = Event::where('courses_id', $courseId)->get();
-                foreach ($events as $event) {                    
-                if ($event->categories_id == 3) {
-                    $estado = 'No_Aplica';
+                foreach ($events as $event) {
+                    if ($event->categories_id == 3) {
+                        $estado = 'No_Aplica';
 
-                    UsersEvent::updateOrCreate([
-                        'user_id' => $registeredUsers->id,
-                        'event_id' => $event->id,
-                        'state' => $estado,
+                        UsersEvent::updateOrCreate([
+                            'user_id' => $registeredUsers->id,
+                            'event_id' => $event->id,
+                            'state' => $estado,
                         ]);
-                    
-                } else {
-                    UsersEvent::updateOrCreate([
-                        'user_id' => $registeredUsers->id,
-                        'event_id' => $event->id,
+
+                    } else {
+                        UsersEvent::updateOrCreate([
+                            'user_id' => $registeredUsers->id,
+                            'event_id' => $event->id,
                         ]);
-                 }
+                    }
                 }
             }
         }
 
         //Revisa si un curso de los matriculados anteriormente fue desmatriculado y elimina sus conexiones
-        if ($selectedCourses != null){
+        if ($selectedCourses != null) {
             $missing_courses = array_diff($registeredCourses->pluck('course_id')->toArray(), $selectedCourses);
             if ($missing_courses == null) {
                 //Todos los anteriores siguen matriculados y no hay que hacer nada
@@ -296,7 +301,7 @@ class UsersController extends Controller
                     UsersCourse::where('user_id', $id)->where('course_id', $courseId)->delete();
                     $events = Event::where('courses_id', $courseId)->get();
                     foreach ($events as $event) {
-                    UsersEvent::where('user_id', $id)->where('event_id', $event->id)->delete();
+                        UsersEvent::where('user_id', $id)->where('event_id', $event->id)->delete();
                     }
                 }
             }

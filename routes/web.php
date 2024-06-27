@@ -29,9 +29,6 @@ use App\Http\Controllers\AccessPanelController;
 Route::resource('/users', UsersController::class)->middleware('auth');
 Route::resource('/events', EventsController::class)->middleware('auth');
 Route::resource('/courses', CoursesController::class)->middleware('auth');
-// Route::resource('/access', AccessPanelController::class);
-
 Route::get('/access/index', [AccessPanelController::class, 'index'])->name('access.index');
 Route::get('/access/login', [AccessPanelController::class, 'login'])->name('access.login');
 Route::get('/access/logout', [AccessPanelController::class, 'logout'])->name('access.logout');
-// Route::resource('events/index', EventsController::class, ['only' => ['index']]);

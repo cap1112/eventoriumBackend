@@ -8,8 +8,8 @@
     </div>
 
     <div class="flex justify-between items-center">
-        <p class="text-gray-600 mb-6">A page where you can edit courses' information by changing their first name, last
-            name, email and additional features.
+        <p class="text-gray-600 mb-6">A page where you can edit course information by changing its name, course initial,
+            course description and enrolled students.
         </p>
     </div>
     <div class="overflow-x-auto">
@@ -20,7 +20,8 @@
                 class="flex flex-col bg-white px-6 py-3 shadow-lg rounded-lg grid-cols-2 justify-center items-center gap-8 w-full">
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Initial:</label>
-                    <input name="initial" required value={{ $registeredCourses->initial }} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                    <input name="initial" required value={{ $registeredCourses->initial }} type="text"
+                        class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
                         placeholder="Enter the initials of the course">
                 </div>
                 <div class="flex flex-col">
@@ -34,7 +35,7 @@
                         placeholder="Choose the description">{{ $registeredCourses->description }}</textarea>
                 </div>
                 <div>
-                    
+
                     <label class="text-black mb-4">Students:</label>
                     <div class="flex-col bg-gray-100 p-4 rounded-2xl w-[38rem] space-y-2">
                         @foreach ($registeredUsers as $student)

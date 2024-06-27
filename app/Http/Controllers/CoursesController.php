@@ -17,7 +17,7 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        
+
         $registeredCourses = Course::all();
         return view('courses.index', compact('registeredCourses'));
     }
@@ -41,11 +41,11 @@ class CoursesController extends Controller
     {
         //        
         $course = Course::create([
-                  'initial' => $request->initial,
-                  'name' => $request->name,
-                  'description' => $request->description,
+            'initial' => $request->initial,
+            'name' => $request->name,
+            'description' => $request->description,
         ]);
-        
+
         $studentIds = $request->students;
 
         foreach ($studentIds as $studentId) {
@@ -64,11 +64,11 @@ class CoursesController extends Controller
     public function show(string $id)
     {
         //
-        
+
         $registeredUsers = User::join('users_courses', 'users.id', '=', 'users_courses.user_id')
-        ->select('users.*')
-        ->where('users_courses.course_id', $id)
-        ->get();
+            ->select('users.*')
+            ->where('users_courses.course_id', $id)
+            ->get();
 
         $course = Course::find($id);
         return view('courses.show', compact('course', 'registeredUsers'));
@@ -81,9 +81,9 @@ class CoursesController extends Controller
     {
         //
         $registeredUsers = User::join('users_courses', 'users.id', '=', 'users_courses.user_id')
-        ->select('users.*')
-        ->where('users_courses.course_id', $id)
-        ->get();
+            ->select('users.*')
+            ->where('users_courses.course_id', $id)
+            ->get();
 
         $unregisteredUsers = User::whereDoesntHave('courses', function ($query) use ($id) {
             $query->where('course_id', $id);
@@ -106,19 +106,20 @@ class CoursesController extends Controller
             'name' => $request->name,
             'description' => $request->description,
         ]);
-        
+
         $studentIds = $request->students ?? []; // Asegúrate de tener un array, incluso si está vacío
-    
+
         // Obtén todos los estudiantes actualmente matriculados en el curso
+        
         $currentlyEnrolledStudents = $registeredCourse->users()->pluck('users.id')->toArray();
-    
+
         // Desmatricular estudiantes que no están en la nueva lista
         foreach ($currentlyEnrolledStudents as $enrolledStudentId) {
             if (!in_array($enrolledStudentId, $studentIds)) {
-                UsersCourse::where('user_id', $enrolledStudentId)->where('course_id', $id)->delete();     
+                UsersCourse::where('user_id', $enrolledStudentId)->where('course_id', $id)->delete();
             }
         }
-    
+
         // Matricular nuevos estudiantes
         foreach ($studentIds as $studentId) {
             if (!in_array($studentId, $currentlyEnrolledStudents)) {
@@ -128,10 +129,10 @@ class CoursesController extends Controller
                 ]);
             }
         }
-    
+
         // Asumiendo que tienes un modelo Event que está relacionado con Course
         $eventsLinkedToCourse = Event::where('courses_id', $registeredCourse->id)->get();
-    
+
         foreach ($eventsLinkedToCourse as $event) {
             // Para cada evento, revisar y actualizar user_events
             foreach ($studentIds as $studentId) {
@@ -141,7 +142,7 @@ class CoursesController extends Controller
                     ['status' => 'matriculado'] // o cualquier otro campo relevante
                 );
             }
-    
+
             // Para estudiantes que ya no están matriculados, actualizar o eliminar de user_events
             $enrolledUserIdsInEvent = UsersEvent::where('event_id', $event->id)->pluck('user_id')->toArray();
             foreach ($enrolledUserIdsInEvent as $userId) {
@@ -151,7 +152,7 @@ class CoursesController extends Controller
                 }
             }
         }
-    
+
         return redirect()->route('courses.index');
     }
 

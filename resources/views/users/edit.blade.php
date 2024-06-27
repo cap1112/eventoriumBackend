@@ -4,15 +4,18 @@
 <div class="bg-white shadow-lg rounded-lg p-6 h-[100%]">
     <div class="flex justify-between mr-4">
         <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
-        <a href="{{ route('users.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back" class="size-10"></a>
+        <a href="{{ route('users.index') }}"><img src="{{ asset('icons/go_back_icon.svg') }}" alt="go back"
+                class="size-10"></a>
     </div>
 
     <div class="flex justify-between items-center">
-        <p class="text-gray-600 mb-6">A page where you can edit users' information by changing their first name, last name, email and additional features.
+        <p class="text-gray-600 mb-6">A page where you can edit users' information by changing their first name, last
+            name, email and additional features.
         </p>
     </div>
     <div class="overflow-x-auto">
-        <form id="userForm" method="POST" action="{{ route('users.update', $registeredUsers->id) }}" enctype="multipart/form-data">
+        <form id="userForm" method="POST" action="{{ route('users.update', $registeredUsers->id) }}"
+            enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div
@@ -20,35 +23,39 @@
                 <div class="flex col-span-2 items-center">
                     <div class=" flex flex-col">
                         <input id="fileInput" name="image" type="file" class="hidden" accept="image/*">
-                        <img id="fileInputTrigger" src="{{ asset('storage/users_img/'. $registeredUsers->image) }}" alt="User Image"
+                        <img id="fileInputTrigger" src="{{ asset('storage/users_img/' . $registeredUsers->image) }}"
+                            alt="User Image"
                             class="cursor-pointer w-[10rem] h-[10rem] mr-[11rem] object-cover rounded-full border-4 border-gray-300">
                         <label for="" class="ml-10 mt-4">User Image</label>
                     </div>
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Username:</label>
-                        <input name="username" value={{$registeredUsers->username}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]" required
-                        placeholder="Enter the Username">
+                        <input name="username" value={{$registeredUsers->username}} type="text"
+                            class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]" required
+                            placeholder="Enter the Username">
                         <span class="text-red-500 mt-2" id="username-error"></span>
                         <div class="flex mt-4">
                             <div class="mr-6">
                                 <label for="" class="text-black">Name:</label>
-                                <input name="name" value={{$registeredUsers->name}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]" required
-                                placeholder="Enter the name">
+                                <input name="name" value={{$registeredUsers->name}} type="text"
+                                    class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]" required
+                                    placeholder="Enter the name">
                             </div>
                             <div>
 
                                 <label for="" class="text-black ">Last name:</label>
-                                <input name="lastname" value={{$registeredUsers->lastname}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]" required
-                                placeholder="Enter the Last name">
+                                <input name="lastname" value={{$registeredUsers->lastname}} type="text"
+                                    class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]" required
+                                    placeholder="Enter the Last name">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Email:</label>
-                    <input name="email" required value={{$registeredUsers->email}} type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Enter the Email">
-                        <span class="text-red-500 mt-2" id="email-error"></span>
+                    <input name="email" required value={{$registeredUsers->email}} type="text"
+                        class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" placeholder="Enter the Email">
+                    <span class="text-red-500 mt-2" id="email-error"></span>
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Password:</label>
@@ -58,7 +65,8 @@
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Diseases:</label>
                     <select name="diseases" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value={{$registeredUsers->diseases}} selected hidden>{{$registeredUsers->diseases}}</option>
+                        <option class="text-gray-400" value={{$registeredUsers->diseases}} selected hidden>
+                            {{$registeredUsers->diseases}}</option>
                         <option class="text-black" value="Ninguna">Ninguna</option>
                         <option class="text-black" value="Diabetes">Diabetes</option>
                         <option class="text-black" value="Hipertension">Hipertension</option>
@@ -69,13 +77,15 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Sleep hours:</label>
-                    <input name="sleep_hours" value={{$registeredUsers->sleep_hours}} type="number" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" min="1" max="24" required
+                    <input name="sleep_hours" value={{$registeredUsers->sleep_hours}} type="number"
+                        class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" min="1" max="24" required
                         placeholder="Enter the number of sleep hours ">
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Physical Activities:</label>
                     <select name="physical_activity" class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value={{$registeredUsers->physical_activity}} selected hidden>{{$registeredUsers->physical_activity}}</option>
+                        <option class="text-gray-400" value={{$registeredUsers->physical_activity}} selected hidden>
+                            {{$registeredUsers->physical_activity}}</option>
                         <option class="text-black" value="Sedentario">Sedentario</option>
                         <option class="text-black" value="Moderado">Moderado</option>
                         <option class="text-black" value="Activo">Activo</option>
@@ -83,8 +93,10 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Profile:</label>
-                    <select name="profile" value={{$registeredUsers->profile}} class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
-                        <option class="text-gray-400" value={{$registeredUsers->profile}} selected hidden>{{$registeredUsers->profile}}</option>
+                    <select name="profile" value={{$registeredUsers->profile}}
+                        class="bg-gray-100 h-[4rem] pl-3 rounded-2xl w-[38rem]">
+                        <option class="text-gray-400" value={{$registeredUsers->profile}} selected hidden>
+                            {{$registeredUsers->profile}}</option>
                         <option class="text-black" value="Admin">Admin</option>
                         <option class="text-black" value="Profesor">Professor</option>
                         <option class="text-black" value="Estudiante">Student</option>
@@ -96,18 +108,22 @@
                     <div class="flex-col bg-gray-100 p-4 rounded-2xl w-[38rem] space-y-2">
                         @foreach ($registeredCourses as $course)
                             <div>
-                                <input type="checkbox" name="selectedCourses[]" id="course{{$course->id}}" value="{{$course->id}}" checked>
-                                <label for="course{{$course->id}}">{{$course->id}} | {{$course->name}} || {{$course->initial}}</label>
+                                <input type="checkbox" name="selectedCourses[]" id="course{{$course->id}}"
+                                    value="{{$course->id}}" checked>
+                                <label for="course{{$course->id}}">{{$course->id}} | {{$course->name}} ||
+                                    {{$course->initial}}</label>
                             </div>
                         @endforeach
                         @foreach ($courses as $course)
                             <div>
-                                <input type="checkbox" name="selectedCourses[]" id="course{{$course->id}}" value="{{$course->id}}">
-                                <label for="course{{$course->id}}">{{$course->id}} | {{$course->name}} || {{$course->initial}}</label>
+                                <input type="checkbox" name="selectedCourses[]" id="course{{$course->id}}"
+                                    value="{{$course->id}}">
+                                <label for="course{{$course->id}}">{{$course->id}} | {{$course->name}} ||
+                                    {{$course->initial}}</label>
                             </div>
                         @endforeach
                     </div>
-                </div>   
+                </div>
 
                 <div class="flex justify-end mr-4 col-span-2">
                     <button type="submit"
@@ -121,15 +137,15 @@
 
     <script>
         // Script del manejo del input de tipo file y la vista previa de la imagen
-        document.getElementById('fileInputTrigger').addEventListener('click', function() {
+        document.getElementById('fileInputTrigger').addEventListener('click', function () {
             document.getElementById('fileInput').click();
         });
 
-        document.getElementById('fileInput').addEventListener('change', function(event) {
+        document.getElementById('fileInput').addEventListener('change', function (event) {
             var file = event.target.files[0];
             if (file) {
                 var reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     document.getElementById('fileInputTrigger').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -138,39 +154,39 @@
 
         // Script para validación de unicidad en el cliente
         document.addEventListener('DOMContentLoaded', function () {
-        const existingUsernames = @json($usernames);
-        const existingEmails = @json($emails);
-        const currentUserUsername = '{{ $registeredUsers->username }}';
-        const currentUserEmail = '{{ $registeredUsers->email }}';
+            const existingUsernames = @json($usernames);
+            const existingEmails = @json($emails);
+            const currentUserUsername = '{{ $registeredUsers->username }}';
+            const currentUserEmail = '{{ $registeredUsers->email }}';
 
-        const usernameInput = document.querySelector('input[name="username"]');
-        const emailInput = document.querySelector('input[name="email"]');
-        const usernameError = document.getElementById('username-error');
-        const emailError = document.getElementById('email-error');
+            const usernameInput = document.querySelector('input[name="username"]');
+            const emailInput = document.querySelector('input[name="email"]');
+            const usernameError = document.getElementById('username-error');
+            const emailError = document.getElementById('email-error');
 
-        document.querySelector('form').addEventListener('submit', function (event) {
-            let hasError = false;
+            document.querySelector('form').addEventListener('submit', function (event) {
+                let hasError = false;
 
-            usernameError.textContent = '';
-            emailError.textContent = '';
+                usernameError.textContent = '';
+                emailError.textContent = '';
 
-            if (existingUsernames.includes(usernameInput.value) && usernameInput.value !== currentUserUsername) {
-                usernameError.textContent = 'El username ya existe';
-                hasError = true;
-            }
+                if (existingUsernames.includes(usernameInput.value) && usernameInput.value !== currentUserUsername) {
+                    usernameError.textContent = 'El username ya existe';
+                    hasError = true;
+                }
 
-            if (existingEmails.includes(emailInput.value) && emailInput.value !== currentUserEmail) {
-                emailError.textContent = 'El email ya existe';
-                hasError = true;
-            }
+                if (existingEmails.includes(emailInput.value) && emailInput.value !== currentUserEmail) {
+                    emailError.textContent = 'El email ya existe';
+                    hasError = true;
+                }
 
-            if (hasError) {
-                event.preventDefault();
-            }
+                if (hasError) {
+                    event.preventDefault();
+                }
+            });
         });
-    });
-        </script>
-    </div>
+    </script>
+</div>
 
 </div>
 @endsection

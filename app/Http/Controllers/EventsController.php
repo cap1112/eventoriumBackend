@@ -29,7 +29,7 @@ class EventsController extends Controller
             if ($date->isPast()) {
                 $event->update([
                     'state' => 2,
-                ]);                
+                ]);
             }
         }
 
@@ -53,7 +53,7 @@ class EventsController extends Controller
         //
         $events = Event::all();
         $courses = Course::all();
-        return view('events.create', compact ('events', 'courses'));
+        return view('events.create', compact('events', 'courses'));
     }
 
     /**
@@ -62,7 +62,7 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //     
-        
+
         if ($request->image) {
             $events = Event::create([
                 'title' => $request->title,
@@ -76,15 +76,15 @@ class EventsController extends Controller
                 'state' => $request->state,
                 'courses_id' => $request->courses
             ]);
-    
+
             $file = $request->file('image');
             $file_name = 'event_' . $events->id . '_' . time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('public/events_img', $file_name);
-    
+
             $events->update([
                 'image' => $file_name
             ]);
-        } else{
+        } else {
             $events = Event::create([
                 'title' => $request->title,
                 'description' => $request->description,
@@ -129,7 +129,7 @@ class EventsController extends Controller
             ->select('events.*', 'categories.name as category_name')
             ->where('events.id', $id)
             ->first();
-        
+
         $registeredUsers = User::join('users_events', 'users.id', '=', 'users_events.user_id')
             ->select('users.*')
             ->where('users_events.event_id', $id)
@@ -158,9 +158,9 @@ class EventsController extends Controller
         //
         $registeredEvents = Event::find($id);
 
-        if ($request->courses != $registeredEvents->courses_id) {            
+        if ($request->courses != $registeredEvents->courses_id) {
             //Comprueba si el curso ingresado en el request es diferente al anterior, para asi poder actualizar la tabla users_event de acuerdo al cambio  
-            
+
             //Obtiene todos los usuarios que pertenecen al curso anterior
             $oldStudentsID = UsersCourse::where('course_id', $registeredEvents->courses_id)->pluck('user_id');
             //Obtiene todos los usuarios que pertenecen al nuevo curso
@@ -185,7 +185,7 @@ class EventsController extends Controller
                         'state' => $estado
                     ]);
                 }
-            } else {                
+            } else {
                 //Vuelve a crear a los usuarios del evento con el nuevo curso dado.
                 $users = UsersCourse::where('course_id', $request->courses)->pluck('user_id');
                 foreach ($users as $user) {
@@ -197,7 +197,7 @@ class EventsController extends Controller
             }
         }
 
-        if($request->image) {
+        if ($request->image) {
             //Comprobamos si hay imagen y la guardamos
             $registeredEvents->update([
                 'title' => $request->title,
@@ -215,7 +215,7 @@ class EventsController extends Controller
             $file = $request->file('image');
             $file_name = 'event_' . $registeredEvents->id . '_' . time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('public/events_img', $file_name);
-    
+
             $registeredEvents->update([
                 'image' => $file_name,
             ]);

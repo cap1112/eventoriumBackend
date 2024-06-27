@@ -3,7 +3,7 @@
 <div class="bg-white shadow-lg rounded-lg p-6 h-[100%]">
     <h2 class="text-2xl font-semibold mb-4">Courses</h2>
     <div class="flex justify-between items-center">
-        <p class="text-gray-600 mb-6">A list of all the courses in your account including their name and description.
+        <p class="text-gray-600 mb-6">A list of all the courses including their Id and name.
 
         </p>
         <a href="{{route('courses.create')}}">
@@ -12,9 +12,9 @@
         </a>
     </div>
     @if ($message = Session::get('success'))
-            <div class="p-4 mb-4 text-md font-medium border text-gray-600 rounded-lg bg-gray-100 text-center">
-                <p>{{ $message }}</p>
-            </div>
+        <div class="p-4 mb-4 text-md font-medium border text-gray-600 rounded-lg bg-gray-100 text-center">
+            <p>{{ $message }}</p>
+        </div>
     @endif
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white" id="courseTableContainer">
@@ -22,8 +22,6 @@
                 <tr>
                     <th class="py-2 px-4 text-left text-gray-600 font-medium">ID</th>
                     <th class="py-2 px-4 text-left text-gray-600 font-medium">Name</th>
-
-                    <!-- <th class="py-2 px-4 text-left text-gray-600 font-medium">Password</th> -->
                     <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
                     <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
                     <th class="py-2 px-4 text-left text-gray-600 font-medium"></th>
@@ -34,12 +32,10 @@
                     <tr>
                         <td class="py-2 px-4 border-t">{{ $course->id }}</td>
                         <td class="py-2 px-4 border-t">{{ $course->name }}</td>
-
-                        <td class="py-2 px-4 border-t"><a href="{{ route('courses.show',  $course->id) }}"><img src="{{ asset("icons/details_icon.svg") }}"
-                        alt="Show item" class="size-8"></a></td>
-                        <td class="py-2 px-4 border-t"><a href="{{ route('courses.edit',  $course->id) }}"><img src="{{ asset("icons/events_edit_icon.svg") }}"
-                                    alt="Edit item" class="size-8"></a></td>
-
+                        <td class="py-2 px-4 border-t"><a href="{{ route('courses.show', $course->id) }}"><img
+                                    src="{{ asset("icons/details_icon.svg") }}" alt="Show item" class="size-8"></a></td>
+                        <td class="py-2 px-4 border-t"><a href="{{ route('courses.edit', $course->id) }}"><img
+                                    src="{{ asset("icons/events_edit_icon.svg") }}" alt="Edit item" class="size-8"></a></td>
                         <td class="py-2 px-4 border-t text-gray-500">
                             <form action="{{ route('courses.destroy', ['course' => $course->id]) }}" method="POST">
                                 @csrf

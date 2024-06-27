@@ -23,8 +23,9 @@ use Illuminate\Support\Facades\Hash;
 class ApiController extends Controller
 {
     //Lista de Eventos para el calendario por Cursos de un Usuario
-    public function userEventCalendar($id)
-    {
+
+    //Returns the necessary data for reading the events in the fullCalendar from the frontpage
+    public function userEventCalendar($id){
         $userEventCalendar = Event::select(
             'events.id as id',
             'events.title as title',
@@ -46,9 +47,8 @@ class ApiController extends Controller
         return $userEventCalendar;
     }
 
-    //Detalles de Evento por Cursos de un Usuario    
-    public function userCourseEvents($id)
-    {
+    //Event Details per Course of a User
+    public function userCourseEvents($id){
         $userCourseEvents = Event::select(
             'events.id as id',
             'events.id as event_id',
@@ -90,9 +90,8 @@ class ApiController extends Controller
         return $userCourseEvents;
     }
 
-    //Detalles de Evento de un Evento en especifico
-    public function userCourseEventDetail($id)
-    {
+    //Details of a specific Event 
+    public function userCourseEventDetail($id){
         $userCourseEventDetail = Event::select(
             'events.id as event_id',
             'events.title as event_name',
@@ -130,9 +129,8 @@ class ApiController extends Controller
         return $userCourseEventDetail;
     }
 
-    public function userEvent($idEvent, $idUser)
-    {
-
+    //Details of a specific events of a User
+    public function userEvent($idEvent, $idUser){
         $userEvent = UsersEvent::select(
             'users_events.id as id',
             'users_events.user_id as user_id',
@@ -157,8 +155,8 @@ class ApiController extends Controller
         return $userEvent;
     }
 
-    public function userCourses($id)
-    {
+    //returns the courses of a user
+    public function userCourses($id){
         $userCourses = UsersCourse::select(
             'users_courses.user_id as user_id',
             'users_courses.course_id as course_id',
@@ -172,8 +170,8 @@ class ApiController extends Controller
         return $userCourses;
     }
 
-    public function categories()
-    {
+    //returns all the categories that are registered
+    public function categories(){
 
         $categories = Category::select(
             'categories.id as id',
@@ -184,6 +182,7 @@ class ApiController extends Controller
         return $categories;
     }
 
+    //Search the events of a user
     public function searchUserEvents($id)
     {
         $searchUserEvents = Event::select(
@@ -227,6 +226,7 @@ class ApiController extends Controller
         return $searchUserEvents;
     }
 
+    //Search the events of a user depending of the category
     public function searchUserEvents_Event($userId, $categoryName)
     {
 
@@ -272,6 +272,7 @@ class ApiController extends Controller
         return $searchUserEvents;
     }
 
+    //Search the events of a user depending of the initials of a course
     public function searchUserEvents_Course($userId, $courseInitial)
     {
 
@@ -317,6 +318,7 @@ class ApiController extends Controller
         return $searchUserEvents;
     }
 
+    //Search the events of a user depending of the category and the initials of a course
     public function searchUserEvents_Event_Course($userId, $categoryName, $courseInitial)
     {
 
@@ -363,6 +365,7 @@ class ApiController extends Controller
         return $searchUserEvents;
     }
 
+    //Search the events of a user depending of the eventname
     public function searchUserEvents_Search($userId, $eventName)
     {
 
@@ -408,6 +411,7 @@ class ApiController extends Controller
         return $searchUserEvents;
     }
 
+    //Search the events of a user depending of the eventname, and categories
     public function searchUserEvents_Search_Event($userId, $eventName, $categoryName)
     {
 
@@ -454,6 +458,7 @@ class ApiController extends Controller
         return $searchUserEvents;
     }
 
+    //Search the events of a user depending of the eventname, and course's in
     public function searchUserEvents_Search_Course($userId, $eventName, $courseInitial)
     {
 
@@ -500,9 +505,9 @@ class ApiController extends Controller
         return $searchUserEvents;
     }
 
+    //Searches for events based on user ID, event name, category name, and course initial.
     public function searchUserEvents_Search_Event_Course($userId, $eventName, $categoryName, $courseInitial)
     {
-
         $searchUserEvents = Event::select(
             'events.id as id',
             'events.id as event_id',
@@ -547,9 +552,9 @@ class ApiController extends Controller
         return $searchUserEvents;
     }
 
+    //Retrieves a list of incomplete events for a specific user.
     public function userEventsIncomplete($id)
     {
-
         $userEventsIncomplete = UsersEvent::select(
             'users_events.id as id',
             'users_events.user_id as user_id',
@@ -563,9 +568,9 @@ class ApiController extends Controller
         return $userEventsIncomplete;
     }
 
+    //Retrieves a list of completed events for a specific user.
     public function userEventsComplete($id)
     {
-
         $userEventsComplete = UsersEvent::select(
             'users_events.id as id',
             'users_events.user_id as user_id',
@@ -579,6 +584,7 @@ class ApiController extends Controller
         return $userEventsComplete;
     }
 
+    //Updates the state of a user's event.
     public function updateEvent(Request $request){
 
         $userEvents = UsersEvent::where('user_id', $request->user_id)->where('event_id', $request->event_id)
@@ -586,14 +592,12 @@ class ApiController extends Controller
                 'state' => $request->state,
             ]);
 
-
         return redirect($request->url);
     }
 
-    //Api Registration/SignIn
+    //Stores a new user in the database and handles the upload of a user image.
     public function userStore(Request $request)
     {
-        //
         if ($request->image) {            
             $user = User::create([
                 'name' => $request->name,
@@ -630,11 +634,10 @@ class ApiController extends Controller
 
         return redirect($request->url);
     }
-
-
+    
+    //Authenticates a user and generates an authentication token.
     public function userlogIn(Request $request)
     {
-
         $user = User::select('email', 'password')->where('email', $request->user)->first();
         if (!Hash::check($request->password, $user->password)) {
             return response(['message' => 'Invalid credentials']);
@@ -649,6 +652,7 @@ class ApiController extends Controller
         ]);
     }
 
+    //Generates a JSON response containing the authenticated user's information, including an updated image URL.
     public function token(Request $request)
     {
         $user = $request->user();
@@ -658,6 +662,8 @@ class ApiController extends Controller
             $user
         );
     }
+
+    //Updates a user's profile information.
     public function updateProfile(Request $request)
     {
         $user = User::find($request->userId);
@@ -693,6 +699,7 @@ class ApiController extends Controller
         return redirect($request->url);
     }
 
+    // Handles the password recovery process for a user.
     public function recoveryPassword(Request $request)
     {
         $user = User::select('email')->where('email', $request->email)->first();
