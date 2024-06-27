@@ -30,10 +30,10 @@
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Title:</label>
                         <input name="title" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
-                            placeholder="Enter the tilte of the event" value={{$registeredEvents->title}}>
+                            placeholder="Enter the tilte of the event" required value={{$registeredEvents->title}}>
                             
                         <label for="" class="text-black my-4">Description:</label>
-                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[65.6rem]" placeholder="Enter the description of the event">{{$registeredEvents->description}}</textarea>
+                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[65.6rem]" required placeholder="Enter the description of the event">{{$registeredEvents->description}}</textarea>
                     </div>
                 </div>
                 <div class="flex flex-col">
@@ -57,7 +57,6 @@
                         class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
                         placeholder="Enter the number of sleep hours ">
                 </div>
-
                 @if ($registeredEvents->categories_id == 1)
                     <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Category:</label>

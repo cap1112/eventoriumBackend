@@ -61,8 +61,11 @@ class UsersController extends Controller
     public function create()
     {
         //
+        $usernames = User::pluck('username')->toArray();
+        $emails = User::pluck('email')->toArray();
+
         $courses = Course::all();
-        return view('users.create', compact('courses'));
+        return view('users.create', compact('courses', 'usernames', 'emails'));
     }
 
     /**
@@ -158,12 +161,14 @@ class UsersController extends Controller
     public function edit(string $id)
     {
         //
+        $usernames = User::pluck('username')->toArray();
+        $emails = User::pluck('email')->toArray();
         $registeredUsers = User::find($id);
         $userCourses = UsersCourse::where('user_id', $id)->get();
         $registeredCourses = Course::whereIn('id', $userCourses->pluck('course_id'))->get();
         $courses = Course::whereNotIn('id', $userCourses->pluck('course_id'))->get();
 
-        return view('users.edit', compact('registeredUsers', 'courses', 'registeredCourses'));
+        return view('users.edit', compact('registeredUsers', 'courses', 'registeredCourses', 'usernames', 'emails'));
 
     }
 

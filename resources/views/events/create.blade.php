@@ -33,34 +33,32 @@
                         <label for="" class="text-black mb-4">Title:</label>
                         <input name="title" type="text"
                             class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
-                            placeholder="Enter the title of the event">
+                            placeholder="Enter the title of the event" required>
 
                         <label for="" class="text-black my-4">Description:</label>
-                        <input name="description" type="text"
-                            class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
-                            placeholder="Enter the description of the event">
+                        <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[65.6rem]" required placeholder="Enter the description of the event"></textarea>
                     </div>
                 </div>
 
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Start:</label>
                     <input name="start" type="date" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Enter the date of the start">
+                        placeholder="Enter the date of the start" value="{{ date('Y-m-d') }}">
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">End:</label>
                     <input name="end" type="date" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Enter the date of the end">
+                        placeholder="Enter the date of the end" value="{{ date('Y-m-d') }}">
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Start-Time:</label>
                     <input name="startTime" type="time" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Choose the time of start">
+                        placeholder="Choose the time of start" value="{{ date('H:i') }}">
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">End-Time:</label>
                     <input name="endTime" type="time" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
-                        placeholder="Enter the number of sleep hours ">
+                        placeholder="Choose the time of start" value="{{ date('H:i') }}">
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Category:</label>

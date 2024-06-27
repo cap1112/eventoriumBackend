@@ -28,19 +28,18 @@
                     </div>
                     <div class="flex flex-col">
                         <label for="" class="text-black mb-4">Username:</label>
-                        <input name="username" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]"
-                        placeholder="Enter the Username">
-                        
-                        <div class="flex mt-4">
+                        <input name="username" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[65.6rem]" required
+                        placeholder="Enter the Username">                        
+                        <span class="text-red-500 mt-2" id="username-error"></span>
+                    <div class="flex mt-4">
                             <div class="mr-6">
                                 <label for="" class="text-black">Name:</label>
-                                <input name="name" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]"
+                                <input name="name" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]" required
                                 placeholder="Enter the name">
                             </div>
                             <div>
-
                                 <label for="" class="text-black ">Last name:</label>
-                                <input name="lastname" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]"
+                                <input name="lastname" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[32rem]" required
                                 placeholder="Enter the Last name">
                             </div>
                         </div>
@@ -49,12 +48,13 @@
 
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Email:</label>
-                    <input name="email" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                    <input name="email" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" required
                         placeholder="Enter the Email">
+                    <span class="text-red-500 mt-2" id="email-error"></span>
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Password:</label>
-                    <input name="password" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                    <input name="password" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" required
                         placeholder="Choose the Password">
                 </div>
                 <div class="flex flex-col">
@@ -71,7 +71,7 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Sleep hours:</label>
-                    <input name="sleep_hours" type="number" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                    <input name="sleep_hours" type="number" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" min="1" max="24" required
                         placeholder="Enter the number of sleep hours ">
                 </div>
                 <div class="flex flex-col">
@@ -119,7 +119,6 @@
         </form>
     </div>
 
-
     <script>
         // Script del manejo del input de tipo file y la vista previa de la imagen
         document.getElementById('fileInputTrigger').addEventListener('click', function() {
@@ -136,7 +135,39 @@
                 reader.readAsDataURL(file);
             }
         });
-        </script>
+
+                // Script para validación de unicidad en el cliente
+                document.addEventListener('DOMContentLoaded', function () {
+        const existingUsernames = @json($usernames);
+        const existingEmails = @json($emails);
+
+        const usernameInput = document.querySelector('input[name="username"]');
+        const emailInput = document.querySelector('input[name="email"]');
+        const usernameError = document.getElementById('username-error');
+        const emailError = document.getElementById('email-error');
+
+        document.querySelector('form').addEventListener('submit', function (event) {
+            let hasError = false;
+
+            usernameError.textContent = '';
+            emailError.textContent = '';
+
+            if (existingUsernames.includes(usernameInput.value)) {
+                usernameError.textContent = 'El username ya existe';
+                hasError = true;
+            }
+
+            if (existingEmails.includes(emailInput.value)) {
+                emailError.textContent = 'El email ya existe';
+                hasError = true;
+            }
+
+            if (hasError) {
+                event.preventDefault();
+            }
+        });
+    });
+    </script>
     </div>
 
 </div>

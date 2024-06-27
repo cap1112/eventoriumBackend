@@ -22,17 +22,17 @@
                 class="flex flex-col bg-white px-6 py-3 shadow-lg rounded-lg grid-cols-2 justify-center items-center gap-8 w-full overflow-y-auto h-[100%]">
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Initial:</label>
-                    <input name="initial" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                    <input name="initial" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" required
                         placeholder="Enter the initials of the course">
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Name:</label>
-                    <input name="name" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                    <input name="name" type="text" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]" required
                         placeholder="Enter the Name of the course">
                 </div>
                 <div class="flex flex-col">
                     <label for="" class="text-black mb-4">Description:</label>
-                    <textarea name="description" class="bg-gray-100 h-[4rem] p-4 rounded-2xl w-[38rem]"
+                    <textarea name="description" class="bg-gray-100 h-[8rem] p-4 rounded-2xl w-[38rem]" required
                         placeholder="Choose the description"></textarea>
                 </div>
                 <div>
