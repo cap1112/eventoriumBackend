@@ -583,7 +583,6 @@ class ApiController extends Controller
     public function userStore(Request $request)
     {
         //
-
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
@@ -604,8 +603,7 @@ class ApiController extends Controller
             'image' => $file_name,
         ]);
 
-
-        return redirect('http://localhost:5173/SignIn');
+        return redirect($request->url);
     }
 
 
@@ -671,6 +669,6 @@ class ApiController extends Controller
         // Guardar los cambios del usuario
         $user->save();
 
-        return redirect('http://localhost:5173/HomePage');
+        return redirect($request->url);
     }
 }
